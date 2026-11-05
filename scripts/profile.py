@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Generates the shalee-pnt GitHub profile.
 
-Trainer card, party, projects dial, 3D activity calendar, wild-bug encounter and status line,
-with the standard library only.
+Trainer card, party, projects dial, 3D activity calendar, Lumiose skyline, wild-bug encounter
+and status line, with the standard library only.
 
     python scripts/profile.py update            hourly: status line, full refresh once per day
     python scripts/profile.py update --force    full refresh now
@@ -56,6 +56,22 @@ THEMES = {
         locked="#f5e4e8", lockedtxt="#c9a7b0", sky1="#fff3f5", sky2="#ffdbe3",
         grass1="#bfe3b0", grass2="#93cc85", outline="#3a2a1a",
         levels=["#f4e3e7", "#f5adbb", "#ea6a82", "#d7263d", "#93112a"],
+    ),
+}
+
+# Lumiose skyline: neon-blue night for X, dusk with amber windows for Y.
+CITY = {
+    "dark": dict(
+        title="LUMIOSE CITY · BY NIGHT", far="#0f1a3b", bld="#1d2d5a", win="#25386a",
+        lit=["#3fa9f5", "#3fa9f5", "#5fd4f5", "#9be7ff"], tower="#1f3062", lattice="#30477f",
+        prism="#9be7ff", glow="#3fa9f5", spark="#eaf9ff", star="#c9d6f2", moon="#e8eefb",
+        sun=None, beacon="#ff4d5e",
+    ),
+    "light": dict(
+        title="LUMIOSE CITY · AT DUSK", far="#f8dfe5", bld="#4a2c3a", win="#5a3747",
+        lit=["#ffcf6e", "#ffcf6e", "#ffe3a3", "#ff8a9a"], tower="#3a2230", lattice="#5a3a4c",
+        prism="#ff5a70", glow="#d7263d", spark="#fff1c9", star=None, moon=None,
+        sun=("#ffd0d8", "#ffb3c1"), beacon="#d7263d",
     ),
 }
 
@@ -465,6 +481,134 @@ def render_activity(t, stats) -> str:
     return svg_doc(W, H, "Activity · shalee-pnt", desc, "\n".join(b), t)
 
 
+# --------------------------------------------------------------------------- Lumiose skyline
+
+def render_skyline(t, stats, theme) -> str:
+    """One building per week, one lit window per contribution. The lights come on week by
+    week, and the Prism Tower lights up when the sweep reaches the best week."""
+    c = CITY[theme]
+    W, H, gy, cx = 880, 300, 252, 440
+    weeks = stats["calendar"]
+    n = len(weeks)
+    totals = [sum(d[1] for d in wk) for wk in weeks]
+    mx = max(totals, default=0) or 1
+    best = max(range(n), key=lambda i: (totals[i], i))
+    D, t0, t1 = 14.0, 1.0, 9.0
+    at = lambda i: (t0 + (t1 - t0) * i / max(1, n - 1)) / D
+
+    def gate(a) -> str:
+        return (f'<animate attributeName="opacity" values="0;0;1;1;0;0" '
+                f'keyTimes="0;{a:.4f};{a + .02:.4f};.9;.95;1" dur="{D}s" repeatCount="indefinite"/>')
+
+    rng = random.Random("lumiose")
+    b = [frame(W, H, t, dotted=False)]
+
+    # sky: stars and moon at night, low sun at dusk
+    if c["sun"]:
+        for r, col in ((118, c["sun"][0]), (84, c["sun"][1])):
+            b.append(f'<path d="M {cx - r} {gy} A {r} {r} 0 0 1 {cx + r} {gy} Z" fill="{col}"/>')
+    else:
+        busy = [(20, 20, 430, 76), (590, 20, 860, 100), (296, 80, 344, 128)]
+        stars = []
+        while len(stars) < 60:
+            x, y = rng.uniform(32, 848), rng.uniform(22, 190)
+            if any(x0 <= x <= x1 and y0 <= y <= y1 for x0, y0, x1, y1 in busy):
+                continue
+            stars.append((x, y))
+            dur, beg = rng.uniform(2.2, 5.5), rng.uniform(0, 5)
+            b.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{rng.uniform(.6, 1.4):.2f}" fill="{c["star"]}">'
+                     f'<animate attributeName="opacity" values="1;.2;1" dur="{dur:.2f}s" begin="{beg:.2f}s" repeatCount="indefinite"/></circle>')
+        b.append(f'<circle cx="320" cy="104" r="15" fill="{c["moon"]}"/><circle cx="327" cy="99" r="13" fill="{t["bg"]}"/>')
+
+    # far skyline (decoration only, fixed shape)
+    x = 28.0
+    while x < 852:
+        w, h = rng.uniform(16, 38), rng.uniform(18, 58)
+        b.append(f'<rect x="{x:.1f}" y="{gy - h:.1f}" width="{min(w, 852 - x):.1f}" height="{h:.1f}" fill="{c["far"]}"/>')
+        x += w + rng.uniform(-6, 1)
+
+    # Prism Tower
+    tw = c["tower"]
+    b.append(f'<path d="M {cx - 46} {gy} L {cx - 15} 176 L {cx + 15} 176 L {cx + 46} {gy} L {cx + 28} {gy} '
+             f'Q {cx} {gy - 58} {cx - 28} {gy} Z" fill="{tw}"/>')
+    b.append(f'<rect x="{cx - 21}" y="171" width="42" height="5" fill="{tw}"/>')
+    b.append(f'<polygon points="{cx - 13},171 {cx - 6},108 {cx + 6},108 {cx + 13},171" fill="{tw}"/>')
+    b.append(f'<rect x="{cx - 11}" y="103" width="22" height="5" fill="{tw}"/>')
+    b.append(f'<polygon points="{cx - 5},103 {cx - 2},84 {cx + 2},84 {cx + 5},103" fill="{tw}"/>')
+    edge = lambda y, s: cx + s * (6 + 7 * (y - 108) / 63)
+    zig = " ".join(f"{edge(y, 1 if k % 2 else -1):.1f},{y}" for k, y in enumerate(range(168, 108, -9)))
+    b.append(f'<polyline points="{zig}" fill="none" stroke="{c["lattice"]}" stroke-width="1"/>')
+    b.append(f'<polygon points="{cx},42 {cx},84 {cx - 10},63" fill="{shade(tw, 1.25)}"/>'
+             f'<polygon points="{cx},42 {cx + 10},63 {cx},84" fill="{shade(tw, 1.05)}"/>')
+    sparks = [(cx + s * (15 + 31 * k / 5), 176 + (gy - 176) * k / 5) for s in (-1, 1) for k in range(1, 5)]
+    sparks += [(edge(y, s), y) for s in (-1, 1) for y in (160, 138, 116)]
+    sparks += [(cx + s * 21, 173) for s in (-1, 1)] + [(cx + s * 11, 105) for s in (-1, 1)]
+    lit = [f'<circle cx="{cx}" cy="63" r="26" fill="{c["glow"]}" opacity=".55" filter="url(#soft)"/>',
+           f'<polygon points="{cx},42 {cx},84 {cx - 10},63" fill="{c["prism"]}"/>',
+           f'<polygon points="{cx},42 {cx + 10},63 {cx},84" fill="{shade(c["prism"], .82)}"/>']
+    for x, y in sparks:
+        lit.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="1.4" fill="{c["spark"]}">'
+                   f'<animate attributeName="opacity" values="1;.1;1" dur="{rng.uniform(.5, 1.3):.2f}s" '
+                   f'begin="{rng.uniform(0, 1):.2f}s" repeatCount="indefinite"/></circle>')
+    b.append(f'<g>{gate(at(best))}{"".join(lit)}</g>')
+
+    # one building per week
+    slot = (W - 56) / n
+    bw = slot - 3
+    wm = (bw - 2 * 3 - 2.4) / 2
+    for i, wk in enumerate(weeks):
+        tot = totals[i]
+        r = random.Random(f"lumiose/{wk[0][0]}")
+        floors = 3 if tot == 0 else min(22, max(3 + round(19 * math.sqrt(tot / mx)), math.ceil(tot / 2)))
+        bx = 28 + i * slot + 1.5
+        top = gy - floors * 6 - 4
+        fill = shade(c["bld"], r.uniform(.9, 1.12))
+        b.append(f'<rect x="{bx:.1f}" y="{top}" width="{bw:.1f}" height="{gy - top}" fill="{fill}"/>')
+        roof = r.randrange(4)
+        if i == n - 1:  # this week: blinking aircraft light
+            b.append(f'<line x1="{bx + bw / 2:.1f}" y1="{top}" x2="{bx + bw / 2:.1f}" y2="{top - 10}" stroke="{fill}" stroke-width="1.4"/>'
+                     f'<circle cx="{bx + bw / 2:.1f}" cy="{top - 11}" r="2" fill="{c["beacon"]}">'
+                     f'<animate attributeName="opacity" values="1;1;.1;.1" keyTimes="0;.5;.55;1" dur="1.6s" repeatCount="indefinite"/></circle>')
+        elif roof == 1:
+            b.append(f'<line x1="{bx + bw / 2:.1f}" y1="{top}" x2="{bx + bw / 2:.1f}" y2="{top - 8}" stroke="{fill}" stroke-width="1.2"/>')
+        elif roof == 2:
+            b.append(f'<rect x="{bx + 3:.1f}" y="{top - 5}" width="{bw - 6:.1f}" height="5" fill="{fill}"/>')
+        elif roof == 3:
+            b.append(f'<rect x="{bx + 2:.1f}" y="{top - 4}" width="4" height="4" fill="{fill}"/>')
+        spots = [(bx + wm + col * 5.4, top + 4 + f * 6) for f in range(floors) for col in (0, 1)]
+        on = set(r.sample(range(len(spots)), min(tot, len(spots))))
+        paths = {}
+        for k, (x, y) in enumerate(spots):
+            col = r.choice(c["lit"]) if k in on else c["win"]
+            paths.setdefault(col, []).append(f"M{x:.1f} {y}h3v3.4h-3z")
+        b.append(f'<path d="{"".join(paths.pop(c["win"], []))}" fill="{c["win"]}"/>')
+        if paths:
+            b.append(f'<g>{gate(at(i))}' + "".join(f'<path d="{"".join(p)}" fill="{col}"/>' for col, p in paths.items()) + '</g>')
+
+    # street and months
+    b.append(f'<rect x="24" y="{gy}" width="{W - 48}" height="2" rx="1" fill="{t["line"]}"/>')
+    prev = None
+    for i, wk in enumerate(weeks):
+        m = int(wk[0][0][5:7])
+        if m != prev and i > 0:
+            b.append(f'<text x="{28 + i * slot + 1.5:.1f}" y="{gy + 22}" font-size="10.5" class="mu m">{MONTHS[m - 1]}</text>')
+        prev = m
+
+    # captions
+    bw0 = weeks[best]
+    d0, d1 = dt.date.fromisoformat(bw0[0][0]), dt.date.fromisoformat(bw0[-1][0])
+    span = f"{MONTHS[d0.month - 1]} {d0.day} – {MONTHS[d1.month - 1]} {d1.day}"
+    b.append(f'<text x="32" y="44" class="lb">{esc(c["title"])}</text>')
+    b.append(f'<text x="32" y="66" class="mu" font-size="12.5">1 building = 1 week · 1 lit window = 1 contribution</text>')
+    b.append(f'<text x="{W - 32}" y="44" class="lb" text-anchor="end">PRISM TOWER · BEST WEEK</text>')
+    b.append(f'<text x="{W - 32}" y="70" class="b" font-size="19" text-anchor="end">{totals[best]} contributions</text>')
+    b.append(f'<text x="{W - 32}" y="90" class="mu" font-size="12.5" text-anchor="end">{esc(span)}</text>')
+    desc = (f"Lumiose City skyline built from the last {n} weeks of contributions: one building per week, "
+            f"one lit window per contribution. The Prism Tower lights up on the best week, "
+            f"{span}, with {totals[best]} contributions.")
+    return svg_doc(W, H, "Lumiose skyline · shalee-pnt", desc, "\n".join(b), t)
+
+
 # --------------------------------------------------------------------------- wild bugs
 
 def sprite(sid, t) -> str:
@@ -733,7 +877,7 @@ def write_readme(state, now):
     README.write_text(text, encoding="utf-8", newline="\n")
 
 
-def write_assets(state, which=("card", "party", "projects", "activity", "encounter", "button")):
+def write_assets(state, which=("card", "party", "projects", "activity", "skyline", "encounter", "button")):
     for theme, t in THEMES.items():
         out = ASSETS / theme
         out.mkdir(parents=True, exist_ok=True)
@@ -742,6 +886,7 @@ def write_assets(state, which=("card", "party", "projects", "activity", "encount
             "party": lambda: render_party(t, state["daily"]),
             "projects": lambda: render_projects(t),
             "activity": lambda: render_activity(t, state["stats"]),
+            "skyline": lambda: render_skyline(t, state["stats"], theme),
             "encounter": lambda: render_encounter(t, state["daily"], state),
             "button": lambda: render_button(t),
         }
