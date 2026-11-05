@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generates the shalee-pnt GitHub profile.
 
-Trainer card, party, Omnitrix, 3D activity calendar, wild-bug encounter and status line,
+Trainer card, party, projects dial, 3D activity calendar, wild-bug encounter and status line,
 with the standard library only.
 
     python scripts/profile.py update            hourly: status line, full refresh once per day
@@ -76,27 +76,27 @@ PARTY = [
 ]
 
 PROJECTS = [
-    # alien form, project, tags, description, stack
-    ("Indexmind", "Metacatalogue", "work · private",
+    # project, tags, description, stack
+    ("Metacatalogue", "work · private",
      "Reads an entire file server so nobody else has to. Full-text search, Active Directory sign-in, "
      "AI summaries from a local LLM.",
      ["Python", "Flask", "MariaDB", "Whoosh", "Ollama"]),
-    ("Scorekeeper", "Document audit tool", "work · private",
+    ("Document audit tool", "work · private",
      "Scans document trees in read-only mode and grades the mess out of 100. Duplicates are found by "
      "hash, not by name.",
      ["Python", "XML", "JSON", "CSV"]),
-    ("Stepbeast", "Scubanion", "team of 4 · public",
+    ("Scubanion", "team of 4 · public",
      "A Tamagotchi that grows when you walk outside. I wrote the NFC kiosk firmware and its anti-cheat.",
      ["C++", "ESP32", "MQTT", "Laravel", "Vue"]),
-    ("Transitron", "AllRoads", "team · private",
+    ("AllRoads", "team · private",
      "Urban mobility app for the Nice area: buses, bikes, real-time routes. I built tables, stored "
      "procedures and the sign-up screen.",
      ["TypeScript", "Node.js", "MySQL", "Docker"]),
-    ("Syntaxer", "Langdle", "personal · private",
+    ("Langdle", "personal · private",
      "Guess the programming language of the day. Like a daily word game, but for people who have "
      "opinions about semicolons.",
      ["JavaScript", "Node.js", "CSS"]),
-    ("Pastamancer", "PastaBox Randomizer", "personal · private",
+    ("PastaBox Randomizer", "personal · private",
      "Reduces the mental load of picking a PastaBox every day. Comes with a cooking timer. Useless, "
      "but deeply satisfying.",
      ["JavaScript", "LocalStorage"]),
@@ -314,9 +314,9 @@ def render_party(t, daily) -> str:
     return svg_doc(W, H, "Party · shalee-pnt", desc, "\n".join(b), t)
 
 
-# --------------------------------------------------------------------------- Omnitrix
+# --------------------------------------------------------------------------- projects
 
-def render_omnitrix(t) -> str:
+def render_projects(t) -> str:
     W, H, n, dur, e = 880, 300, len(PROJECTS), 30, 0.012
     green = "#39ff88"
     b = [frame(W, H, t)]
@@ -353,14 +353,13 @@ def render_omnitrix(t) -> str:
     for i in range(n):
         b.append(f'<g opacity="{1 if i == 0 else 0}">{fade(i)}'
                  f'<text x="{cx}" y="{cy + 8}" text-anchor="middle" class="b m" font-size="22" fill="{green}">{i + 1:02d}</text></g>')
-    for i, (alien, project, tags, desc, stack) in enumerate(PROJECTS):
+    for i, (project, tags, desc, stack) in enumerate(PROJECTS):
         x0 = 320
         g = [f'<g opacity="{1 if i == 0 else 0}">{fade(i)}']
-        g.append(f'<text x="{x0}" y="62" class="lb">TRANSFORMATION {i + 1:02d}/{n:02d}</text>')
-        g.append(f'<text x="{x0}" y="108" class="b" font-size="38" letter-spacing="-.5">{esc(alien)}</text>')
+        g.append(f'<text x="{x0}" y="62" class="lb">PROJECT {i + 1:02d}/{n:02d}</text>')
+        g.append(f'<text x="{x0}" y="108" class="b" font-size="38" letter-spacing="-.5">{esc(project)}</text>')
         g.append(f'<rect x="{x0}" y="120" width="56" height="4" rx="2" fill="{t["primary"]}"/>')
-        g.append(f'<text x="{x0}" y="150" class="b" font-size="16">{esc(project)}'
-                 f'<tspan class="mu" font-weight="400" font-size="13">   {esc(tags)}</tspan></text>')
+        g.append(f'<text x="{x0}" y="150" class="mu" font-size="13.5">{esc(tags)}</text>')
         for k, line in enumerate(textwrap.wrap(desc, 68)[:3]):
             g.append(f'<text x="{x0}" y="{178 + k * 21}" font-size="14.5" class="mu">{esc(line)}</text>')
         px = x0
@@ -370,8 +369,8 @@ def render_omnitrix(t) -> str:
             px += pw + 8
         g.append('</g>')
         b.append("".join(g))
-    desc = "Projects as Omnitrix transformations: " + "; ".join(f"{p[0]} = {p[1]}" for p in PROJECTS) + "."
-    return svg_doc(W, H, "Omnitrix · projects of shalee-pnt", desc, "\n".join(b), t)
+    desc = "Featured projects: " + "; ".join(f"{p[0]} ({p[1]})" for p in PROJECTS) + "."
+    return svg_doc(W, H, "Projects of shalee-pnt", desc, "\n".join(b), t)
 
 
 # --------------------------------------------------------------------------- 3D activity calendar
@@ -734,14 +733,14 @@ def write_readme(state, now):
     README.write_text(text, encoding="utf-8", newline="\n")
 
 
-def write_assets(state, which=("card", "party", "omnitrix", "activity", "encounter", "button")):
+def write_assets(state, which=("card", "party", "projects", "activity", "encounter", "button")):
     for theme, t in THEMES.items():
         out = ASSETS / theme
         out.mkdir(parents=True, exist_ok=True)
         renders = {
             "card": lambda: render_card(t, state["stats"], state["daily"]),
             "party": lambda: render_party(t, state["daily"]),
-            "omnitrix": lambda: render_omnitrix(t),
+            "projects": lambda: render_projects(t),
             "activity": lambda: render_activity(t, state["stats"]),
             "encounter": lambda: render_encounter(t, state["daily"], state),
             "button": lambda: render_button(t),

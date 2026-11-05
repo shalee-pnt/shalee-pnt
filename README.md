@@ -36,18 +36,18 @@ My specialty is the **Normal type**. Like Larry, my favourite Elite Four member,
 
 </details>
 
-## ⌚ Omnitrix
+## ⌚ Projects
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/omnitrix.svg"><img alt="Projects shown as Omnitrix transformations, cycling every five seconds" src="assets/light/omnitrix.svg" width="100%"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/projects.svg"><img alt="Featured projects, cycling every five seconds" src="assets/light/projects.svg" width="100%"></picture>
 
-| | Form | Project | What it does | Stack |
-|:-:|:--|:--|:--|:--|
-| 01 | **Indexmind** | Metacatalogue 🔒 | Catalogue and audit app for a whole file server: full-text search, AD sign-in, AI summaries from a local LLM | Python · Flask · MariaDB · Whoosh · Ollama |
-| 02 | **Scorekeeper** | Document audit tool 🔒 | Read-only scan of document trees, health score out of 100, duplicates detected by hash | Python |
-| 03 | **Stepbeast** | [Scubanion](https://github.com/Scubatana/scubanion) | Connected Tamagotchi that grows when you walk. I wrote the NFC kiosk firmware and its anti-cheat | C++ · ESP32 · MQTT · Laravel · Nuxt |
-| 04 | **Transitron** | AllRoads 🔒 | Urban mobility app for the Nice area. I designed tables and stored procedures, and redesigned sign-up | TypeScript · Node.js · MySQL |
-| 05 | **Syntaxer** | Langdle 🔒 | Guess the programming language of the day | JavaScript · Node.js |
-| 06 | **Pastamancer** | PastaBox Randomizer 🔒 | Picks your PastaBox of the day and runs the cooking timer | JavaScript |
+| | Project | What it does | Stack |
+|:-:|:--|:--|:--|
+| 01 | **Metacatalogue** 🔒 | Catalogue and audit app for a whole file server: full-text search, AD sign-in, AI summaries from a local LLM | Python · Flask · MariaDB · Whoosh · Ollama |
+| 02 | **Document audit tool** 🔒 | Read-only scan of document trees, health score out of 100, duplicates detected by hash | Python |
+| 03 | **[Scubanion](https://github.com/Scubatana/scubanion)** | Connected Tamagotchi that grows when you walk. I wrote the NFC kiosk firmware and its anti-cheat | C++ · ESP32 · MQTT · Laravel · Nuxt |
+| 04 | **AllRoads** 🔒 | Urban mobility app for the Nice area. I designed tables and stored procedures, and redesigned sign-up | TypeScript · Node.js · MySQL |
+| 05 | **Langdle** 🔒 | Guess the programming language of the day | JavaScript · Node.js |
+| 06 | **PastaBox Randomizer** 🔒 | Picks your PastaBox of the day and runs the cooking timer | JavaScript |
 
 <sub>🔒 private repo (work, school or not ready yet). Also on the bench: <a href="https://github.com/ViscoCrowd/ViscoCrowd-simulation">ViscoCrowd</a> (panic evacuation of a swimming pool, particle simulation), Cartoondle (guess the cartoon of the day, in progress), Tied to You (Ren'Py visual novel), <a href="https://shalee-pnt.github.io/bancs-qui-parlent/">Les bancs qui parlent</a> (public benches that whisper local stories).</sub>
 
