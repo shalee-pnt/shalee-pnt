@@ -1019,29 +1019,31 @@ def repo_commits(full: str, uid: str, since: str) -> tuple[dict, set]:
     (squash-merged branches are gone, their commits survive in the PR). Rebased copies keep their
     author date, so (date, headline) removes duplicates. Merge commits are not counted."""
     owner, name = full.split("/")
-    repo = gql(REPO_QUERY, owner=owner, name=name, id=uid, since=since)["repository"]
+    repo = gql(REPO_QUERY, owner=owner, name=name, id=uid, since=since).get("repository")
     if not repo:
         return {}, set()
-    langs = {e["node"]["name"]: (e["size"], e["node"]["color"]) for e in repo["languages"]["edges"]}
+    langs = {e["node"]["name"]: (e["size"], e["node"]["color"])
+             for e in ((repo.get("languages") or {}).get("edges") or []) if e and e.get("node")}
     seen = set()
 
     def take(nodes):
         for c in nodes:
-            if c["parents"]["totalCount"] < 2 and c["authoredDate"] >= since:
+            if c and (c.get("parents") or {}).get("totalCount", 1) < 2 and c["authoredDate"] >= since:
                 seen.add((c["authoredDate"], c["messageHeadline"]))
 
-    for ref in repo["refs"]["nodes"]:
-        hist = (ref.get("target") or {}).get("history")
+    for ref in ((repo.get("refs") or {}).get("nodes") or []):
+        hist = ((ref or {}).get("target") or {}).get("history")
         while hist:
-            take(hist["nodes"])
+            take(hist.get("nodes") or [])
             if not hist["pageInfo"]["hasNextPage"]:
                 break
             page = gql(PAGE_QUERY, owner=owner, name=name, ref=f"refs/heads/{ref['name']}", id=uid,
                        since=since, after=hist["pageInfo"]["endCursor"])
-            hist = page["repository"]["ref"]["target"]["history"]
-    for pr in repo["pullRequests"]["nodes"]:
-        take(c["commit"] for c in pr["commits"]["nodes"]
-             if ((c["commit"]["author"] or {}).get("user") or {}).get("login") == LOGIN)
+            hist = ((((page.get("repository") or {}).get("ref") or {}).get("target")) or {}).get("history")
+    for pr in ((repo.get("pullRequests") or {}).get("nodes") or []):
+        take(c["commit"] for c in (((pr or {}).get("commits") or {}).get("nodes") or [])
+             if c and c.get("commit")
+             and (((c["commit"].get("author") or {}).get("user")) or {}).get("login") == LOGIN)
     return langs, seen
 
 
@@ -1060,12 +1062,18 @@ def fetch_insights(cached: dict) -> dict:
     try:
         u = gql(REPOS_QUERY, login=LOGIN)["user"]
         repos = sorted({n["nameWithOwner"] for key in ("repositories", "repositoriesContributedTo")
-                        for n in u[key]["nodes"]} - {REPO})
+                        for n in ((u.get(key) or {}).get("nodes") or []) if n} - {REPO})
         hours, weekdays = [0] * 24, [0] * 7
         office = after = weekend = total = 0
         weights, colors, active = {}, {}, 0
+        skipped = 0
         for full in repos:
-            langs, commits = repo_commits(full, u["id"], since)
+            try:
+                langs, commits = repo_commits(full, u["id"], since)
+            except Exception as exc:
+                skipped += 1
+                print(f"one repo skipped ({type(exc).__name__}: {exc})", file=sys.stderr)
+                continue
             if not commits:
                 continue
             active += 1
@@ -1085,6 +1093,7 @@ def fetch_insights(cached: dict) -> dict:
     except Exception as exc:
         print(f"insights fetch failed ({exc}): keeping cached insights", file=sys.stderr)
         return cached
+    print(f"insights: {total} commits in {active} repos, {skipped} skipped", file=sys.stderr)
     if not total:
         return cached
     wsum = sum(weights.values()) or 1
