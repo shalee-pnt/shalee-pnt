@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Generates the shalee-pnt GitHub profile.
 
-Trainer card, party, projects dial, Lumiose skyline, wild-bug encounter and status line, with the standard library only.
+Trainer card, party, code DNA, projects dial, Lumiose skyline, commit clock, wild-bug encounter
+and status line, with the standard library only.
 
     python scripts/profile.py update            hourly: status line, full refresh once per day
     python scripts/profile.py update --force    full refresh now
@@ -22,6 +23,7 @@ import random
 import re
 import sys
 import textwrap
+import urllib.error
 import urllib.request
 from pathlib import Path
 from urllib.parse import quote
@@ -58,21 +60,36 @@ THEMES = {
     ),
 }
 
-# Lumiose skyline: neon-blue night for X, dusk with amber windows for Y.
+# Lumiose skyline: neon-blue windows for X, amber windows for Y.
 CITY = {
     "dark": dict(
-        title="LUMIOSE CITY · BY NIGHT", far="#0f1a3b", bld="#1d2d5a", win="#25386a",
+        bld="#1d2d5a", win="#25386a",
         lit=["#3fa9f5", "#3fa9f5", "#5fd4f5", "#9be7ff"], tower="#1f3062", lattice="#30477f",
-        prism="#9be7ff", glow="#3fa9f5", spark="#eaf9ff", star="#c9d6f2", moon="#e8eefb",
-        sun=None, beacon="#ff4d5e",
+        prism="#9be7ff", glow="#3fa9f5", spark="#eaf9ff", star="#c9d6f2",
+        moon=("#e8eefb", "#202c58"), beacon="#ff4d5e",
     ),
     "light": dict(
-        title="LUMIOSE CITY · AT DUSK", far="#f8dfe5", bld="#4a2c3a", win="#5a3747",
+        bld="#4a2c3a", win="#5a3747",
         lit=["#ffcf6e", "#ffcf6e", "#ffe3a3", "#ff8a9a"], tower="#3a2230", lattice="#5a3a4c",
-        prism="#ff5a70", glow="#d7263d", spark="#fff1c9", star=None, moon=None,
-        sun=("#ffd0d8", "#ffb3c1"), beacon="#d7263d",
+        prism="#ff5a70", glow="#d7263d", spark="#fff1c9", star="#b9a0bb",
+        moon=("#ffffff", "#e4d2e2"), beacon="#d7263d",
     ),
 }
+
+# The sky follows the real sun over Paris (Lumiose is Paris): sky, far skyline, star opacity, sun colours.
+SKY = {
+    "dark": {
+        "night": ("#0c1431", "#111c40", 1.0, ("#ffb870", "#ffd29a")),
+        "twilight": ("#191d4c", "#1b2352", .45, ("#ffb870", "#ffd29a")),
+        "day": ("#1d3b78", "#1d3466", 0.0, ("#fff2c2", "#ffe39a")),
+    },
+    "light": {
+        "night": ("#efe3ef", "#e6d3e2", .9, ("#ffd0d8", "#ffb3c1")),
+        "twilight": ("#ffeee9", "#f9dbe0", 0.0, ("#ffc9cf", "#ffa9b6")),
+        "day": ("#fffafb", "#f8e6ea", 0.0, ("#ffdde3", "#ffc6d0")),
+    },
+}
+SYNODIC = 29.530589
 
 TYPE_COLORS = {
     "Normal": "#a8a878", "Electric": "#e8b923", "Steel": "#8aa5b8", "Ground": "#d4a845",
@@ -389,11 +406,57 @@ def render_projects(t) -> str:
 
 # --------------------------------------------------------------------------- Lumiose skyline
 
-def render_skyline(t, stats, theme) -> str:
+def sky_over_paris(when: dt.datetime) -> tuple:
+    """Sun and moon (hour angle, elevation, in degrees) over Paris, plus the moon's age in days.
+    Low-precision formulas, good to about a degree: plenty for a skyline."""
+    utc = when.astimezone(dt.timezone.utc)
+    n = (utc - dt.datetime(2000, 1, 1, 12, tzinfo=dt.timezone.utc)).total_seconds() / 86400
+    g = math.radians((357.528 + 0.9856003 * n) % 360)
+    lam = (280.460 + 0.9856474 * n) % 360 + 1.915 * math.sin(g) + 0.020 * math.sin(2 * g)
+    eps = math.radians(23.439 - 0.0000004 * n)
+    gmst = (280.46061837 + 360.98564736629 * n) % 360
+    lat, lon = math.radians(48.857), 2.352
+
+    def place(lon_ecl):
+        lr = math.radians(lon_ecl)
+        dec = math.asin(math.sin(eps) * math.sin(lr))
+        ra = math.degrees(math.atan2(math.cos(eps) * math.sin(lr), math.cos(lr)))
+        ha = (gmst + lon - ra + 180) % 360 - 180
+        el = math.asin(math.sin(lat) * math.sin(dec) + math.cos(lat) * math.cos(dec) * math.cos(math.radians(ha)))
+        return ha, math.degrees(el)
+
+    age = ((utc - dt.datetime(2000, 1, 6, 18, 14, tzinfo=dt.timezone.utc)).total_seconds() / 86400) % SYNODIC
+    # the moon sits on the ecliptic, ahead of the sun by its elongation (its 5° tilt is ignored)
+    return place(lam), place(lam + 360 * age / SYNODIC), age
+
+
+def moon_svg(x, y, r, age, lit, dark) -> str:
+    p = age / SYNODIC
+    k = (1 - math.cos(2 * math.pi * p)) / 2  # illuminated fraction
+    rx = r * abs(1 - 2 * k)
+    waxing = p < .5  # lit from the right, as seen from the northern hemisphere
+    outer = 1 if waxing else 0
+    term = (0 if k < .5 else 1) if waxing else (1 if k < .5 else 0)
+    return (f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r}" fill="{dark}"/>'
+            f'<path d="M{x:.1f} {y - r:.1f} A{r} {r} 0 0 {outer} {x:.1f} {y + r:.1f} '
+            f'A{rx:.2f} {r} 0 0 {term} {x:.1f} {y - r:.1f}Z" fill="{lit}"/>')
+
+
+def render_skyline(t, stats, theme, now=None) -> str:
     """One building per week, one lit window per contribution. The lights come on week by
-    week, and the Prism Tower lights up when the sweep reaches the best week."""
+    week, and the Prism Tower lights up when the sweep reaches the best week. The sun, the
+    moon (with its real phase) and the sky colour follow the actual time in Paris."""
     c = CITY[theme]
     W, H, gy, cx = 880, 300, 252, 440
+    now = (now or now_paris()).replace(minute=0, second=0, microsecond=0)
+    (sha, sel), (mha, mel), age = sky_over_paris(now)
+    phase = "day" if sel > 6 else "twilight" if sel > -8 else "night"
+    sky, far, star_op, sun_cols = SKY[theme][phase]
+    title = {"night": "BY NIGHT", "day": "IN THE MORNING" if sha < 0 else "IN THE AFTERNOON",
+             "twilight": "AT DAWN" if sha < 0 else "AT DUSK"}[phase]
+    c = dict(c, far=far, title=f"LUMIOSE CITY · {title}")
+    sky_x = lambda ha: max(60.0, min(820.0, cx + ha / 115 * 390))
+    sky_y = lambda el: gy - 6 - el / 62 * 150
     weeks = stats["calendar"]
     n = len(weeks)
     totals = [sum(d[1] for d in wk) for wk in weeks]
@@ -407,24 +470,44 @@ def render_skyline(t, stats, theme) -> str:
                 f'keyTimes="0;{a:.4f};{a + .02:.4f};.9;.95;1" dur="{D}s" repeatCount="indefinite"/>')
 
     rng = random.Random("lumiose")
-    b = [frame(W, H, t, dotted=False)]
+    b = [f'<rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="24" fill="{sky}"/>',
+         f'<clipPath id="above"><rect x="0" y="0" width="{W}" height="{gy}"/></clipPath>']
 
-    # sky: stars and moon at night, low sun at dusk
-    if c["sun"]:
-        for r, col in ((118, c["sun"][0]), (84, c["sun"][1])):
-            b.append(f'<path d="M {cx - r} {gy} A {r} {r} 0 0 1 {cx + r} {gy} Z" fill="{col}"/>')
-    else:
-        busy = [(20, 20, 430, 76), (590, 20, 860, 100), (296, 80, 344, 128)]
-        stars = []
-        while len(stars) < 60:
-            x, y = rng.uniform(32, 848), rng.uniform(22, 190)
-            if any(x0 <= x <= x1 and y0 <= y <= y1 for x0, y0, x1, y1 in busy):
-                continue
-            stars.append((x, y))
-            dur, beg = rng.uniform(2.2, 5.5), rng.uniform(0, 5)
-            b.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{rng.uniform(.6, 1.4):.2f}" fill="{c["star"]}">'
-                     f'<animate attributeName="opacity" values="1;.2;1" dur="{dur:.2f}s" begin="{beg:.2f}s" repeatCount="indefinite"/></circle>')
-        b.append(f'<circle cx="320" cy="104" r="15" fill="{c["moon"]}"/><circle cx="327" cy="99" r="13" fill="{t["bg"]}"/>')
+    # stars (positions are drawn every time so the far skyline below keeps its shape)
+    busy = [(20, 20, 430, 76), (590, 20, 860, 100)]
+    stars = []
+    while len(stars) < 60:
+        x, y = rng.uniform(32, 848), rng.uniform(22, 190)
+        if any(x0 <= x <= x1 and y0 <= y <= y1 for x0, y0, x1, y1 in busy):
+            continue
+        stars.append((x, y))
+        r, dur, beg = rng.uniform(.6, 1.4), rng.uniform(2.2, 5.5), rng.uniform(0, 5)
+        if star_op:
+            b.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r:.2f}" fill="{c["star"]}" opacity="{star_op}">'
+                     f'<animate attributeName="opacity" values="{star_op};{star_op * .2:.2f};{star_op}" '
+                     f'dur="{dur:.2f}s" begin="{beg:.2f}s" repeatCount="indefinite"/></circle>')
+
+    # golden hour: a flat afterglow band along the horizon
+    if phase == "twilight":
+        glow, op = ("#d0508f", .15) if theme == "dark" else (sun_cols[0], .22)
+        b.append(f'<rect x="1" y="{gy - 64}" width="{W - 2}" height="64" fill="{glow}" opacity="{op}"/>'
+                 f'<rect x="1" y="{gy - 28}" width="{W - 2}" height="28" fill="{glow}" opacity="{op}"/>')
+    # sun: small and high by day, big and low near the horizon
+    bodies = []
+    if sel > -4:
+        sr = 18 + 52 * max(0.0, min(1.0, (8 - sel) / 14))
+        sx, sy = sky_x(sha), sky_y(sel)
+        if phase == "day":
+            bodies.append(f'<circle cx="{sx:.1f}" cy="{sy:.1f}" r="{sr * 1.8:.1f}" fill="{sun_cols[1]}" opacity=".35" filter="url(#soft)"/>')
+        bodies.append(f'<circle cx="{sx:.1f}" cy="{sy:.1f}" r="{sr:.1f}" fill="{sun_cols[0]}"/>'
+                      f'<circle cx="{sx:.1f}" cy="{sy:.1f}" r="{sr * .72:.1f}" fill="{sun_cols[1]}"/>')
+    # moon: real phase, faint by day
+    if mel > -2:
+        mx_, my_ = sky_x(mha), sky_y(mel)
+        op = ' opacity=".55"' if phase == "day" else ""
+        bodies.append(f'<g{op}>{moon_svg(mx_, my_, 13, age, *c["moon"])}</g>')
+    if bodies:
+        b.append(f'<g clip-path="url(#above)">{"".join(bodies)}</g>')
 
     # far skyline (decoration only, fixed shape)
     x = 28.0
@@ -492,6 +575,7 @@ def render_skyline(t, stats, theme) -> str:
             b.append(f'<g>{gate(at(i))}' + "".join(f'<path d="{"".join(p)}" fill="{col}"/>' for col, p in paths.items()) + '</g>')
 
     # street and months
+    b.append(f'<rect x="0" y="{gy}" width="{W}" height="{H - gy}" fill="{t["bg"]}" clip-path="url(#frame)"/>')
     b.append(f'<rect x="24" y="{gy}" width="{W - 48}" height="2" rx="1" fill="{t["line"]}"/>')
     prev = None
     for i, wk in enumerate(weeks):
@@ -512,7 +596,189 @@ def render_skyline(t, stats, theme) -> str:
     desc = (f"Lumiose City skyline built from the last {n} weeks of contributions: one building per week, "
             f"one lit window per contribution. The Prism Tower lights up on the best week, "
             f"{span}, with {totals[best]} contributions.")
+    b.append(f'<rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="24" fill="none" stroke="{t["line"]}" stroke-width="1.5"/>')
     return svg_doc(W, H, "Lumiose skyline · shalee-pnt", desc, "\n".join(b), t)
+
+
+# --------------------------------------------------------------------------- commit clock
+
+CLOCK = {"dark": ("#1a2a55", "#0e1736"), "light": ("#fff1f4", "#f4e6ee")}  # day half, night half
+
+
+def polar(cx, cy, r, deg) -> tuple[float, float]:
+    """Point at `deg` degrees clockwise from 12 o'clock."""
+    a = math.radians(deg)
+    return cx + r * math.sin(a), cy - r * math.cos(a)
+
+
+def render_clock(t, theme, ins) -> str:
+    """24-hour dial, noon at the top and midnight at the bottom: one bar per hour, length is the
+    number of commits authored in that hour (Paris time). A hand sweeps the dial once every 24 s."""
+    W, H = 880, 330
+    cx, cy, R = 186, 165, 118
+    day, night = CLOCK[theme]
+    hours = ins.get("hours") or [0] * 24
+    total = sum(hours)
+    mx = max(hours) or 1
+    deg = lambda h: h * 15 + 180  # hour -> degrees clockwise from the top
+    lv = t["levels"]
+    b = [frame(W, H, t)]
+    b.append(f'<path d="M{cx - R} {cy} A{R} {R} 0 0 1 {cx + R} {cy}Z" fill="{day}"/>'
+             f'<path d="M{cx + R} {cy} A{R} {R} 0 0 1 {cx - R} {cy}Z" fill="{night}"/>'
+             f'<circle cx="{cx}" cy="{cy}" r="{R}" fill="none" stroke="{t["line"]}" stroke-width="1.5"/>')
+    for h in range(24):
+        r0 = R - (11 if h % 6 == 0 else 6)
+        (x0, y0), (x1, y1) = polar(cx, cy, r0, deg(h)), polar(cx, cy, R - 1, deg(h))
+        b.append(f'<line x1="{x0:.1f}" y1="{y0:.1f}" x2="{x1:.1f}" y2="{y1:.1f}" stroke="{t["muted"]}" '
+                 f'stroke-width="{1.6 if h % 6 == 0 else 1}" opacity=".7"/>')
+    # office hours, Mon-Fri 9-17, as an arc outside the dial
+    (ax, ay), (bx_, by_) = polar(cx, cy, R + 9, deg(9)), polar(cx, cy, R + 9, deg(17))
+    b.append(f'<path d="M{ax:.1f} {ay:.1f} A{R + 9} {R + 9} 0 0 1 {bx_:.1f} {by_:.1f}" fill="none" '
+             f'stroke="{t["primary"]}" stroke-width="4" stroke-linecap="round"/>')
+    # hour labels, with a sun at noon and a moon at midnight
+    for h, label in ((6, "6"), (18, "18")):
+        x, y = polar(cx, cy, R + 27, deg(h))
+        b.append(f'<text x="{x:.1f}" y="{y + 4:.1f}" text-anchor="middle" font-size="12" class="mu m">{label}</text>')
+    sx, sy = polar(cx, cy, R + 27, deg(12))
+    rays = "".join(f'<line x1="{sx + 7 * math.sin(math.radians(a)):.1f}" y1="{sy - 7 * math.cos(math.radians(a)):.1f}" '
+                   f'x2="{sx + 10 * math.sin(math.radians(a)):.1f}" y2="{sy - 10 * math.cos(math.radians(a)):.1f}" '
+                   f'stroke="{t["muted"]}" stroke-width="1.5" stroke-linecap="round"/>' for a in range(0, 360, 45))
+    b.append(f'<circle cx="{sx:.1f}" cy="{sy:.1f}" r="4.5" fill="{t["muted"]}"/>{rays}')
+    mx_, my_ = polar(cx, cy, R + 27, deg(0))
+    b.append(moon_svg(mx_, my_, 7, 4.5, t["muted"], "none"))
+    # bars
+    r_in, r_out = 30, R - 14
+    for h, n in enumerate(hours):
+        if not n:
+            continue
+        L = 4 + (r_out - r_in - 4) * math.sqrt(n / mx)
+        a0, a1 = deg(h) + 1.4, deg(h + 1) - 1.4
+        p = [polar(cx, cy, r_in + L, a0), polar(cx, cy, r_in + L, a1), polar(cx, cy, r_in, a1), polar(cx, cy, r_in, a0)]
+        col = lv[1] if n <= mx * .25 else lv[2] if n <= mx * .5 else lv[3] if n <= mx * .75 else lv[4]
+        b.append(f'<path d="M{p[0][0]:.1f} {p[0][1]:.1f} A{r_in + L:.1f} {r_in + L:.1f} 0 0 1 {p[1][0]:.1f} {p[1][1]:.1f} '
+                 f'L{p[2][0]:.1f} {p[2][1]:.1f} A{r_in} {r_in} 0 0 0 {p[3][0]:.1f} {p[3][1]:.1f}Z" fill="{col}" opacity=".8">'
+                 f'<animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" '
+                 f'begin="{h + .3:.1f}s" repeatCount="indefinite"/></path>')
+    # sweeping hand with a faint trail
+    tip = polar(cx, cy, R - 4, 0)
+    t0, t1 = polar(cx, cy, R - 4, -24), polar(cx, cy, r_in, -24)
+    b.append(f'<g><path d="M{cx} {cy - r_in} L{tip[0]:.1f} {tip[1]:.1f} A{R - 4} {R - 4} 0 0 0 {t0[0]:.1f} {t0[1]:.1f} '
+             f'L{t1[0]:.1f} {t1[1]:.1f} A{r_in} {r_in} 0 0 1 {cx} {cy - r_in}Z" fill="{t["primary"]}" opacity=".14"/>'
+             f'<line x1="{cx}" y1="{cy - r_in}" x2="{tip[0]:.1f}" y2="{tip[1]:.1f}" stroke="{t["text"]}" stroke-width="2" stroke-linecap="round"/>'
+             f'<animateTransform attributeName="transform" type="rotate" values="180 {cx} {cy};540 {cx} {cy}" '
+             f'dur="24s" repeatCount="indefinite"/></g>')
+    peak = hours.index(max(hours))
+    b.append(f'<circle cx="{cx}" cy="{cy}" r="{r_in - 3}" fill="{t["bg"]}" stroke="{t["line"]}"/>')
+    b.append(f'<text x="{cx}" y="{cy + 3}" text-anchor="middle" class="b" font-size="17">{peak}h</text>'
+             f'<text x="{cx}" y="{cy + 16}" text-anchor="middle" font-size="8.5" class="mu" letter-spacing="1.5">PEAK</text>')
+
+    # facts
+    x0 = 384
+    pct = lambda k: round(100 * ins.get(k, 0) / total) if total else 0
+    after, weekend = pct("after"), pct("weekend")
+    larry = ("Larry would approve." if after < 10 else "Larry is mildly concerned." if after < 25
+             else "Larry would not approve.")
+    nap = ("Weekends are for napping." if weekend < 10 else "Some weekends were sacrificed." if weekend < 25
+           else "Weekends are a rumour.")
+    wd = ins.get("weekdays") or [0] * 7
+    fav = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"][wd.index(max(wd))]
+    b.append(f'<text x="{x0}" y="50" class="lb">WHEN I COMMIT · LAST 12 MONTHS</text>')
+    b.append(f'<text x="{W - 32}" y="50" class="lb" text-anchor="end">PARIS TIME</text>')
+    facts = [("PEAK HOUR", f"{peak}:00 – {peak + 1}:00", f"favourite day: {fav}"),
+             ("OFFICE HOURS", f"{pct('office')}%", "of commits, Mon–Fri 9–17"),
+             ("6 PM TO 6 AM", f"{after}%", larry),
+             ("WEEKENDS", f"{weekend}%", nap)]
+    for i, (label, value, sub) in enumerate(facts):
+        x, y = x0 + (i % 2) * 238, 96 + (i // 2) * 96
+        b.append(f'<text x="{x}" y="{y}" class="lb" font-size="10">{label}</text>'
+                 f'<text x="{x}" y="{y + 32}" class="b" font-size="27">{esc(value)}</text>'
+                 f'<text x="{x}" y="{y + 54}" font-size="12.5" class="mu">{esc(sub)}</text>')
+    scope = "public + private" if ins.get("private") else "public repos"
+    b.append(f'<rect x="{x0}" y="{H - 37}" width="16" height="4" rx="2" fill="{t["primary"]}"/>'
+             f'<text x="{x0 + 22}" y="{H - 31}" font-size="11.5" class="mu">office hours</text>')
+    b.append(f'<text x="{W - 32}" y="{H - 31}" font-size="11.5" class="mu" text-anchor="end">'
+             f'{total} commits · {ins.get("repos", 0)} repos · {scope} · updated {ins.get("date", "")}</text>')
+    desc = (f"Commit clock for the last 12 months: {total} commits, peak hour {peak}:00, "
+            f"{pct('office')}% during office hours, {after}% between 6 pm and 6 am, {weekend}% on weekends.")
+    return svg_doc(W, H, "Commit clock · shalee-pnt", desc, "\n".join(b), t)
+
+
+# --------------------------------------------------------------------------- code DNA
+
+def luminance(color: str) -> float:
+    r, g, b = (int(color[i:i + 2], 16) / 255 for i in (1, 3, 5))
+    return .2126 * r + .7152 * g + .0722 * b
+
+
+def render_dna(t, theme, ins) -> str:
+    """Double helix, one rung per slice of the language mix (languages of each repo weighted by
+    the number of my commits in it). It turns: the strands are a travelling sine wave, the rungs
+    follow the same phase."""
+    W, H = 880, 270
+    langs = ins.get("languages") or [["No data yet", t["muted"], 100.0]]
+    x0, x1, cy, A = 52, 828, 122, 42
+    n, K, T = 56, 24, 14
+    sp = (x1 - x0) / (n - 1)
+    dth = 2 * math.pi / 16
+    lam = 16 * sp  # one full turn, in pixels
+
+    def tone(col):
+        col = col if re.fullmatch(r"#[0-9a-fA-F]{6}", col or "") else "#8b949e"
+        if theme == "dark" and luminance(col) < .22:
+            return shade(col, 1.7)
+        if theme == "light" and luminance(col) > .7:
+            return shade(col, .78)
+        return col
+
+    # rungs per language, largest remainder, at least one each
+    shares = [max(1, math.floor(p / 100 * n)) for _, _, p in langs]
+    rema = sorted(range(len(langs)), key=lambda i: -(langs[i][2] / 100 * n - math.floor(langs[i][2] / 100 * n)))
+    k = 0
+    while sum(shares) < n:
+        shares[rema[k % len(rema)]] += 1
+        k += 1
+    while sum(shares) > n:
+        shares[shares.index(max(shares))] -= 1
+    seq = [tone(langs[i][1]) for i, s in enumerate(shares) for _ in range(s)]
+
+    b = [frame(W, H, t)]
+    b.append(f'<text x="32" y="44" class="lb">CODE DNA · LAST 12 MONTHS</text>')
+    b.append(f'<text x="{W - 32}" y="44" class="lb" text-anchor="end">WEIGHTED BY MY COMMITS</text>')
+    b.append(f'<clipPath id="helix"><rect x="{x0 - 8}" y="{cy - A - 10}" width="{x1 - x0 + 16}" height="{2 * A + 20}"/></clipPath>')
+    for sign, col in ((1, t["primary"]), (-1, t["secondary"])):
+        pts = " ".join(f"{x:.1f},{cy + sign * A * math.sin((x - x0) / sp * dth):.1f}"
+                       for x in [x0 - 8 + i * 3 for i in range(int((x1 - x0 + 16 + lam) / 3) + 2)])
+        b.append(f'<g clip-path="url(#helix)"><polyline points="{pts}" fill="none" stroke="{col}" stroke-width="2" opacity=".55">'
+                 f'<animateTransform attributeName="transform" type="translate" values="0 0;{-lam:.2f} 0" '
+                 f'dur="{T}s" repeatCount="indefinite"/></polyline></g>')
+    for i, col in enumerate(seq):
+        x = x0 + i * sp
+        th = [i * dth + 2 * math.pi * f / K for f in range(K + 1)]
+        ya = ";".join(f"{cy + A * math.sin(a):.1f}" for a in th)
+        yb = ";".join(f"{cy - A * math.sin(a):.1f}" for a in th)
+        ra = ";".join(f"{3.2 + 1.4 * math.cos(a):.1f}" for a in th)
+        rb = ";".join(f"{3.2 - 1.4 * math.cos(a):.1f}" for a in th)
+        anim = lambda attr, vals: f'<animate attributeName="{attr}" values="{vals}" dur="{T}s" repeatCount="indefinite"/>'
+        b.append(f'<line x1="{x:.1f}" x2="{x:.1f}" y1="{ya.split(";")[0]}" y2="{yb.split(";")[0]}" stroke="{col}" '
+                 f'stroke-width="3.4" stroke-linecap="round">{anim("y1", ya)}{anim("y2", yb)}</line>'
+                 f'<circle cx="{x:.1f}" cy="{ya.split(";")[0]}" r="{ra.split(";")[0]}" fill="{t["primary"]}">{anim("cy", ya)}{anim("r", ra)}</circle>'
+                 f'<circle cx="{x:.1f}" cy="{yb.split(";")[0]}" r="{rb.split(";")[0]}" fill="{t["secondary"]}">{anim("cy", yb)}{anim("r", rb)}</circle>')
+    # legend
+    items = [(name, tone(col), f"{p:g}%") for name, col, p in langs]
+    widths = [17 + len(nm) * 6.9 + 4 + len(pc) * 7.7 + 26 for nm, _, pc in items]
+    x = (W - sum(widths)) / 2
+    for (name, col, pc), w in zip(items, widths):
+        b.append(f'<circle cx="{x + 6:.1f}" cy="{H - 66}" r="5.5" fill="{col}"/>'
+                 f'<text x="{x + 17:.1f}" y="{H - 61.5}" font-size="13">{esc(name)} '
+                 f'<tspan class="b">{pc}</tspan></text>')
+        x += w
+    scope = "public + private" if ins.get("private") else "public repos"
+    b.append(f'<text x="{W / 2}" y="{H - 26}" text-anchor="middle" font-size="11.5" class="mu">'
+             f'Languages of each repo, weighted by how many of my commits it holds · {scope} · '
+             f'updated {ins.get("date", "")}</text>')
+    desc = "Language mix of the last 12 months, weighted by commits: " + ", ".join(
+        f"{nm} {p:g}%" for nm, _, p in langs) + "."
+    return svg_doc(W, H, "Code DNA · shalee-pnt", desc, "\n".join(b), t)
 
 
 # --------------------------------------------------------------------------- wild bugs
@@ -676,19 +942,36 @@ QUERY = """query($login:String!){ user(login:$login){ databaseId createdAt
 }}"""
 
 
+def gql(query: str, **variables) -> dict:
+    """GraphQL call. An expired or revoked PROFILE_TOKEN falls back to the Actions token."""
+    tried = set()
+    for env in ("GH_TOKEN", "GITHUB_TOKEN", "FALLBACK_TOKEN"):
+        token = os.environ.get(env)
+        if not token or token in tried:
+            continue
+        tried.add(token)
+        req = urllib.request.Request(
+            "https://api.github.com/graphql",
+            data=json.dumps({"query": query, "variables": variables}).encode(),
+            headers={"Authorization": f"bearer {token}", "Content-Type": "application/json",
+                     "User-Agent": f"{LOGIN}-profile"})
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                body = json.load(r)
+        except urllib.error.HTTPError as exc:
+            if exc.code == 401:
+                print(f"{env} rejected (401), trying the next token", file=sys.stderr)
+                continue
+            raise
+        if body.get("errors") and not body.get("data"):
+            raise RuntimeError(body["errors"][0].get("message", "GraphQL error"))
+        return body["data"]
+    raise RuntimeError("no usable token")
+
+
 def fetch_stats(cached: dict) -> dict:
-    token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
-    if not token:
-        print("no token: keeping cached stats", file=sys.stderr)
-        return cached
-    req = urllib.request.Request(
-        "https://api.github.com/graphql",
-        data=json.dumps({"query": QUERY, "variables": {"login": LOGIN}}).encode(),
-        headers={"Authorization": f"bearer {token}", "Content-Type": "application/json",
-                 "User-Agent": f"{LOGIN}-profile"})
     try:
-        with urllib.request.urlopen(req, timeout=30) as r:
-            u = json.load(r)["data"]["user"]
+        u = gql(QUERY, login=LOGIN)["user"]
     except Exception as exc:  # network or API hiccup: the card keeps yesterday's numbers
         print(f"stats fetch failed ({exc}): keeping cached stats", file=sys.stderr)
         return cached
@@ -710,6 +993,111 @@ def fetch_stats(cached: dict) -> dict:
     for k in ("merged_prs", "orgs", "repos", "stars"):
         fresh[k] = max(fresh[k], cached.get(k, 0))
     return fresh
+
+
+REPOS_QUERY = """query($login:String!){ user(login:$login){ id
+  repositories(first:100, ownerAffiliations:[OWNER,COLLABORATOR,ORGANIZATION_MEMBER]){ nodes{ nameWithOwner isPrivate } }
+  repositoriesContributedTo(first:100, includeUserRepositories:true, contributionTypes:[COMMIT,PULL_REQUEST]){
+    nodes{ nameWithOwner isPrivate } } } }"""
+
+COMMIT_FIELDS = "authoredDate messageHeadline parents{ totalCount }"
+
+REPO_QUERY = """query($owner:String!,$name:String!,$id:ID!,$since:GitTimestamp!){ repository(owner:$owner,name:$name){
+  languages(first:20, orderBy:{field:SIZE,direction:DESC}){ edges{ size node{ name color } } }
+  refs(refPrefix:"refs/heads/", first:100){ nodes{ name target{ ... on Commit{
+    history(first:100, author:{id:$id}, since:$since){ pageInfo{ hasNextPage endCursor } nodes{ %s } } } } } }
+  pullRequests(first:50, orderBy:{field:CREATED_AT,direction:DESC}){ nodes{ commits(first:100){ nodes{ commit{
+    %s author{ user{ login } } } } } } } } }""" % (COMMIT_FIELDS, COMMIT_FIELDS)
+
+PAGE_QUERY = """query($owner:String!,$name:String!,$ref:String!,$id:ID!,$since:GitTimestamp!,$after:String!){
+  repository(owner:$owner,name:$name){ ref(qualifiedName:$ref){ target{ ... on Commit{
+    history(first:100, after:$after, author:{id:$id}, since:$since){ pageInfo{ hasNextPage endCursor } nodes{ %s } } } } } } }""" % COMMIT_FIELDS
+
+
+def repo_commits(full: str, uid: str, since: str) -> tuple[dict, set]:
+    """Languages of a repo and the account's own commits in it, on every branch and in recent PRs
+    (squash-merged branches are gone, their commits survive in the PR). Rebased copies keep their
+    author date, so (date, headline) removes duplicates. Merge commits are not counted."""
+    owner, name = full.split("/")
+    repo = gql(REPO_QUERY, owner=owner, name=name, id=uid, since=since)["repository"]
+    if not repo:
+        return {}, set()
+    langs = {e["node"]["name"]: (e["size"], e["node"]["color"]) for e in repo["languages"]["edges"]}
+    seen = set()
+
+    def take(nodes):
+        for c in nodes:
+            if c["parents"]["totalCount"] < 2 and c["authoredDate"] >= since:
+                seen.add((c["authoredDate"], c["messageHeadline"]))
+
+    for ref in repo["refs"]["nodes"]:
+        hist = (ref.get("target") or {}).get("history")
+        while hist:
+            take(hist["nodes"])
+            if not hist["pageInfo"]["hasNextPage"]:
+                break
+            page = gql(PAGE_QUERY, owner=owner, name=name, ref=f"refs/heads/{ref['name']}", id=uid,
+                       since=since, after=hist["pageInfo"]["endCursor"])
+            hist = page["repository"]["ref"]["target"]["history"]
+    for pr in repo["pullRequests"]["nodes"]:
+        take(c["commit"] for c in pr["commits"]["nodes"]
+             if ((c["commit"]["author"] or {}).get("user") or {}).get("login") == LOGIN)
+    return langs, seen
+
+
+def fetch_insights(cached: dict) -> dict:
+    """Commit clock and language DNA for the last 12 months. Only a token that belongs to the
+    account sees private repos: a less privileged token never replaces private data."""
+    try:
+        private = gql("query{ viewer{ login } }")["viewer"]["login"] == LOGIN
+    except Exception:
+        private = False
+    if cached.get("private") and not private:
+        print("token cannot see private repos: keeping cached insights", file=sys.stderr)
+        return cached
+    now = now_paris()
+    since = (now - dt.timedelta(days=365)).astimezone(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    try:
+        u = gql(REPOS_QUERY, login=LOGIN)["user"]
+        repos = sorted({n["nameWithOwner"] for key in ("repositories", "repositoriesContributedTo")
+                        for n in u[key]["nodes"]} - {REPO})
+        hours, weekdays = [0] * 24, [0] * 7
+        office = after = weekend = total = 0
+        weights, colors, active = {}, {}, 0
+        for full in repos:
+            langs, commits = repo_commits(full, u["id"], since)
+            if not commits:
+                continue
+            active += 1
+            for date, _ in commits:
+                when = dt.datetime.fromisoformat(date.replace("Z", "+00:00")).astimezone(TZ)
+                h, wd = when.hour, when.weekday()
+                hours[h] += 1
+                weekdays[wd] += 1
+                total += 1
+                office += wd < 5 and 9 <= h < 17
+                after += h >= 18 or h < 6
+                weekend += wd >= 5
+            size = sum(s for s, _ in langs.values()) or 1
+            for lang, (s, color) in langs.items():
+                weights[lang] = weights.get(lang, 0) + len(commits) * s / size
+                colors[lang] = color or "#8b949e"
+    except Exception as exc:
+        print(f"insights fetch failed ({exc}): keeping cached insights", file=sys.stderr)
+        return cached
+    if not total:
+        return cached
+    wsum = sum(weights.values()) or 1
+    ranked = sorted(weights.items(), key=lambda kv: -kv[1])
+    languages = [[name, colors[name], round(100 * w / wsum, 1)] for name, w in ranked[:6]]
+    rest = sum(w for _, w in ranked[6:])
+    if rest:
+        languages.append(["Other", "#8b949e", round(100 * rest / wsum, 1)])
+    return {
+        "date": now.date().isoformat(), "private": private, "commits": total, "repos": active,
+        "hours": hours, "weekdays": weekdays,
+        "office": office, "after": after, "weekend": weekend, "languages": languages,
+    }
 
 
 def roll_daily(date: str) -> dict:
@@ -783,7 +1171,10 @@ def write_readme(state, now):
     README.write_text(text, encoding="utf-8", newline="\n")
 
 
-def write_assets(state, which=("card", "party", "projects", "skyline", "encounter", "button")):
+ALL_ASSETS = ("card", "party", "dna", "projects", "skyline", "clock", "encounter", "button")
+
+
+def write_assets(state, which=ALL_ASSETS, now=None):
     for theme, t in THEMES.items():
         out = ASSETS / theme
         out.mkdir(parents=True, exist_ok=True)
@@ -791,7 +1182,9 @@ def write_assets(state, which=("card", "party", "projects", "skyline", "encounte
             "card": lambda: render_card(t, state["stats"], state["daily"]),
             "party": lambda: render_party(t, state["daily"]),
             "projects": lambda: render_projects(t),
-            "skyline": lambda: render_skyline(t, state["stats"], theme),
+            "skyline": lambda: render_skyline(t, state["stats"], theme, now),
+            "clock": lambda: render_clock(t, theme, state.get("insights", {})),
+            "dna": lambda: render_dna(t, theme, state.get("insights", {})),
             "encounter": lambda: render_encounter(t, state["daily"], state),
             "button": lambda: render_button(t),
         }
@@ -809,10 +1202,13 @@ def cmd_update(force: bool):
         state["stats"] = fetch_stats(state.get("stats", {}))
         if not state["stats"].get("calendar"):
             raise SystemExit("no stats available yet: run once with GH_TOKEN set")
+        state["insights"] = fetch_insights(state.get("insights", {}))
         state["daily"] = roll_daily(today)
         state["throws"] = {today: state.get("throws", {}).get(today, [])}
-        write_assets(state)
+        write_assets(state, now=now)
         save_state(state)
+    else:  # hourly: the sky over Lumiose moves
+        write_assets(state, ("skyline",), now=now)
     write_readme(state, now)
 
 

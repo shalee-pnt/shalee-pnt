@@ -1,7 +1,7 @@
 name: Profile refresh
 
-# Hourly: live status line. Once per day (first run after midnight, Paris time):
-# stats, party levels, nature and the wild bug of the day.
+# Hourly: live status line and the sky over Lumiose. Once per day (first run after midnight, Paris time):
+# stats, commit clock, code DNA, party levels, nature and the wild bug of the day.
 # Commits only when something actually changed.
 on:
   schedule:
@@ -26,8 +26,10 @@ jobs:
 
       - name: Refresh and push
         env:
-          # Optional PROFILE_TOKEN (read-only PAT) lets the card count private work.
+          # Optional PROFILE_TOKEN (read-only PAT) lets the card, clock and DNA count private work.
           GH_TOKEN: ${{ secrets.PROFILE_TOKEN || secrets.GITHUB_TOKEN }}
+          # used if PROFILE_TOKEN has expired or been revoked
+          FALLBACK_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FORCE: ${{ github.event_name != 'schedule' && '--force' || '' }}
         run: |
           git config user.name "github-actions[bot]"
