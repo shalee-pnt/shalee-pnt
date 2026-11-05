@@ -942,14 +942,30 @@ QUERY = """query($login:String!){ user(login:$login){ databaseId createdAt
 }}"""
 
 
-def gql(query: str, **variables) -> dict:
-    """GraphQL call. An expired or revoked PROFILE_TOKEN falls back to the Actions token."""
-    tried = set()
-    for env in ("GH_TOKEN", "GITHUB_TOKEN", "FALLBACK_TOKEN"):
+TOKEN_ENVS = ("GH_TOKEN", "GITHUB_TOKEN", "FALLBACK_TOKEN")
+
+# Public org repos I work in. A fine-grained PROFILE_TOKEN does not list org repos, so they are
+# always included explicitly (names only, they are public anyway).
+PUBLIC_REPOS = ("Scubatana/scubanion", "ViscoCrowd/ViscoCrowd-simulation")
+
+
+def token_envs() -> list[str]:
+    """Env vars holding distinct tokens, most privileged first."""
+    seen, out = set(), []
+    for env in TOKEN_ENVS:
         token = os.environ.get(env)
-        if not token or token in tried:
+        if token and token not in seen:
+            seen.add(token)
+            out.append(env)
+    return out
+
+
+def gql(query: str, envs=None, **variables) -> dict:
+    """GraphQL call. An expired or revoked PROFILE_TOKEN falls back to the Actions token."""
+    for env in envs or token_envs():
+        token = os.environ.get(env)
+        if not token:
             continue
-        tried.add(token)
         req = urllib.request.Request(
             "https://api.github.com/graphql",
             data=json.dumps({"query": query, "variables": variables}).encode(),
@@ -970,23 +986,36 @@ def gql(query: str, **variables) -> dict:
 
 
 def fetch_stats(cached: dict) -> dict:
-    try:
-        u = gql(QUERY, login=LOGIN)["user"]
-    except Exception as exc:  # network or API hiccup: the card keeps yesterday's numbers
-        print(f"stats fetch failed ({exc}): keeping cached stats", file=sys.stderr)
+    """Each token sees a different slice: PROFILE_TOKEN sees my private repos but not the org
+    ones, the Actions token sees public work and private counts. The calendar keeps, day by
+    day, the highest count any of them reports (a union, never a sum)."""
+    views = []
+    for env in token_envs():
+        try:
+            views.append(gql(QUERY, envs=(env,), login=LOGIN)["user"])
+        except Exception as exc:
+            print(f"stats via {env} failed ({exc})", file=sys.stderr)
+    if not views:  # network or API hiccup: the card keeps yesterday's numbers
+        print("stats fetch failed: keeping cached stats", file=sys.stderr)
         return cached
+    u = views[0]
+    best = {}
+    for v in views:
+        for wk in v["contributionsCollection"]["contributionCalendar"]["weeks"]:
+            for d in wk["contributionDays"]:
+                best[d["date"]] = max(best.get(d["date"], 0), d["contributionCount"])
+    weeks = u["contributionsCollection"]["contributionCalendar"]["weeks"]
+    calendar = [[[d["date"], best[d["date"]], d["weekday"]] for d in wk["contributionDays"]] for wk in weeks]
     created = dt.date.fromisoformat(u["createdAt"][:10])
-    cal = u["contributionsCollection"]["contributionCalendar"]
     fresh = {
         "trainer_id": f'{u["databaseId"] % 100000:05d}',
         "days": (now_paris().date() - created).days,
-        "contributions": cal["totalContributions"],
-        "merged_prs": u["pullRequests"]["totalCount"],
-        "orgs": u["organizations"]["totalCount"],
-        "repos": u["repositories"]["totalCount"],
-        "stars": sum(n["stargazerCount"] for n in u["repositories"]["nodes"]),
-        "calendar": [[[d["date"], d["contributionCount"], d["weekday"]] for d in wk["contributionDays"]]
-                     for wk in cal["weeks"]],
+        "contributions": sum(c for wk in calendar for _, c, _ in wk),
+        "merged_prs": max(v["pullRequests"]["totalCount"] for v in views),
+        "orgs": max(v["organizations"]["totalCount"] for v in views),
+        "repos": max(v["repositories"]["totalCount"] for v in views),
+        "stars": max(sum(n["stargazerCount"] for n in v["repositories"]["nodes"] if n) for v in views),
+        "calendar": calendar,
     }
     # The Actions token cannot see private repos or private org memberships:
     # milestone counters never go down because of a less privileged token.
@@ -1019,7 +1048,15 @@ def repo_commits(full: str, uid: str, since: str) -> tuple[dict, set]:
     (squash-merged branches are gone, their commits survive in the PR). Rebased copies keep their
     author date, so (date, headline) removes duplicates. Merge commits are not counted."""
     owner, name = full.split("/")
-    repo = gql(REPO_QUERY, owner=owner, name=name, id=uid, since=since).get("repository")
+    repo, used = None, None
+    for env in token_envs():  # a repo one token cannot read may be readable with the next one
+        try:
+            repo = gql(REPO_QUERY, envs=(env,), owner=owner, name=name, id=uid, since=since).get("repository")
+        except Exception:
+            repo = None
+        if repo:
+            used = (env,)
+            break
     if not repo:
         return {}, set()
     langs = {e["node"]["name"]: (e["size"], e["node"]["color"])
@@ -1037,7 +1074,7 @@ def repo_commits(full: str, uid: str, since: str) -> tuple[dict, set]:
             take(hist.get("nodes") or [])
             if not hist["pageInfo"]["hasNextPage"]:
                 break
-            page = gql(PAGE_QUERY, owner=owner, name=name, ref=f"refs/heads/{ref['name']}", id=uid,
+            page = gql(PAGE_QUERY, envs=used, owner=owner, name=name, ref=f"refs/heads/{ref['name']}", id=uid,
                        since=since, after=hist["pageInfo"]["endCursor"])
             hist = ((((page.get("repository") or {}).get("ref") or {}).get("target")) or {}).get("history")
     for pr in ((repo.get("pullRequests") or {}).get("nodes") or []):
@@ -1060,9 +1097,18 @@ def fetch_insights(cached: dict) -> dict:
     now = now_paris()
     since = (now - dt.timedelta(days=365)).astimezone(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     try:
-        u = gql(REPOS_QUERY, login=LOGIN)["user"]
-        repos = sorted({n["nameWithOwner"] for key in ("repositories", "repositoriesContributedTo")
-                        for n in ((u.get(key) or {}).get("nodes") or []) if n} - {REPO})
+        repos, u = set(PUBLIC_REPOS), None
+        for env in token_envs():  # each token lists a different slice of my repos
+            try:
+                view = gql(REPOS_QUERY, envs=(env,), login=LOGIN)["user"]
+            except Exception:
+                continue
+            u = u or view
+            repos |= {n["nameWithOwner"] for key in ("repositories", "repositoriesContributedTo")
+                      for n in ((view.get(key) or {}).get("nodes") or []) if n}
+        if not u:
+            raise RuntimeError("could not list repositories")
+        repos = sorted(repos - {REPO})
         hours, weekdays = [0] * 24, [0] * 7
         office = after = weekend = total = 0
         weights, colors, active = {}, {}, 0
