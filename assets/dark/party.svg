@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 390" width="880" height="390" role="img" aria-labelledby="title desc">
+<title id="title">Party · shalee-pnt</title>
+<desc id="desc">Tech stack shown as a party of six: Python (Normal type, level 57), JavaScript (Psychic type, level 93), Flask (Steel type, level 20), SQL (Ground type, level 37), C++ / ESP32 (Electric type, level 35), Docker (Water type, level 55).</desc>
+<style>
+text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif}
+.m{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace}
+.b{font-weight:700}
+.mu{fill:#8ea3c9}
+.lb{font-size:11px;letter-spacing:2.4px;font-weight:600;fill:#8ea3c9}
+
+</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#0a1024"/><stop offset="1" stop-color="#0f1d3d"/>
+</linearGradient>
+<linearGradient id="mega" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="880" y2="0" spreadMethod="repeat">
+<stop offset="0" stop-color="#ff9a3c"/><stop offset=".33" stop-color="#ff4f8b"/>
+<stop offset=".66" stop-color="#9b5cff"/><stop offset="1" stop-color="#ff9a3c"/>
+<animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="880 0" dur="9s" repeatCount="indefinite"/>
+</linearGradient>
+<linearGradient id="megaS" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#ff9a3c"/><stop offset=".4" stop-color="#ff4f8b"/>
+<stop offset=".75" stop-color="#9b5cff"/><stop offset="1" stop-color="#3ad1ff"/>
+</linearGradient>
+<filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+<clipPath id="frame"><rect x="1" y="1" width="878" height="388" rx="24"/></clipPath>
+</defs>
+<g fill="#e8eefb">
+<g><animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;0 -1.5;0 0" dur="3.0s" begin="0.0s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/>
+<rect x="20" y="16" width="412" height="100" rx="18" fill="#111b36" stroke="#25375f"/>
+<rect x="20" y="34" width="4" height="64" rx="2" fill="#a8a878"/>
+<circle cx="72" cy="66" r="30" fill="#a8a878"/>
+<circle cx="72" cy="66" r="30" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="2"/>
+<path d="M 42 66 H 102" stroke="#ffffff" stroke-opacity=".28" stroke-width="2"/>
+<text x="72" y="73" text-anchor="middle" class="b m" font-size="18" fill="#ffffff">Py</text>
+<text x="118" y="52" class="b" font-size="18">Python</text>
+<text x="414" y="52" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> 57</text>
+<rect x="118.0" y="62.0" width="53.3" height="18" rx="9.0" fill="#a8a878"/><text x="144.7" y="74.4" text-anchor="middle" class="b" font-size="9.5" fill="#ffffff" letter-spacing=".6">NORMAL</text>
+<text x="181.3" y="75" font-size="12.5" class="mu">Full-Text Search</text>
+<text x="118" y="101" class="b m" font-size="10" fill="#22d3ee">HP</text>
+<rect x="144" y="93" width="270" height="9" rx="4.5" fill="#1f2b4d"/>
+<rect x="144" y="93" width="183.6" height="9" rx="4.5" fill="#4ade80"><animate attributeName="width" from="0" to="183.6" dur="1.4s" fill="freeze" calcMode="spline" keySplines=".2 .8 .2 1" keyTimes="0;1"/></rect>
+</g>
+<g><animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;0 -1.5;0 0" dur="3.37s" begin="0.4s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/>
+<rect x="448" y="16" width="412" height="100" rx="18" fill="#111b36" stroke="#25375f"/>
+<rect x="448" y="34" width="4" height="64" rx="2" fill="#f05a8c"/>
+<circle cx="500" cy="66" r="30" fill="#f05a8c"/>
+<circle cx="500" cy="66" r="30" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="2"/>
+<path d="M 470 66 H 530" stroke="#ffffff" stroke-opacity=".28" stroke-width="2"/>
+<text x="500" y="73" text-anchor="middle" class="b m" font-size="18" fill="#ffffff">JS</text>
+<text x="546" y="52" class="b" font-size="18">JavaScript</text>
+<text x="842" y="52" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> 93</text>
+<rect x="546.0" y="62.0" width="59.2" height="18" rx="9.0" fill="#f05a8c"/><text x="575.6" y="74.4" text-anchor="middle" class="b" font-size="9.5" fill="#ffffff" letter-spacing=".6">PSYCHIC</text>
+<text x="615.2" y="75" font-size="12.5" class="mu">Guess of the Day</text>
+<text x="546" y="101" class="b m" font-size="10" fill="#22d3ee">HP</text>
+<rect x="572" y="93" width="270" height="9" rx="4.5" fill="#1f2b4d"/>
+<rect x="572" y="93" width="216.0" height="9" rx="4.5" fill="#4ade80"><animate attributeName="width" from="0" to="216.0" dur="1.4s" fill="freeze" calcMode="spline" keySplines=".2 .8 .2 1" keyTimes="0;1"/></rect>
+</g>
+<g><animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;0 -1.5;0 0" dur="3.74s" begin="0.8s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/>
+<rect x="20" y="132" width="412" height="100" rx="18" fill="#111b36" stroke="#25375f"/>
+<rect x="20" y="150" width="4" height="64" rx="2" fill="#8aa5b8"/>
+<circle cx="72" cy="182" r="30" fill="#8aa5b8"/>
+<circle cx="72" cy="182" r="30" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="2"/>
+<path d="M 42 182 H 102" stroke="#ffffff" stroke-opacity=".28" stroke-width="2"/>
+<text x="72" y="189" text-anchor="middle" class="b m" font-size="18" fill="#ffffff">Fl</text>
+<text x="118" y="168" class="b" font-size="18">Flask</text>
+<text x="414" y="168" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> 20</text>
+<rect x="118.0" y="178.0" width="47.5" height="18" rx="9.0" fill="#8aa5b8"/><text x="141.7" y="190.4" text-anchor="middle" class="b" font-size="9.5" fill="#ffffff" letter-spacing=".6">STEEL</text>
+<text x="175.4" y="191" font-size="12.5" class="mu">Waitress Serve</text>
+<text x="118" y="217" class="b m" font-size="10" fill="#22d3ee">HP</text>
+<rect x="144" y="209" width="270" height="9" rx="4.5" fill="#1f2b4d"/>
+<rect x="144" y="209" width="137.7" height="9" rx="4.5" fill="#4ade80"><animate attributeName="width" from="0" to="137.7" dur="1.4s" fill="freeze" calcMode="spline" keySplines=".2 .8 .2 1" keyTimes="0;1"/></rect>
+</g>
+<g><animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;0 -1.5;0 0" dur="4.109999999999999s" begin="1.2000000000000002s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/>
+<rect x="448" y="132" width="412" height="100" rx="18" fill="#111b36" stroke="#25375f"/>
+<rect x="448" y="150" width="4" height="64" rx="2" fill="#d4a845"/>
+<circle cx="500" cy="182" r="30" fill="#d4a845"/>
+<circle cx="500" cy="182" r="30" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="2"/>
+<path d="M 470 182 H 530" stroke="#ffffff" stroke-opacity=".28" stroke-width="2"/>
+<text x="500" y="189" text-anchor="middle" class="b m" font-size="18" fill="#ffffff">DB</text>
+<text x="546" y="168" class="b" font-size="18">SQL</text>
+<text x="842" y="168" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> 37</text>
+<rect x="546.0" y="178.0" width="53.3" height="18" rx="9.0" fill="#d4a845"/><text x="572.7" y="190.4" text-anchor="middle" class="b" font-size="9.5" fill="#ffffff" letter-spacing=".6">GROUND</text>
+<text x="609.3" y="191" font-size="12.5" class="mu">Stored Procedure</text>
+<text x="546" y="217" class="b m" font-size="10" fill="#22d3ee">HP</text>
+<rect x="572" y="209" width="270" height="9" rx="4.5" fill="#1f2b4d"/>
+<rect x="572" y="209" width="224.1" height="9" rx="4.5" fill="#4ade80"><animate attributeName="width" from="0" to="224.1" dur="1.4s" fill="freeze" calcMode="spline" keySplines=".2 .8 .2 1" keyTimes="0;1"/></rect>
+</g>
+<g><animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;0 -1.5;0 0" dur="4.48s" begin="1.6s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/>
+<rect x="20" y="248" width="412" height="100" rx="18" fill="#111b36" stroke="#25375f"/>
+<rect x="20" y="266" width="4" height="64" rx="2" fill="#e8b923"/>
+<circle cx="72" cy="298" r="30" fill="#e8b923"/>
+<circle cx="72" cy="298" r="30" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="2"/>
+<path d="M 42 298 H 102" stroke="#ffffff" stroke-opacity=".28" stroke-width="2"/>
+<text x="72" y="305" text-anchor="middle" class="b m" font-size="18" fill="#ffffff">C++</text>
+<text x="118" y="284" class="b" font-size="18">C++ / ESP32</text>
+<text x="414" y="284" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> 35</text>
+<rect x="118.0" y="294.0" width="65.1" height="18" rx="9.0" fill="#e8b923"/><text x="150.6" y="306.4" text-anchor="middle" class="b" font-size="9.5" fill="#ffffff" letter-spacing=".6">ELECTRIC</text>
+<text x="193.1" y="307" font-size="12.5" class="mu">Anti-Cheat Check</text>
+<text x="118" y="333" class="b m" font-size="10" fill="#22d3ee">HP</text>
+<rect x="144" y="325" width="270" height="9" rx="4.5" fill="#1f2b4d"/>
+<rect x="144" y="325" width="48.6" height="9" rx="4.5" fill="#f87171"><animate attributeName="width" from="0" to="48.6" dur="1.4s" fill="freeze" calcMode="spline" keySplines=".2 .8 .2 1" keyTimes="0;1"/></rect>
+</g>
+<g><animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;0 -1.5;0 0" dur="4.85s" begin="2.0s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/>
+<rect x="448" y="248" width="412" height="100" rx="18" fill="#111b36" stroke="#25375f"/>
+<rect x="448" y="266" width="4" height="64" rx="2" fill="#5b8def"/>
+<circle cx="500" cy="298" r="30" fill="#5b8def"/>
+<circle cx="500" cy="298" r="30" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="2"/>
+<path d="M 470 298 H 530" stroke="#ffffff" stroke-opacity=".28" stroke-width="2"/>
+<text x="500" y="305" text-anchor="middle" class="b m" font-size="18" fill="#ffffff">Dk</text>
+<text x="546" y="284" class="b" font-size="18">Docker</text>
+<text x="842" y="284" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> 55</text>
+<rect x="546.0" y="294.0" width="47.5" height="18" rx="9.0" fill="#5b8def"/><text x="569.7" y="306.4" text-anchor="middle" class="b" font-size="9.5" fill="#ffffff" letter-spacing=".6">WATER</text>
+<text x="603.5" y="307" font-size="12.5" class="mu">Compose Up</text>
+<text x="546" y="333" class="b m" font-size="10" fill="#22d3ee">HP</text>
+<rect x="572" y="325" width="270" height="9" rx="4.5" fill="#1f2b4d"/>
+<rect x="572" y="325" width="224.1" height="9" rx="4.5" fill="#4ade80"><animate attributeName="width" from="0" to="224.1" dur="1.4s" fill="freeze" calcMode="spline" keySplines=".2 .8 .2 1" keyTimes="0;1"/></rect>
+</g>
+<text x="440.0" y="376" text-anchor="middle" font-size="12" class="mu">Levels recalibrated daily · 2026-11-05 · metrics: super real™</text>
+</g>
+</svg>

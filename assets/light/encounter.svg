@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 290" width="880" height="290" role="img" aria-labelledby="title desc">
+<title id="title">Wild encounter · Conflictwin</title>
+<desc id="desc">A wild Conflictwin (Fighting type, level 59) appeared. Bugdex entry: Two heads, both convinced they are right. Only a human can settle it.</desc>
+<style>
+text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif}
+.m{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace}
+.b{font-weight:700}
+.mu{fill:#8a6470}
+.lb{font-size:11px;letter-spacing:2.4px;font-weight:600;fill:#8a6470}
+
+</style>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#fff7f8"/><stop offset="1" stop-color="#fde6eb"/>
+</linearGradient>
+<linearGradient id="mega" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="880" y2="0" spreadMethod="repeat">
+<stop offset="0" stop-color="#ff9a3c"/><stop offset=".33" stop-color="#ff4f8b"/>
+<stop offset=".66" stop-color="#9b5cff"/><stop offset="1" stop-color="#ff9a3c"/>
+<animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="880 0" dur="9s" repeatCount="indefinite"/>
+</linearGradient>
+<linearGradient id="megaS" x1="0" y1="0" x2="1" y2="1">
+<stop offset="0" stop-color="#ff9a3c"/><stop offset=".4" stop-color="#ff4f8b"/>
+<stop offset=".75" stop-color="#9b5cff"/><stop offset="1" stop-color="#3ad1ff"/>
+</linearGradient>
+<filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+<clipPath id="frame"><rect x="1" y="1" width="878" height="288" rx="24"/></clipPath>
+</defs>
+<g fill="#25161c">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3f5"/><stop offset="1" stop-color="#ffdbe3"/></linearGradient><radialGradient id="grass" cx=".5" cy=".4" r=".6"><stop offset="0" stop-color="#bfe3b0"/><stop offset="1" stop-color="#93cc85"/></radialGradient><clipPath id="card"><rect x="1" y="1" width="878" height="288" rx="24"/></clipPath></defs>
+<g clip-path="url(#card)"><rect width="880" height="290" fill="url(#sky)"/>
+<rect x="-200" y="26" width="120" height="2" rx="1" fill="#d7263d" opacity=".18"><animate attributeName="x" values="-200;880" dur="2.4s" begin="0.00s" repeatCount="indefinite"/></rect>
+<rect x="-200" y="52" width="133" height="2" rx="1" fill="#d7263d" opacity=".18"><animate attributeName="x" values="-200;880" dur="2.7s" begin="0.35s" repeatCount="indefinite"/></rect>
+<rect x="-200" y="78" width="146" height="2" rx="1" fill="#d7263d" opacity=".18"><animate attributeName="x" values="-200;880" dur="3.0s" begin="0.70s" repeatCount="indefinite"/></rect>
+<rect x="-200" y="104" width="159" height="2" rx="1" fill="#d7263d" opacity=".18"><animate attributeName="x" values="-200;880" dur="3.3s" begin="1.05s" repeatCount="indefinite"/></rect>
+<rect x="-200" y="130" width="172" height="2" rx="1" fill="#d7263d" opacity=".18"><animate attributeName="x" values="-200;880" dur="3.6s" begin="1.40s" repeatCount="indefinite"/></rect>
+<rect x="-200" y="156" width="185" height="2" rx="1" fill="#d7263d" opacity=".18"><animate attributeName="x" values="-200;880" dur="3.9s" begin="1.75s" repeatCount="indefinite"/></rect>
+<rect x="-200" y="182" width="128" height="2" rx="1" fill="#d7263d" opacity=".18"><animate attributeName="x" values="-200;880" dur="4.2s" begin="2.10s" repeatCount="indefinite"/></rect>
+<ellipse cx="660" cy="190" rx="176" ry="30" fill="url(#grass)"/>
+<ellipse cx="660" cy="186" rx="150" ry="20" fill="#bfe3b0" opacity=".6"/>
+<g transform="translate(660 124)"><g><animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;0 -4;0 0" dur="2.4s" begin="0.0s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><rect x="-46" y="-6" width="92" height="56" rx="24" fill="#d6c3a5" stroke="#3a2a1a" stroke-width="2.5"/><text x="0" y="28" text-anchor="middle" class="b m" font-size="13" fill="#3a2a1a">=======</text><circle cx="-28" cy="-24" r="22" fill="#f87171" stroke="#3a2a1a" stroke-width="2.5"/><circle cx="28" cy="-24" r="22" fill="#4ade80" stroke="#3a2a1a" stroke-width="2.5"/><ellipse cx="-32" cy="-28" rx="5" ry="6.25" fill="#ffffff" stroke="#3a2a1a" stroke-width="2"/><circle cx="-30.5" cy="-27" r="2.5" fill="#141414"/><ellipse cx="24" cy="-28" rx="5" ry="6.25" fill="#ffffff" stroke="#3a2a1a" stroke-width="2"/><circle cx="25.5" cy="-27" r="2.5" fill="#141414"/><path d="M -40 -40 L -24 -34 M 40 -40 L 24 -34" stroke="#3a2a1a" stroke-width="3" stroke-linecap="round"/><text x="-28" y="-54" text-anchor="middle" class="b m" font-size="12" fill="#f87171">&lt;&lt;&lt;</text><text x="28" y="-54" text-anchor="middle" class="b m" font-size="12" fill="#4ade80">&gt;&gt;&gt;</text><rect x="-36" y="46" width="16" height="12" rx="5" fill="#d6c3a5" stroke="#3a2a1a" stroke-width="2.5"/><rect x="20" y="46" width="16" height="12" rx="5" fill="#d6c3a5" stroke="#3a2a1a" stroke-width="2.5"/></g></g></g>
+<rect x="1" y="1" width="878" height="288" rx="24" fill="none" stroke="#f0c4ce" stroke-width="1.5"/>
+<rect x="28" y="26" width="392" height="110" rx="16" fill="#ffffff" stroke="#f0c4ce"/>
+<text x="48" y="60" class="b" font-size="21">CONFLICTWIN</text>
+<text x="400" y="60" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> 59</text>
+<rect x="48.0" y="72.0" width="65.1" height="18" rx="9.0" fill="#d0402f"/><text x="80.6" y="84.4" text-anchor="middle" class="b" font-size="9.5" fill="#ffffff" letter-spacing=".6">FIGHTING</text>
+<text x="123.1" y="85" font-size="12.5" class="mu m">Bugdex #008</text>
+<text x="48" y="118" font-size="11" class="b m" fill="#c2185b">CATCH</text>
+<rect x="100" y="110" width="210" height="9" rx="4.5" fill="#f3e2e6"/>
+<rect x="100" y="110" width="105.0" height="9" rx="4.5" fill="url(#megaS)"/>
+<text x="400" y="119" text-anchor="end" font-size="12" class="m mu">50% · 0✓ 0✗</text>
+<rect x="28" y="214" width="824" height="56" rx="14" fill="#ffffff" stroke="#d7263d" stroke-width="2.5"/>
+<text x="50" y="238" class="b" font-size="16">A wild CONFLICTWIN appeared!</text>
+<text x="50" y="259" font-size="13" class="mu">Two heads, both convinced they are right. Only a human can settle it.</text>
+<path d="M 824 252 l 8 0 l -4 6 z" fill="#d7263d"><animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/></path>
+</g>
+</svg>

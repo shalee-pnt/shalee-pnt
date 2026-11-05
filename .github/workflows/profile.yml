@@ -1,0 +1,44 @@
+name: Profile refresh
+
+# Hourly: live status line. Once per day (first run after midnight, Paris time):
+# stats, party levels, nature and the wild bug of the day.
+# Commits only when something actually changed.
+on:
+  schedule:
+    - cron: "5 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["scripts/**", ".github/workflows/profile.yml"]
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Refresh and push
+        env:
+          # Optional PROFILE_TOKEN (read-only PAT) lets the card count private work.
+          GH_TOKEN: ${{ secrets.PROFILE_TOKEN || secrets.GITHUB_TOKEN }}
+          FORCE: ${{ github.event_name != 'schedule' && '--force' || '' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git fetch --quiet origin main && git reset --quiet --hard origin/main
+            python scripts/profile.py update $FORCE
+            git add -A
+            if git diff --cached --quiet; then echo "nothing changed"; exit 0; fi
+            git commit --quiet -m "chore(profile): refresh"
+            if git push --quiet origin HEAD:main; then exit 0; fi
+            sleep $((attempt * 3))
+          done
+          exit 1

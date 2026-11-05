@@ -1,0 +1,52 @@
+name: Wild bug encounter
+
+# A visitor opens an issue titled "catch: ..." from the README button.
+# The issue title and body are never read: only the issue number and the author login,
+# passed through env vars (no ${{ }} interpolation inside run scripts).
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  throw:
+    if: startsWith(github.event.issue.title, 'catch')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Throw the ball and push
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
+          REPLY_FILE: ${{ runner.temp }}/reply.md
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3 4 5; do
+            git fetch --quiet origin main && git reset --quiet --hard origin/main
+            python scripts/profile.py encounter
+            git add -A
+            if git diff --cached --quiet; then break; fi
+            git commit --quiet -m "chore(bugdex): throw #$ISSUE_NUMBER"
+            if git push --quiet origin HEAD:main; then break; fi
+            if [ "$attempt" = 5 ]; then exit 1; fi
+            sleep $((attempt * 3))
+          done
+
+      - name: Reply and close
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPLY_FILE: ${{ runner.temp }}/reply.md
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body-file "$REPLY_FILE"
+          gh issue close "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --reason completed
