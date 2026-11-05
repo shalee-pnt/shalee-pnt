@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 330" width="880" height="330" role="img" aria-labelledby="title desc">
 <title id="title">Activity · shalee-pnt</title>
-<desc id="desc">3D contribution calendar for the last 12 months: 256 contributions over 67 active days, best day 21 · Nov 3, longest streak 5 days.</desc>
+<desc id="desc">3D contribution calendar for the last 12 months: 259 contributions over 67 active days, best day 21 · Nov 3, longest streak 5 days.</desc>
 <style>
 text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif}
 .m{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace}
@@ -18,7 +18,7 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <text x="32" y="44" class="lb">ACTIVITY · LAST 12 MONTHS</text>
 <text x="848" y="44" class="lb" text-anchor="end">PUBLIC + PRIVATE</text>
 <text x="32" y="78" class="lb" font-size="10">TOTAL</text>
-<text x="32" y="104" class="b" font-size="21">256</text>
+<text x="32" y="104" class="b" font-size="21">259</text>
 <text x="198" y="78" class="lb" font-size="10">ACTIVE DAYS</text>
 <text x="198" y="104" class="b" font-size="21">67</text>
 <text x="364" y="78" class="lb" font-size="10">BEST DAY</text>
@@ -321,10 +321,10 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <polygon points="114.1,217.0 124.4,217.0 128.3,222.5 118.0,222.5" fill="#f4e3e7"/>
 <polygon points="100.9,217.0 111.2,217.0 115.1,222.5 104.8,222.5" fill="#f4e3e7"/>
 <polygon points="87.7,217.0 98.0,217.0 101.9,222.5 91.6,222.5" fill="#f4e3e7"/>
-<polygon points="779.1,157.0 783.0,162.5 783.0,229.5 779.1,224.0" fill="#5b0b1a"/>
-<polygon points="783.0,162.5 793.3,162.5 793.3,229.5 783.0,229.5" fill="#760e22"/>
-<polygon points="779.1,157.0 789.4,157.0 793.3,162.5 783.0,162.5" fill="#93112a"/>
-<circle cx="786.2" cy="149.7" r="3" fill="#d7263d"><animate attributeName="r" values="3;6;3" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.3;1" dur="1.8s" repeatCount="indefinite"/></circle>
+<polygon points="779.1,151.7 783.0,157.1 783.0,229.5 779.1,224.0" fill="#5b0b1a"/>
+<polygon points="783.0,157.1 793.3,157.1 793.3,229.5 783.0,229.5" fill="#760e22"/>
+<polygon points="779.1,151.7 789.4,151.7 793.3,157.1 783.0,157.1" fill="#93112a"/>
+<circle cx="786.2" cy="144.4" r="3" fill="#d7263d"><animate attributeName="r" values="3;6;3" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;.3;1" dur="1.8s" repeatCount="indefinite"/></circle>
 <polygon points="765.9,189.4 769.8,194.9 769.8,229.5 765.9,224.0" fill="#986b74"/>
 <polygon points="769.8,194.9 780.1,194.9 780.1,229.5 769.8,229.5" fill="#c48a96"/>
 <polygon points="765.9,189.4 776.2,189.4 780.1,194.9 769.8,194.9" fill="#f5adbb"/>
