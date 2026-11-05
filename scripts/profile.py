@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """Generates the shalee-pnt GitHub profile.
 
-Trainer card, party, projects dial, 3D activity calendar, Lumiose skyline, wild-bug encounter
-and status line, with the standard library only.
+Trainer card, party, projects dial, Lumiose skyline, wild-bug encounter and status line, with the standard library only.
 
     python scripts/profile.py update            hourly: status line, full refresh once per day
     python scripts/profile.py update --force    full refresh now
@@ -82,13 +81,13 @@ TYPE_COLORS = {
 }
 
 PARTY = [
-    # name, logo (data/vendor), type, signature move (from real projects)
-    ("Python", "python.svg", "Normal", "Full-Text Search"),
-    ("JavaScript", "javascript.svg", "Psychic", "Guess of the Day"),
-    ("Flask", "flask.svg", "Steel", "Waitress Serve"),
-    ("MariaDB / MySQL", "mariadb.svg", "Ground", "Stored Procedure"),
-    ("C++ / ESP32", "cplusplus.svg", "Electric", "Anti-Cheat Check"),
-    ("Docker", "docker.svg", "Water", "Compose Up"),
+    # name, logo (data/vendor), type
+    ("Python", "python.svg", "Normal"),
+    ("JavaScript", "javascript.svg", "Psychic"),
+    ("Flask", "flask.svg", "Steel"),
+    ("MariaDB / MySQL", "mariadb.svg", "Ground"),
+    ("C++ / ESP32", "cplusplus.svg", "Electric"),
+    ("Docker", "docker.svg", "Water"),
 ]
 
 PROJECTS = [
@@ -97,10 +96,10 @@ PROJECTS = [
      "Reads an entire file server so nobody else has to. Full-text search, Active Directory sign-in, "
      "AI summaries from a local LLM.",
      ["Python", "Flask", "MariaDB", "Whoosh", "Ollama"]),
-    ("Document audit tool", "work · private",
-     "Scans document trees in read-only mode and grades the mess out of 100. Duplicates are found by "
-     "hash, not by name.",
-     ["Python", "XML", "JSON", "CSV"]),
+    ("ViscoCrowd", "school · team of 3 · public",
+     "Simulates a panicked crowd leaving an indoor pool, one particle at a time. I wrote the wet-tile "
+     "physics (no grip, no brakes) and the flow measurements at the exit.",
+     ["Python", "NumPy", "SciPy", "Matplotlib", "Docker"]),
     ("Scubanion", "team of 4 · public",
      "A Tamagotchi that grows when you walk outside. I wrote the NFC kiosk firmware and its anti-cheat.",
      ["C++", "ESP32", "MQTT", "Laravel", "Vue"]),
@@ -299,7 +298,7 @@ def render_card(t, stats, daily) -> str:
 def render_party(t, daily) -> str:
     W, H = 880, 390
     b = []
-    for i, (name, logo, typ, move) in enumerate(PARTY):
+    for i, (name, logo, typ) in enumerate(PARTY):
         lvl, hp = daily["party"][i]
         x = 20 + (i % 2) * 428
         y = 16 + (i // 2) * 116
@@ -314,7 +313,6 @@ def render_party(t, daily) -> str:
         b.append(f'<text x="{x + w - 18}" y="{y + 36}" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> {lvl}</text>')
         ps, pw = pill(x + 98, y + 46, typ.upper(), col, size=9.5, h=18)
         b.append(ps)
-        b.append(f'<text x="{x + 98 + pw + 10:.1f}" y="{y + 59}" font-size="12.5" class="mu">{esc(move)}</text>')
         bx, bw = x + 124, w - 124 - 18
         hpcol = "#4ade80" if hp > 50 else "#facc15" if hp > 20 else "#f87171"
         b.append(f'<text x="{x + 98}" y="{y + 85}" class="b m" font-size="10" fill="{t["primary"]}">HP</text>')
@@ -387,98 +385,6 @@ def render_projects(t) -> str:
         b.append("".join(g))
     desc = "Featured projects: " + "; ".join(f"{p[0]} ({p[1]})" for p in PROJECTS) + "."
     return svg_doc(W, H, "Projects of shalee-pnt", desc, "\n".join(b), t)
-
-
-# --------------------------------------------------------------------------- 3D activity calendar
-
-def activity_stats(weeks) -> dict:
-    days = [d for wk in weeks for d in wk]
-    best = max(days, key=lambda d: d[1])
-    longest = run = 0
-    for _, c, _ in days:
-        run = run + 1 if c else 0
-        longest = max(longest, run)
-    seq = [c for _, c, _ in days]
-    if seq and seq[-1] == 0:  # today isn't over yet
-        seq.pop()
-    current = 0
-    for c in reversed(seq):
-        if not c:
-            break
-        current += 1
-    per_weekday = [0] * 7
-    for _, c, wd in days:
-        per_weekday[wd] += c
-    bd = dt.date.fromisoformat(best[0])
-    return {
-        "best": f"{best[1]} · {MONTHS[bd.month - 1]} {bd.day}",
-        "longest": longest, "current": current,
-        "weekday": WEEKDAYS[per_weekday.index(max(per_weekday))],
-        "active": sum(1 for d in days if d[1]),
-    }
-
-
-def render_activity(t, stats) -> str:
-    W, H = 880, 330
-    weeks = stats["calendar"]
-    a = activity_stats(weeks)
-    mx = max((c for wk in weeks for _, c, _ in wk), default=1) or 1
-    b = [frame(W, H, t)]
-    b.append(f'<text x="32" y="44" class="lb">ACTIVITY · LAST 12 MONTHS</text>')
-    b.append(f'<text x="{W - 32}" y="44" class="lb" text-anchor="end">PUBLIC + PRIVATE</text>')
-    cols = [("TOTAL", f'{stats["contributions"]}'), ("ACTIVE DAYS", str(a["active"])),
-            ("BEST DAY", a["best"]), ("LONGEST STREAK", f'{a["longest"]} d'), ("FAVOURITE DAY", a["weekday"])]
-    for i, (label, value) in enumerate(cols):
-        x = 32 + i * 166
-        b.append(f'<text x="{x}" y="78" class="lb" font-size="10">{esc(label)}</text>')
-        b.append(f'<text x="{x}" y="104" class="b" font-size="21">{esc(value)}</text>')
-    # cabinet projection: weeks to the right, weekdays receding up-left, bars going up
-    ex, ey = (13.2, 0.0), (5.0, 7.0)
-    ox = (W - (len(weeks) * ex[0] + 7 * ey[0])) / 2
-    oy, maxh, fp = 196, 70, .78
-    lv = t["levels"]
-    cells = []
-    for w, wk in enumerate(weeks):
-        for date, c, d in wk:
-            cells.append((w, d, c, date))
-    cells.sort(key=lambda z: (z[1], -z[0]))  # back rows first, right to left inside a row
-    today = weeks[-1][-1][0] if weeks and weeks[-1] else ""
-    for w, d, c, date in cells:
-        x0 = ox + w * ex[0] + d * ey[0]
-        y0 = oy + d * ey[1]
-        A = (x0, y0)
-        B = (x0 + fp * ex[0], y0)
-        C = (x0 + fp * ex[0] + fp * ey[0], y0 + fp * ey[1])
-        D = (x0 + fp * ey[0], y0 + fp * ey[1])
-        level = 0 if c == 0 else 1 if c <= mx * .25 else 2 if c <= mx * .5 else 3 if c <= mx * .75 else 4
-        h = 0 if c == 0 else 4 + maxh * math.sqrt(c / mx)
-        up = lambda p: (p[0], p[1] - h)
-        poly = lambda pts, fill: f'<polygon points="{" ".join(f"{p[0]:.1f},{p[1]:.1f}" for p in pts)}" fill="{fill}"/>'
-        if h:
-            b.append(poly([up(A), up(D), D, A], shade(lv[level], .62)))
-            b.append(poly([up(D), up(C), C, D], shade(lv[level], .8)))
-        b.append(poly([up(A), up(B), up(C), up(D)], lv[level]))
-        if date == today:
-            tx, ty = (up(A)[0] + up(C)[0]) / 2, (up(A)[1] + up(C)[1]) / 2
-            b.append(f'<circle cx="{tx:.1f}" cy="{ty - 10:.1f}" r="3" fill="{t["primary"]}">'
-                     f'<animate attributeName="r" values="3;6;3" dur="1.8s" repeatCount="indefinite"/>'
-                     f'<animate attributeName="opacity" values="1;.3;1" dur="1.8s" repeatCount="indefinite"/></circle>')
-    prev = None
-    for w, wk in enumerate(weeks):
-        m = int(wk[0][0][5:7])
-        if m != prev and w > 0:
-            x = ox + w * ex[0] + 7 * ey[0]
-            b.append(f'<text x="{x:.1f}" y="{oy + 7 * ey[1] + 22:.1f}" font-size="10.5" class="mu m">{MONTHS[m - 1]}</text>')
-        prev = m
-    lx = W - 32 - 5 * 14 - 70
-    b.append(f'<text x="{lx}" y="{H - 22}" font-size="10.5" class="mu" text-anchor="end">less</text>')
-    for k in range(5):
-        b.append(f'<rect x="{lx + 8 + k * 14}" y="{H - 32}" width="11" height="11" rx="2.5" fill="{lv[k]}"/>')
-    b.append(f'<text x="{lx + 8 + 5 * 14 + 4}" y="{H - 22}" font-size="10.5" class="mu">more</text>')
-    b.append(f'<text x="32" y="{H - 22}" font-size="10.5" class="mu">current streak: {a["current"]} d · refreshed daily</text>')
-    desc = (f"3D contribution calendar for the last 12 months: {stats['contributions']} contributions over "
-            f"{a['active']} active days, best day {a['best']}, longest streak {a['longest']} days.")
-    return svg_doc(W, H, "Activity · shalee-pnt", desc, "\n".join(b), t)
 
 
 # --------------------------------------------------------------------------- Lumiose skyline
@@ -877,7 +783,7 @@ def write_readme(state, now):
     README.write_text(text, encoding="utf-8", newline="\n")
 
 
-def write_assets(state, which=("card", "party", "projects", "activity", "skyline", "encounter", "button")):
+def write_assets(state, which=("card", "party", "projects", "skyline", "encounter", "button")):
     for theme, t in THEMES.items():
         out = ASSETS / theme
         out.mkdir(parents=True, exist_ok=True)
@@ -885,7 +791,6 @@ def write_assets(state, which=("card", "party", "projects", "activity", "skyline
             "card": lambda: render_card(t, state["stats"], state["daily"]),
             "party": lambda: render_party(t, state["daily"]),
             "projects": lambda: render_projects(t),
-            "activity": lambda: render_activity(t, state["stats"]),
             "skyline": lambda: render_skyline(t, state["stats"], theme),
             "encounter": lambda: render_encounter(t, state["daily"], state),
             "button": lambda: render_button(t),
