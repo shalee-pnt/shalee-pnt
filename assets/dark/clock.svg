@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 330" width="880" height="330" role="img" aria-labelledby="title desc">
 <title id="title">Commit clock · shalee-pnt</title>
-<desc id="desc">Commit clock for the last 12 months: 214 commits, peak hour 11:00, 77% during office hours, 12% between 6 pm and 6 am, 5% on weekends.</desc>
+<desc id="desc">Commit clock for the last 12 months: 208 commits, peak hour 11:00, 77% during office hours, 11% between 6 pm and 6 am, 4% on weekends.</desc>
 <style>
 text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif}
 .m{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace}
@@ -46,11 +46,11 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <circle cx="186.0" cy="20.0" r="4.5" fill="#8ea3c9"/><line x1="186.0" y1="13.0" x2="186.0" y2="10.0" stroke="#8ea3c9" stroke-width="1.5" stroke-linecap="round"/><line x1="190.9" y1="15.1" x2="193.1" y2="12.9" stroke="#8ea3c9" stroke-width="1.5" stroke-linecap="round"/><line x1="193.0" y1="20.0" x2="196.0" y2="20.0" stroke="#8ea3c9" stroke-width="1.5" stroke-linecap="round"/><line x1="190.9" y1="24.9" x2="193.1" y2="27.1" stroke="#8ea3c9" stroke-width="1.5" stroke-linecap="round"/><line x1="186.0" y1="27.0" x2="186.0" y2="30.0" stroke="#8ea3c9" stroke-width="1.5" stroke-linecap="round"/><line x1="181.1" y1="24.9" x2="178.9" y2="27.1" stroke="#8ea3c9" stroke-width="1.5" stroke-linecap="round"/><line x1="179.0" y1="20.0" x2="176.0" y2="20.0" stroke="#8ea3c9" stroke-width="1.5" stroke-linecap="round"/><line x1="181.1" y1="15.1" x2="178.9" y2="12.9" stroke="#8ea3c9" stroke-width="1.5" stroke-linecap="round"/>
 <circle cx="186.0" cy="310.0" r="7" fill="none"/><path d="M186.0 303.0 A7 7 0 0 1 186.0 317.0 A4.03 7 0 0 0 186.0 303.0Z" fill="#8ea3c9"/>
 <path d="M184.8 213.9 A48.9 48.9 0 0 1 174.5 212.6 L178.9 194.2 A30 30 0 0 0 185.3 195.0Z" fill="#1b4a86" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="0.3s" repeatCount="indefinite"/></path>
-<path d="M160.5 206.8 A48.9 48.9 0 0 1 152.3 200.4 L165.3 186.7 A30 30 0 0 0 170.4 190.6Z" fill="#1b4a86" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="2.3s" repeatCount="indefinite"/></path>
+<path d="M162.8 203.0 A44.6 44.6 0 0 1 155.3 197.3 L165.3 186.7 A30 30 0 0 0 170.4 190.6Z" fill="#1b4a86" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="2.3s" repeatCount="indefinite"/></path>
 <path d="M139.1 151.2 A48.9 48.9 0 0 1 143.0 141.6 L159.7 150.6 A30 30 0 0 0 157.2 156.5Z" fill="#1b4a86" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="7.3s" repeatCount="indefinite"/></path>
 <path d="M124.5 127.5 A72.0 72.0 0 0 1 133.8 115.3 L164.3 144.3 A30 30 0 0 0 160.4 149.4Z" fill="#2672c4" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="8.3s" repeatCount="indefinite"/></path>
-<path d="M121.4 97.1 A93.7 93.7 0 0 1 137.2 85.0 L170.4 139.4 A30 30 0 0 0 165.3 143.3Z" fill="#3fa9f5" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="9.3s" repeatCount="indefinite"/></path>
-<path d="M145.5 90.7 A84.6 84.6 0 0 1 162.1 83.8 L177.5 136.2 A30 30 0 0 0 171.6 138.7Z" fill="#3fa9f5" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="10.3s" repeatCount="indefinite"/></path>
+<path d="M122.7 98.5 A91.8 91.8 0 0 1 138.2 86.6 L170.4 139.4 A30 30 0 0 0 165.3 143.3Z" fill="#3fa9f5" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="9.3s" repeatCount="indefinite"/></path>
+<path d="M146.0 91.7 A83.5 83.5 0 0 1 162.4 84.9 L177.5 136.2 A30 30 0 0 0 171.6 138.7Z" fill="#2672c4" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="10.3s" repeatCount="indefinite"/></path>
 <path d="M161.5 63.9 A104.0 104.0 0 0 1 183.5 61.0 L185.3 135.0 A30 30 0 0 0 178.9 135.8Z" fill="#9be7ff" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="11.3s" repeatCount="indefinite"/></path>
 <path d="M187.9 87.5 A77.5 77.5 0 0 1 204.2 89.7 L193.1 135.8 A30 30 0 0 0 186.7 135.0Z" fill="#2672c4" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="12.3s" repeatCount="indefinite"/></path>
 <path d="M200.8 114.8 A52.3 52.3 0 0 1 211.0 119.1 L200.4 138.7 A30 30 0 0 0 194.5 136.2Z" fill="#1b4a86" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="13.3s" repeatCount="indefinite"/></path>
@@ -59,7 +59,7 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <path d="M261.2 124.0 A85.7 85.7 0 0 1 268.2 140.8 L214.8 156.5 A30 30 0 0 0 212.3 150.6Z" fill="#3fa9f5" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="16.3s" repeatCount="indefinite"/></path>
 <path d="M244.2 150.9 A59.8 59.8 0 0 1 245.8 163.5 L216.0 164.3 A30 30 0 0 0 215.2 157.9Z" fill="#1b4a86" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="17.3s" repeatCount="indefinite"/></path>
 <path d="M238.3 166.3 A52.3 52.3 0 0 1 236.8 177.3 L215.2 172.1 A30 30 0 0 0 216.0 165.7Z" fill="#1b4a86" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="18.3s" repeatCount="indefinite"/></path>
-<path d="M238.9 180.6 A55.1 55.1 0 0 1 234.4 191.4 L212.3 179.4 A30 30 0 0 0 214.8 173.5Z" fill="#1b4a86" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="19.3s" repeatCount="indefinite"/></path>
+<path d="M232.9 178.8 A48.9 48.9 0 0 1 229.0 188.4 L212.3 179.4 A30 30 0 0 0 214.8 173.5Z" fill="#1b4a86" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="19.3s" repeatCount="indefinite"/></path>
 <path d="M227.8 190.5 A48.9 48.9 0 0 1 221.4 198.7 L207.7 185.7 A30 30 0 0 0 211.6 180.6Z" fill="#1b4a86" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="20.3s" repeatCount="indefinite"/></path>
 <path d="M225.7 206.7 A57.6 57.6 0 0 1 216.0 214.2 L201.6 190.6 A30 30 0 0 0 206.7 186.7Z" fill="#1b4a86" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="21.3s" repeatCount="indefinite"/></path>
 <path d="M213.6 215.6 A57.6 57.6 0 0 1 202.3 220.3 L194.5 193.8 A30 30 0 0 0 200.4 191.3Z" fill="#1b4a86" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="22.3s" repeatCount="indefinite"/></path>
@@ -71,9 +71,9 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <text x="848" y="50" class="lb" text-anchor="end">PARIS TIME</text>
 <text x="384" y="96" class="lb" font-size="10">PEAK HOUR</text><text x="384" y="128" class="b" font-size="27">11:00 – 12:00</text><text x="384" y="150" font-size="12.5" class="mu">favourite day: Thursday</text>
 <text x="622" y="96" class="lb" font-size="10">OFFICE HOURS</text><text x="622" y="128" class="b" font-size="27">77%</text><text x="622" y="150" font-size="12.5" class="mu">of commits, Mon–Fri 9–17</text>
-<text x="384" y="192" class="lb" font-size="10">6 PM TO 6 AM</text><text x="384" y="224" class="b" font-size="27">12%</text><text x="384" y="246" font-size="12.5" class="mu">Larry is mildly concerned.</text>
-<text x="622" y="192" class="lb" font-size="10">WEEKENDS</text><text x="622" y="224" class="b" font-size="27">5%</text><text x="622" y="246" font-size="12.5" class="mu">Weekends are for napping.</text>
+<text x="384" y="192" class="lb" font-size="10">6 PM TO 6 AM</text><text x="384" y="224" class="b" font-size="27">11%</text><text x="384" y="246" font-size="12.5" class="mu">Larry is mildly concerned.</text>
+<text x="622" y="192" class="lb" font-size="10">WEEKENDS</text><text x="622" y="224" class="b" font-size="27">4%</text><text x="622" y="246" font-size="12.5" class="mu">Weekends are for napping.</text>
 <rect x="384" y="293" width="16" height="4" rx="2" fill="#3fa9f5"/><text x="406" y="299" font-size="11.5" class="mu">office hours</text>
-<text x="848" y="299" font-size="11.5" class="mu" text-anchor="end">214 commits · 13 repos · public + private · updated 2026-11-05</text>
+<text x="848" y="299" font-size="11.5" class="mu" text-anchor="end">208 commits · 11 repos · public + private · updated 2026-11-05</text>
 </g>
 </svg>
