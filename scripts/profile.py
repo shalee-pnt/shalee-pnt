@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
 """Generates the shalee-pnt GitHub profile.
 
-Everything is drawn here, with the standard library only:
-trainer card, party, Omnitrix, wild-bug encounter, status line.
+Trainer card, party, Omnitrix, 3D activity calendar, wild-bug encounter and status line,
+with the standard library only.
 
     python scripts/profile.py update            hourly: status line, full refresh once per day
     python scripts/profile.py update --force    full refresh now
     python scripts/profile.py encounter         issue handler (env: ISSUE_NUMBER, ISSUE_AUTHOR)
 
-GitHub blocks external resources inside SVG images, so the SVGs only use
-system fonts and SMIL animations.
+GitHub blocks external resources inside SVG images: fonts are system fonts, animations are
+SMIL, and logos / artwork from data/vendor are embedded as data URIs.
 """
 from __future__ import annotations
 
+import base64
 import datetime as dt
+import functools
 import json
 import math
 import os
@@ -23,11 +25,13 @@ import sys
 import textwrap
 import urllib.request
 from pathlib import Path
+from urllib.parse import quote
 from xml.sax.saxutils import escape
 from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
+VENDOR = ROOT / "data" / "vendor"
 STATE_FILE = ROOT / "data" / "state.json"
 README = ROOT / "README.md"
 LOGIN = "shalee-pnt"
@@ -37,22 +41,23 @@ TZ = ZoneInfo("Europe/Paris")
 SANS = "'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif"
 MONO = "ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace"
 
-# X in dark mode, Y in light mode. Mega Evolution gradient as the accent in both.
+# X (blue) in dark mode, Y (red) in light mode. Flat colours, no gradients on the cards.
 THEMES = {
     "dark": dict(
-        bg1="#0a1024", bg2="#0f1d3d", panel="#111b36", panel2="#16244a", line="#25375f",
-        text="#e8eefb", muted="#8ea3c9", primary="#3fa9f5", secondary="#22d3ee",
-        locked="#1f2b4d", lockedtxt="#4f5f86", sky1="#0b1530", sky2="#15305c",
+        bg="#0c1431", panel="#111c3d", panel2="#16244a", line="#25375f", dots="#1d2c54",
+        text="#e8eefb", muted="#8ea3c9", primary="#3fa9f5", secondary="#5fd4f5",
+        locked="#1b2750", lockedtxt="#4f5f86", sky1="#0b1530", sky2="#15305c",
         grass1="#1d5a52", grass2="#123d3a", outline="#0a0f1f",
+        levels=["#17234a", "#1b4a86", "#2672c4", "#3fa9f5", "#9be7ff"],
     ),
     "light": dict(
-        bg1="#fff7f8", bg2="#fde6eb", panel="#ffffff", panel2="#fff1f4", line="#f0c4ce",
-        text="#25161c", muted="#8a6470", primary="#d7263d", secondary="#c2185b",
-        locked="#f3e2e6", lockedtxt="#c9a7b0", sky1="#fff3f5", sky2="#ffdbe3",
+        bg="#fffafb", panel="#ffffff", panel2="#fff1f4", line="#f0c4ce", dots="#f6dbe1",
+        text="#25161c", muted="#8a6470", primary="#d7263d", secondary="#e0457b",
+        locked="#f5e4e8", lockedtxt="#c9a7b0", sky1="#fff3f5", sky2="#ffdbe3",
         grass1="#bfe3b0", grass2="#93cc85", outline="#3a2a1a",
+        levels=["#f4e3e7", "#f5adbb", "#ea6a82", "#d7263d", "#93112a"],
     ),
 }
-MEGA = ["#ff9a3c", "#ff4f8b", "#9b5cff", "#3ad1ff"]
 
 TYPE_COLORS = {
     "Normal": "#a8a878", "Electric": "#e8b923", "Steel": "#8aa5b8", "Ground": "#d4a845",
@@ -61,13 +66,13 @@ TYPE_COLORS = {
 }
 
 PARTY = [
-    # name, monogram, type, signature move (from real projects)
-    ("Python", "Py", "Normal", "Full-Text Search"),
-    ("JavaScript", "JS", "Psychic", "Guess of the Day"),
-    ("Flask", "Fl", "Steel", "Waitress Serve"),
-    ("SQL", "DB", "Ground", "Stored Procedure"),
-    ("C++ / ESP32", "C++", "Electric", "Anti-Cheat Check"),
-    ("Docker", "Dk", "Water", "Compose Up"),
+    # name, logo (data/vendor), type, signature move (from real projects)
+    ("Python", "python.svg", "Normal", "Full-Text Search"),
+    ("JavaScript", "javascript.svg", "Psychic", "Guess of the Day"),
+    ("Flask", "flask.svg", "Steel", "Waitress Serve"),
+    ("MariaDB / MySQL", "mariadb.svg", "Ground", "Stored Procedure"),
+    ("C++ / ESP32", "cplusplus.svg", "Electric", "Anti-Cheat Check"),
+    ("Docker", "docker.svg", "Water", "Compose Up"),
 ]
 
 PROJECTS = [
@@ -139,6 +144,9 @@ BADGES = [
     ("1K", "1K", lambda s: s["contributions"] >= 1000),
 ]
 
+WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
 
 # --------------------------------------------------------------------------- helpers
 
@@ -148,6 +156,18 @@ def esc(s) -> str:
 
 def now_paris() -> dt.datetime:
     return dt.datetime.now(TZ)
+
+
+@functools.lru_cache(maxsize=None)
+def data_uri(name: str) -> str:
+    path = VENDOR / name
+    mime = "image/svg+xml" if path.suffix == ".svg" else "image/png"
+    return f"data:{mime};base64,{base64.b64encode(path.read_bytes()).decode()}"
+
+
+def shade(color: str, factor: float) -> str:
+    r, g, b = (int(color[i:i + 2], 16) for i in (1, 3, 5))
+    return "#{:02x}{:02x}{:02x}".format(*(max(0, min(255, round(c * factor))) for c in (r, g, b)))
 
 
 def hexagon(cx, cy, r) -> str:
@@ -164,7 +184,15 @@ def pill(x, y, text, color, size=11, fg="#ffffff", h=20, stroke=None) -> tuple[s
     return svg, w
 
 
-def svg_doc(w, h, title, desc, body, t, extra_style="") -> str:
+def frame(w, h, t, dotted=True) -> str:
+    fill = "url(#dots)" if dotted else t["bg"]
+    out = f'<rect x="1" y="1" width="{w - 2}" height="{h - 2}" rx="24" fill="{t["bg"]}"/>'
+    if dotted:
+        out += f'<rect x="1" y="1" width="{w - 2}" height="{h - 2}" rx="24" fill="{fill}"/>'
+    return out + f'<rect x="1" y="1" width="{w - 2}" height="{h - 2}" rx="24" fill="none" stroke="{t["line"]}" stroke-width="1.5"/>'
+
+
+def svg_doc(w, h, title, desc, body, t) -> str:
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" role="img" aria-labelledby="title desc">
 <title id="title">{esc(title)}</title>
 <desc id="desc">{esc(desc)}</desc>
@@ -174,22 +202,10 @@ text{{font-family:{SANS}}}
 .b{{font-weight:700}}
 .mu{{fill:{t["muted"]}}}
 .lb{{font-size:11px;letter-spacing:2.4px;font-weight:600;fill:{t["muted"]}}}
-{extra_style}
 </style>
 <defs>
-<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-<stop offset="0" stop-color="{t["bg1"]}"/><stop offset="1" stop-color="{t["bg2"]}"/>
-</linearGradient>
-<linearGradient id="mega" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="{w}" y2="0" spreadMethod="repeat">
-<stop offset="0" stop-color="{MEGA[0]}"/><stop offset=".33" stop-color="{MEGA[1]}"/>
-<stop offset=".66" stop-color="{MEGA[2]}"/><stop offset="1" stop-color="{MEGA[0]}"/>
-<animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="{w} 0" dur="9s" repeatCount="indefinite"/>
-</linearGradient>
-<linearGradient id="megaS" x1="0" y1="0" x2="1" y2="1">
-<stop offset="0" stop-color="{MEGA[0]}"/><stop offset=".4" stop-color="{MEGA[1]}"/>
-<stop offset=".75" stop-color="{MEGA[2]}"/><stop offset="1" stop-color="{MEGA[3]}"/>
-</linearGradient>
-<filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+<pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="9" cy="9" r="1.1" fill="{t["dots"]}"/></pattern>
+<filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8"/></filter>
 <clipPath id="frame"><rect x="1" y="1" width="{w - 2}" height="{h - 2}" rx="24"/></clipPath>
 </defs>
 <g fill="{t["text"]}">
@@ -205,80 +221,16 @@ def bob(dy=4, dur=3.2, begin=0.0) -> str:
             f'calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/>')
 
 
-# --------------------------------------------------------------------------- partner: Dudunsparce
-
-def dudunsparce(t) -> str:
-    """Stylised Dudunsparce, drawn by hand. Local box ~ 250 x 190, facing left."""
-    ol = t["outline"]
-    cream, shade, blue, blue2 = "#f6e8a6", "#e2cd77", "#2f6fc0", "#9cc8f2"
-    parts = []
-    # body segments along a quadratic curve, tail first so the head ends up on top
-    p0, p1, p2 = (70, 92), (128, 182), (196, 118)
-    n = 7
-    segs = []
-    for i in range(n):
-        u = 0.18 + 0.82 * i / (n - 1)
-        x = (1 - u) ** 2 * p0[0] + 2 * (1 - u) * u * p1[0] + u ** 2 * p2[0]
-        y = (1 - u) ** 2 * p0[1] + 2 * (1 - u) * u * p1[1] + u ** 2 * p2[1]
-        r = 29 - 9 * i / (n - 1)
-        segs.append((x, y, r))
-    # drill tail
-    tx, ty, tr = segs[-1]
-    parts.append(
-        f'<g transform="translate({tx:.1f} {ty:.1f}) rotate(-38)">'
-        f'<path d="M -4 {-tr:.1f} L 50 0 L -4 {tr:.1f} Z" fill="{cream}" stroke="{ol}" stroke-width="2.5" stroke-linejoin="round"/>'
-        f'<path d="M 10 -14 L 18 14 M 24 -9 L 31 9 M 37 -4 L 41 4" stroke="{blue}" stroke-width="3" stroke-linecap="round"/>'
-        f'<animateTransform attributeName="transform" type="rotate" additive="sum" values="0;6;0;-6;0" dur="1.6s" repeatCount="indefinite"/>'
-        f'</g>')
-    for i, (x, y, r) in reversed(list(enumerate(segs))):
-        parts.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r:.1f}" fill="{cream}" stroke="{ol}" stroke-width="2.5"/>')
-        parts.append(f'<ellipse cx="{x:.1f}" cy="{y - r * .38:.1f}" rx="{r * .78:.1f}" ry="{r * .5:.1f}" fill="{blue}"/>')
-        parts.append(f'<path d="M {x - r * .28:.1f} {y - r * .4:.1f} L {x:.1f} {y - r * .72:.1f} L {x + r * .28:.1f} {y - r * .4:.1f} L {x:.1f} {y - r * .1:.1f} Z" fill="#ffffff" opacity=".9"/>')
-        parts.append(f'<path d="M {x - r * .7:.1f} {y + r * .35:.1f} Q {x:.1f} {y + r * .85:.1f} {x + r * .7:.1f} {y + r * .35:.1f}" fill="none" stroke="{shade}" stroke-width="3" stroke-linecap="round"/>')
-    # tiny wings on the second segment
-    wx, wy, wr = segs[1]
-    for k, (dx, ang, op) in enumerate([(-6, -28, .85), (8, -8, 1)]):
-        parts.append(
-            f'<g transform="translate({wx + dx:.1f} {wy - wr + 4:.1f}) rotate({ang})">'
-            f'<path d="M 0 0 C -6 -22 10 -34 22 -30 C 18 -18 12 -6 0 0 Z" fill="{blue2}" stroke="{ol}" stroke-width="2" opacity="{op}"/>'
-            f'<path d="M 4 -6 C 6 -16 12 -24 18 -27" fill="none" stroke="{blue}" stroke-width="2"/>'
-            f'<animateTransform attributeName="transform" type="rotate" additive="sum" values="0;-14;0" dur=".9s" begin="{k * .15}s" repeatCount="indefinite"/>'
-            f'</g>')
-    # head
-    hx, hy = 52, 66
-    parts.append(f'<path d="M {hx - 8} {hy - 34} L {hx + 6} {hy - 54} L {hx + 18} {hy - 30} Z" fill="{blue}" stroke="{ol}" stroke-width="2.5" stroke-linejoin="round"/>')
-    parts.append(f'<circle cx="{hx}" cy="{hy}" r="36" fill="{cream}" stroke="{ol}" stroke-width="2.5"/>')
-    parts.append(f'<path d="M {hx - 30} {hy + 14} Q {hx} {hy + 40} {hx + 30} {hy + 14}" fill="none" stroke="{shade}" stroke-width="3" stroke-linecap="round"/>')
-    # sleepy eyes (Larry energy)
-    parts.append(f'<path d="M {hx - 22} {hy - 4} Q {hx - 14} {hy + 3} {hx - 6} {hy - 4}" fill="none" stroke="#1d2b5a" stroke-width="3.2" stroke-linecap="round"/>')
-    parts.append(f'<path d="M {hx + 8} {hy - 6} Q {hx + 15} {hy + 1} {hx + 22} {hy - 6}" fill="none" stroke="#1d2b5a" stroke-width="3.2" stroke-linecap="round"/>')
-    parts.append(f'<path d="M {hx - 6} {hy + 12} Q {hx} {hy + 16} {hx + 6} {hy + 12}" fill="none" stroke="{ol}" stroke-width="2.2" stroke-linecap="round"/>')
-    parts.append(f'<ellipse cx="{hx - 24}" cy="{hy + 9}" rx="5" ry="3" fill="#f4a3a3" opacity=".7"/>')
-    # floating Zzz
-    zz = []
-    for k, (zx, zy, fs) in enumerate([(hx - 46, hy - 40, 13), (hx - 60, hy - 58, 16), (hx - 76, hy - 80, 19)]):
-        zz.append(
-            f'<text x="{zx}" y="{zy}" class="b" font-size="{fs}" fill="{t["secondary"]}" opacity="0">z'
-            f'<animate attributeName="opacity" values="0;1;0" dur="3.6s" begin="{k * .6}s" repeatCount="indefinite"/>'
-            f'</text>')
-    return f'<g>{bob(4, 3.4)}{"".join(parts)}</g>' + "".join(zz)
-
-
 # --------------------------------------------------------------------------- trainer card
 
 def render_card(t, stats, daily) -> str:
     W, H = 880, 420
     nature = NATURES[daily["nature"]]
-    b = []
-    b.append(f'<rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="24" fill="url(#bg)" stroke="{t["line"]}" stroke-width="1.5"/>')
-    # faint keystone swirl watermark
-    b.append(f'<g clip-path="url(#frame)"><g opacity=".05" transform="translate(520 300)"><circle r="120" fill="none" stroke="url(#megaS)" stroke-width="18"/>'
-             f'<path d="M -60 -40 C 0 -120 120 -40 40 20 C -20 60 -80 0 -20 -20" fill="none" stroke="url(#megaS)" stroke-width="16" stroke-linecap="round"/></g>'
-             f'<rect x="0" y="0" width="{W}" height="6" fill="url(#mega)"/></g>')
+    b = [frame(W, H, t)]
     b.append(f'<text x="40" y="48" class="lb">TRAINER CARD</text>')
     b.append(f'<text x="{W - 40}" y="48" class="lb m" text-anchor="end">ID No. {stats["trainer_id"]}</text>')
     b.append(f'<text x="40" y="106" class="b" font-size="44" letter-spacing="-.5">shalee-pnt</text>')
-    b.append(f'<rect x="40" y="120" width="64" height="4" rx="2" fill="url(#mega)"/>')
+    b.append(f'<rect x="40" y="120" width="64" height="4" rx="2" fill="{t["primary"]}"/>')
     b.append(f'<text x="40" y="150" font-size="15" class="mu">Normal-type developer · BUT 3 Computer Science, work-study</text>')
     cells = [
         ("SPECIALTY", "Normal type"), ("EMPLOYER", "City hall"),
@@ -295,31 +247,34 @@ def render_card(t, stats, daily) -> str:
     b.append(f'<text x="40" y="344" class="lb">BADGES  {sum(earned)}/{len(BADGES)}</text>')
     for i, ((label, glyph, _), ok) in enumerate(zip(BADGES, earned)):
         cx, cy, r = 61 + i * 58, 376, 19
-        pts, inner = hexagon(cx, cy, r), hexagon(cx, cy, r - 5)
         fs = 12 if len(glyph) < 3 else 10
         if ok:
-            b.append(f'<polygon points="{pts}" fill="url(#megaS)"/>')
-            b.append(f'<polygon points="{inner}" fill="{t["panel"]}" opacity=".35"/>')
+            b.append(f'<polygon points="{hexagon(cx, cy, r)}" fill="{t["primary"]}"/>')
+            b.append(f'<polygon points="{hexagon(cx, cy, r - 4)}" fill="none" stroke="#ffffff" stroke-opacity=".35"/>')
             b.append(f'<text x="{cx}" y="{cy + fs * .36:.1f}" text-anchor="middle" class="b" font-size="{fs}" fill="#ffffff">{esc(glyph)}</text>')
         else:
-            b.append(f'<polygon points="{pts}" fill="{t["locked"]}" stroke="{t["line"]}" stroke-dasharray="3 3"/>')
+            b.append(f'<polygon points="{hexagon(cx, cy, r)}" fill="{t["locked"]}" stroke="{t["line"]}" stroke-dasharray="3 3"/>')
             b.append(f'<text x="{cx}" y="{cy + 4.5}" text-anchor="middle" class="b" font-size="13" fill="{t["lockedtxt"]}">?</text>')
         b.append(f'<text x="{cx}" y="{cy + r + 15}" text-anchor="middle" font-size="8.5" letter-spacing="1" '
                  f'class="b" fill="{t["muted"] if ok else t["lockedtxt"]}">{esc(label)}</text>')
     # partner panel
     px, py, pw, ph = 572, 72, 276, 322
     b.append(f'<rect x="{px}" y="{py}" width="{pw}" height="{ph}" rx="18" fill="{t["panel"]}" stroke="{t["line"]}"/>')
-    b.append(f'<circle cx="{px + pw / 2}" cy="{py + 150}" r="92" fill="{t["primary"]}" opacity=".18" filter="url(#soft)"/>')
+    b.append(f'<ellipse cx="{px + pw / 2}" cy="{py + 238}" rx="92" ry="12" fill="{t["primary"]}" opacity=".16" filter="url(#soft)"/>')
     b.append(f'<text x="{px + 20}" y="{py + 30}" class="lb">PARTNER</text>')
     ps, pwid = pill(0, 0, f"{nature[0].upper()} NATURE", t["primary"], size=9.5, h=18)
     b.append(f'<g transform="translate({px + pw - 20 - pwid:.1f} {py + 16})">{ps}</g>')
-    b.append(f'<g transform="translate({px + 22} {py + 52}) scale(.95)">{dudunsparce(t)}</g>')
-    b.append(f'<text x="{px + 20}" y="{py + 262}" class="b" font-size="20">Dudunsparce</text>')
-    b.append(f'<text x="{px + 20}" y="{py + 282}" font-size="12.5" class="mu">Insolourdo in French · Normal type</text>')
-    b.append(f'<text x="{px + 20}" y="{py + 304}" font-size="11.5" class="m mu">today: {esc(nature[1])}  {esc(nature[2])}</text>')
+    iw, ih = 176, 200
+    b.append(f'<g><image href="{data_uri("dunsparce.png")}" x="{px + (pw - iw) / 2:.1f}" y="{py + 42}" width="{iw}" height="{ih}"/>{bob(4, 3.6)}</g>')
+    for k, (zx, zy, fs) in enumerate([(px + 44, py + 196, 12), (px + 34, py + 178, 15), (px + 26, py + 156, 18)]):
+        b.append(f'<text x="{zx}" y="{zy}" class="b" font-size="{fs}" fill="{t["secondary"]}" opacity="0">z'
+                 f'<animate attributeName="opacity" values="0;1;0" dur="3.6s" begin="{k * .6}s" repeatCount="indefinite"/></text>')
+    b.append(f'<text x="{px + 20}" y="{py + 268}" class="b" font-size="20">Dunsparce</text>')
+    b.append(f'<text x="{px + 20}" y="{py + 288}" font-size="12.5" class="mu">Insolourdo in French · Normal type</text>')
+    b.append(f'<text x="{px + 20}" y="{py + 308}" font-size="11.5" class="m mu">today: {esc(nature[1])}  {esc(nature[2])}</text>')
     desc = (f"Trainer card for shalee-pnt: Normal-type developer, work-study at a city hall. "
             f"{stats['contributions']} contributions this year, {stats['merged_prs']} merged pull requests, "
-            f"{sum(earned)} of {len(BADGES)} badges. Partner: Dudunsparce.")
+            f"{sum(earned)} of {len(BADGES)} badges. Partner: Dunsparce.")
     return svg_doc(W, H, "Trainer card · shalee-pnt", desc, "\n".join(b), t)
 
 
@@ -328,7 +283,7 @@ def render_card(t, stats, daily) -> str:
 def render_party(t, daily) -> str:
     W, H = 880, 390
     b = []
-    for i, (name, mono, typ, move) in enumerate(PARTY):
+    for i, (name, logo, typ, move) in enumerate(PARTY):
         lvl, hp = daily["party"][i]
         x = 20 + (i % 2) * 428
         y = 16 + (i // 2) * 116
@@ -337,10 +292,8 @@ def render_party(t, daily) -> str:
         b.append(f'<g>{bob(1.5, 3 + i * .37, i * .4)}')
         b.append(f'<rect x="{x}" y="{y}" width="{w}" height="100" rx="18" fill="{t["panel"]}" stroke="{t["line"]}"/>')
         b.append(f'<rect x="{x}" y="{y + 18}" width="4" height="64" rx="2" fill="{col}"/>')
-        b.append(f'<circle cx="{x + 52}" cy="{y + 50}" r="30" fill="{col}"/>')
-        b.append(f'<circle cx="{x + 52}" cy="{y + 50}" r="30" fill="none" stroke="#ffffff" stroke-opacity=".35" stroke-width="2"/>')
-        b.append(f'<path d="M {x + 22} {y + 50} H {x + 82}" stroke="#ffffff" stroke-opacity=".28" stroke-width="2"/>')
-        b.append(f'<text x="{x + 52}" y="{y + 57}" text-anchor="middle" class="b m" font-size="18" fill="#ffffff">{esc(mono)}</text>')
+        b.append(f'<circle cx="{x + 52}" cy="{y + 50}" r="31" fill="#ffffff" stroke="{col}" stroke-width="3"/>')
+        b.append(f'<image href="{data_uri(logo)}" x="{x + 33}" y="{y + 31}" width="38" height="38"/>')
         b.append(f'<text x="{x + 98}" y="{y + 36}" class="b" font-size="18">{esc(name)}</text>')
         b.append(f'<text x="{x + w - 18}" y="{y + 36}" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> {lvl}</text>')
         ps, pw = pill(x + 98, y + 46, typ.upper(), col, size=9.5, h=18)
@@ -348,7 +301,7 @@ def render_party(t, daily) -> str:
         b.append(f'<text x="{x + 98 + pw + 10:.1f}" y="{y + 59}" font-size="12.5" class="mu">{esc(move)}</text>')
         bx, bw = x + 124, w - 124 - 18
         hpcol = "#4ade80" if hp > 50 else "#facc15" if hp > 20 else "#f87171"
-        b.append(f'<text x="{x + 98}" y="{y + 85}" class="b m" font-size="10" fill="{t["secondary"]}">HP</text>')
+        b.append(f'<text x="{x + 98}" y="{y + 85}" class="b m" font-size="10" fill="{t["primary"]}">HP</text>')
         b.append(f'<rect x="{bx}" y="{y + 77}" width="{bw}" height="9" rx="4.5" fill="{t["locked"]}"/>')
         b.append(f'<rect x="{bx}" y="{y + 77}" width="{bw * hp / 100:.1f}" height="9" rx="4.5" fill="{hpcol}">'
                  f'<animate attributeName="width" from="0" to="{bw * hp / 100:.1f}" dur="1.4s" fill="freeze" '
@@ -366,7 +319,7 @@ def render_party(t, daily) -> str:
 def render_omnitrix(t) -> str:
     W, H, n, dur, e = 880, 300, len(PROJECTS), 30, 0.012
     green = "#39ff88"
-    b = [f'<rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="24" fill="url(#bg)" stroke="{t["line"]}" stroke-width="1.5"/>']
+    b = [frame(W, H, t)]
 
     def fade(i) -> str:
         a, z = i / n, (i + 1) / n
@@ -378,7 +331,6 @@ def render_omnitrix(t) -> str:
             vals, keys = "0;0;1;1;0;0", f"0;{a - e:.4f};{a:.4f};{z - e:.4f};{z:.4f};1"
         return f'<animate attributeName="opacity" values="{vals}" keyTimes="{keys}" dur="{dur}s" repeatCount="indefinite"/>'
 
-    # dial
     cx, cy = 160, 150
     rot_vals, rot_keys = [], []
     for i in range(n):
@@ -398,16 +350,15 @@ def render_omnitrix(t) -> str:
     b.append(f'<path d="M {cx - 60} {cy - 62} L {cx + 60} {cy - 62} L {cx + 10} {cy} L {cx + 60} {cy + 62} L {cx - 60} {cy + 62} L {cx - 10} {cy} Z" '
              f'fill="{green}" opacity=".92"><animate attributeName="opacity" values=".92;.65;.92" dur="2.4s" repeatCount="indefinite"/></path>')
     b.append(f'<circle cx="{cx}" cy="{cy}" r="34" fill="#0b100d" stroke="{green}" stroke-width="2"/>')
-    for i, (alien, *_rest) in enumerate(PROJECTS):
+    for i in range(n):
         b.append(f'<g opacity="{1 if i == 0 else 0}">{fade(i)}'
                  f'<text x="{cx}" y="{cy + 8}" text-anchor="middle" class="b m" font-size="22" fill="{green}">{i + 1:02d}</text></g>')
-    # project panels
     for i, (alien, project, tags, desc, stack) in enumerate(PROJECTS):
         x0 = 320
         g = [f'<g opacity="{1 if i == 0 else 0}">{fade(i)}']
         g.append(f'<text x="{x0}" y="62" class="lb">TRANSFORMATION {i + 1:02d}/{n:02d}</text>')
         g.append(f'<text x="{x0}" y="108" class="b" font-size="38" letter-spacing="-.5">{esc(alien)}</text>')
-        g.append(f'<rect x="{x0}" y="120" width="56" height="4" rx="2" fill="url(#mega)"/>')
+        g.append(f'<rect x="{x0}" y="120" width="56" height="4" rx="2" fill="{t["primary"]}"/>')
         g.append(f'<text x="{x0}" y="150" class="b" font-size="16">{esc(project)}'
                  f'<tspan class="mu" font-weight="400" font-size="13">   {esc(tags)}</tspan></text>')
         for k, line in enumerate(textwrap.wrap(desc, 68)[:3]):
@@ -421,6 +372,98 @@ def render_omnitrix(t) -> str:
         b.append("".join(g))
     desc = "Projects as Omnitrix transformations: " + "; ".join(f"{p[0]} = {p[1]}" for p in PROJECTS) + "."
     return svg_doc(W, H, "Omnitrix · projects of shalee-pnt", desc, "\n".join(b), t)
+
+
+# --------------------------------------------------------------------------- 3D activity calendar
+
+def activity_stats(weeks) -> dict:
+    days = [d for wk in weeks for d in wk]
+    best = max(days, key=lambda d: d[1])
+    longest = run = 0
+    for _, c, _ in days:
+        run = run + 1 if c else 0
+        longest = max(longest, run)
+    seq = [c for _, c, _ in days]
+    if seq and seq[-1] == 0:  # today isn't over yet
+        seq.pop()
+    current = 0
+    for c in reversed(seq):
+        if not c:
+            break
+        current += 1
+    per_weekday = [0] * 7
+    for _, c, wd in days:
+        per_weekday[wd] += c
+    bd = dt.date.fromisoformat(best[0])
+    return {
+        "best": f"{best[1]} · {MONTHS[bd.month - 1]} {bd.day}",
+        "longest": longest, "current": current,
+        "weekday": WEEKDAYS[per_weekday.index(max(per_weekday))],
+        "active": sum(1 for d in days if d[1]),
+    }
+
+
+def render_activity(t, stats) -> str:
+    W, H = 880, 330
+    weeks = stats["calendar"]
+    a = activity_stats(weeks)
+    mx = max((c for wk in weeks for _, c, _ in wk), default=1) or 1
+    b = [frame(W, H, t)]
+    b.append(f'<text x="32" y="44" class="lb">ACTIVITY · LAST 12 MONTHS</text>')
+    b.append(f'<text x="{W - 32}" y="44" class="lb" text-anchor="end">PUBLIC + PRIVATE</text>')
+    cols = [("TOTAL", f'{stats["contributions"]}'), ("ACTIVE DAYS", str(a["active"])),
+            ("BEST DAY", a["best"]), ("LONGEST STREAK", f'{a["longest"]} d'), ("FAVOURITE DAY", a["weekday"])]
+    for i, (label, value) in enumerate(cols):
+        x = 32 + i * 166
+        b.append(f'<text x="{x}" y="78" class="lb" font-size="10">{esc(label)}</text>')
+        b.append(f'<text x="{x}" y="104" class="b" font-size="21">{esc(value)}</text>')
+    # cabinet projection: weeks to the right, weekdays receding up-left, bars going up
+    ex, ey = (13.2, 0.0), (5.0, 7.0)
+    ox = (W - (len(weeks) * ex[0] + 7 * ey[0])) / 2
+    oy, maxh, fp = 196, 70, .78
+    lv = t["levels"]
+    cells = []
+    for w, wk in enumerate(weeks):
+        for date, c, d in wk:
+            cells.append((w, d, c, date))
+    cells.sort(key=lambda z: (z[1], -z[0]))  # back rows first, right to left inside a row
+    today = weeks[-1][-1][0] if weeks and weeks[-1] else ""
+    for w, d, c, date in cells:
+        x0 = ox + w * ex[0] + d * ey[0]
+        y0 = oy + d * ey[1]
+        A = (x0, y0)
+        B = (x0 + fp * ex[0], y0)
+        C = (x0 + fp * ex[0] + fp * ey[0], y0 + fp * ey[1])
+        D = (x0 + fp * ey[0], y0 + fp * ey[1])
+        level = 0 if c == 0 else 1 if c <= mx * .25 else 2 if c <= mx * .5 else 3 if c <= mx * .75 else 4
+        h = 0 if c == 0 else 4 + maxh * math.sqrt(c / mx)
+        up = lambda p: (p[0], p[1] - h)
+        poly = lambda pts, fill: f'<polygon points="{" ".join(f"{p[0]:.1f},{p[1]:.1f}" for p in pts)}" fill="{fill}"/>'
+        if h:
+            b.append(poly([up(A), up(D), D, A], shade(lv[level], .62)))
+            b.append(poly([up(D), up(C), C, D], shade(lv[level], .8)))
+        b.append(poly([up(A), up(B), up(C), up(D)], lv[level]))
+        if date == today:
+            tx, ty = (up(A)[0] + up(C)[0]) / 2, (up(A)[1] + up(C)[1]) / 2
+            b.append(f'<circle cx="{tx:.1f}" cy="{ty - 10:.1f}" r="3" fill="{t["primary"]}">'
+                     f'<animate attributeName="r" values="3;6;3" dur="1.8s" repeatCount="indefinite"/>'
+                     f'<animate attributeName="opacity" values="1;.3;1" dur="1.8s" repeatCount="indefinite"/></circle>')
+    prev = None
+    for w, wk in enumerate(weeks):
+        m = int(wk[0][0][5:7])
+        if m != prev and w > 0:
+            x = ox + w * ex[0] + 7 * ey[0]
+            b.append(f'<text x="{x:.1f}" y="{oy + 7 * ey[1] + 22:.1f}" font-size="10.5" class="mu m">{MONTHS[m - 1]}</text>')
+        prev = m
+    lx = W - 32 - 5 * 14 - 70
+    b.append(f'<text x="{lx}" y="{H - 22}" font-size="10.5" class="mu" text-anchor="end">less</text>')
+    for k in range(5):
+        b.append(f'<rect x="{lx + 8 + k * 14}" y="{H - 32}" width="11" height="11" rx="2.5" fill="{lv[k]}"/>')
+    b.append(f'<text x="{lx + 8 + 5 * 14 + 4}" y="{H - 22}" font-size="10.5" class="mu">more</text>')
+    b.append(f'<text x="32" y="{H - 22}" font-size="10.5" class="mu">current streak: {a["current"]} d · refreshed daily</text>')
+    desc = (f"3D contribution calendar for the last 12 months: {stats['contributions']} contributions over "
+            f"{a['active']} active days, best day {a['best']}, longest streak {a['longest']} days.")
+    return svg_doc(W, H, "Activity · shalee-pnt", desc, "\n".join(b), t)
 
 
 # --------------------------------------------------------------------------- wild bugs
@@ -521,10 +564,9 @@ def render_encounter(t, daily, state) -> str:
     b = [f'<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{t["sky1"]}"/>'
          f'<stop offset="1" stop-color="{t["sky2"]}"/></linearGradient>'
          f'<radialGradient id="grass" cx=".5" cy=".4" r=".6"><stop offset="0" stop-color="{t["grass1"]}"/>'
-         f'<stop offset="1" stop-color="{t["grass2"]}"/></radialGradient>'
-         f'<clipPath id="card"><rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="24"/></clipPath></defs>']
-    b.append(f'<g clip-path="url(#card)"><rect width="{W}" height="{H}" fill="url(#sky)"/>')
-    for k in range(7):  # speed lines, like the start of an encounter
+         f'<stop offset="1" stop-color="{t["grass2"]}"/></radialGradient></defs>']
+    b.append(f'<g clip-path="url(#frame)"><rect width="{W}" height="{H}" fill="url(#sky)"/>')
+    for k in range(7):
         y = 26 + k * 26
         b.append(f'<rect x="-200" y="{y}" width="{120 + k * 13 % 70}" height="2" rx="1" fill="{t["primary"]}" opacity=".18">'
                  f'<animate attributeName="x" values="-200;{W}" dur="{2.4 + k * .3:.1f}s" begin="{k * .35:.2f}s" repeatCount="indefinite"/></rect>')
@@ -532,18 +574,16 @@ def render_encounter(t, daily, state) -> str:
     b.append(f'<ellipse cx="660" cy="186" rx="150" ry="20" fill="{t["grass1"]}" opacity=".6"/>')
     b.append(f'<g transform="translate(660 124)">{sprite(sid, t)}</g></g>')
     b.append(f'<rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="24" fill="none" stroke="{t["line"]}" stroke-width="1.5"/>')
-    # info box
     b.append(f'<rect x="28" y="26" width="392" height="110" rx="16" fill="{t["panel"]}" stroke="{t["line"]}"/>')
     b.append(f'<text x="48" y="60" class="b" font-size="21">{esc(name.upper())}</text>')
     b.append(f'<text x="400" y="60" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> {lvl}</text>')
     ps, pw = pill(48, 72, typ.upper(), TYPE_COLORS[typ], size=9.5, h=18)
     b.append(ps)
     b.append(f'<text x="{48 + pw + 10:.1f}" y="85" font-size="12.5" class="mu m">Bugdex #{num:03d}</text>')
-    b.append(f'<text x="48" y="118" font-size="11" class="b m" fill="{t["secondary"]}">CATCH</text>')
+    b.append(f'<text x="48" y="118" font-size="11" class="b m" fill="{t["primary"]}">CATCH</text>')
     b.append(f'<rect x="100" y="110" width="210" height="9" rx="4.5" fill="{t["locked"]}"/>')
-    b.append(f'<rect x="100" y="110" width="{210 * rate:.1f}" height="9" rx="4.5" fill="url(#megaS)"/>')
+    b.append(f'<rect x="100" y="110" width="{210 * rate:.1f}" height="9" rx="4.5" fill="{t["primary"]}"/>')
     b.append(f'<text x="400" y="119" text-anchor="end" font-size="12" class="m mu">{int(rate * 100)}% · {dex["caught"]}✓ {dex["escaped"]}✗</text>')
-    # dialog box
     b.append(f'<rect x="28" y="214" width="{W - 56}" height="56" rx="14" fill="{t["panel"]}" stroke="{t["primary"]}" stroke-width="2.5"/>')
     b.append(f'<text x="50" y="238" class="b" font-size="16">A wild {esc(name.upper())} appeared!</text>')
     b.append(f'<text x="50" y="259" font-size="13" class="mu">{esc(entry)}</text>')
@@ -554,7 +594,7 @@ def render_encounter(t, daily, state) -> str:
 
 def render_button(t) -> str:
     W, H = 300, 56
-    b = [f'<rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="28" fill="{t["panel"]}" stroke="url(#mega)" stroke-width="2.5"/>',
+    b = [f'<rect x="1.5" y="1.5" width="{W - 3}" height="{H - 3}" rx="26.5" fill="{t["panel"]}" stroke="{t["primary"]}" stroke-width="2.5"/>',
          '<g transform="translate(36 28)"><g>'
          '<animateTransform attributeName="transform" type="rotate" values="0;-18;18;-10;0;0" keyTimes="0;.1;.2;.3;.4;1" dur="2.6s" repeatCount="indefinite"/>'
          f'<circle r="16" fill="#ffffff" stroke="{t["outline"]}" stroke-width="2.5"/>'
@@ -575,11 +615,12 @@ def load_state() -> dict:
 
 def save_state(state):
     STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
-    STATE_FILE.write_text(json.dumps(state, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    STATE_FILE.write_text(json.dumps(state, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
 QUERY = """query($login:String!){ user(login:$login){ databaseId createdAt
-  contributionsCollection{ contributionCalendar{ totalContributions } }
+  contributionsCollection{ contributionCalendar{ totalContributions
+    weeks{ contributionDays{ date contributionCount weekday } } } }
   pullRequests(states:MERGED){ totalCount }
   organizations(first:1){ totalCount }
   repositories(ownerAffiliations:OWNER, first:100){ totalCount nodes{ stargazerCount } }
@@ -603,14 +644,17 @@ def fetch_stats(cached: dict) -> dict:
         print(f"stats fetch failed ({exc}): keeping cached stats", file=sys.stderr)
         return cached
     created = dt.date.fromisoformat(u["createdAt"][:10])
+    cal = u["contributionsCollection"]["contributionCalendar"]
     fresh = {
         "trainer_id": f'{u["databaseId"] % 100000:05d}',
         "days": (now_paris().date() - created).days,
-        "contributions": u["contributionsCollection"]["contributionCalendar"]["totalContributions"],
+        "contributions": cal["totalContributions"],
         "merged_prs": u["pullRequests"]["totalCount"],
         "orgs": u["organizations"]["totalCount"],
         "repos": u["repositories"]["totalCount"],
         "stars": sum(n["stargazerCount"] for n in u["repositories"]["nodes"]),
+        "calendar": [[[d["date"], d["contributionCount"], d["weekday"]] for d in wk["contributionDays"]]
+                     for wk in cal["weeks"]],
     }
     # The Actions token cannot see private repos or private org memberships:
     # milestone counters never go down because of a less privileged token.
@@ -634,21 +678,19 @@ def roll_daily(date: str) -> dict:
 
 def status_block(now: dt.datetime) -> str:
     h, weekend = now.hour, now.weekday() >= 5
-    if weekend and 9 <= h < 23:
-        icon, head, tail = "💤", "Weekend.", "Napping like a Dudunsparce. Back on Monday."
-    elif 23 <= h or h < 7:
-        icon, head, tail = "🌙", "Asleep.", "Even Dudunsparce needs eight hours."
+    if 23 <= h or h < 7:
+        head, tail = "Asleep.", "Even Dunsparce needs eight hours."
     elif weekend:
-        icon, head, tail = "💤", "Weekend.", "Napping like a Dudunsparce. Back on Monday."
+        head, tail = "Weekend.", "Napping like a Dunsparce. Back on Monday."
     elif h < 9:
-        icon, head, tail = "☕", "Booting up.", "Coffee first. Code later. Maybe."
+        head, tail = "Booting up.", "Coffee first. Code later. Maybe."
     elif h == 12:
-        icon, head, tail = "🍝", "Lunch break.", "PastaBox in progress. Do not disturb."
+        head, tail = "Lunch break.", "PastaBox in progress. Do not disturb."
     elif h < 17:
-        icon, head, tail = "🏢", "Clocked in.", "At city hall or at school, depending on the week. Replies may be slow."
+        head, tail = "Clocked in.", "At city hall or at school, depending on the week. Replies may be slow."
     else:
-        icon, head, tail = "🌆", "Clocked out.", "Side projects, or doing nothing. Probably nothing."
-    return f'<p align="center"><sub>{icon} <b>{head}</b> {tail} · <i>live status, Paris time</i></sub></p>'
+        head, tail = "Clocked out.", "Side projects, or doing nothing. Probably nothing."
+    return f'<p align="center"><sub><b>{head}</b> {tail} · <i>live status, Paris time</i></sub></p>'
 
 
 def picture(name: str, alt: str, width: str = "100%") -> str:
@@ -661,7 +703,6 @@ def encounter_block(state) -> str:
     body = ("Just press **Create** (or **Submit new issue**).\n\n"
             "A GitHub Action throws the ball at today's wild bug and replies here within a minute or two. "
             "One throw per trainer per day.")
-    from urllib.parse import quote
     url = f"https://github.com/{REPO}/issues/new?title={quote(title)}&body={quote(body)}"
     lines = [f'<p align="center"><a href="{url}">{picture("button", "Throw a Poké Ball", "300")}</a></p>', ""]
     caught_species = sum(1 for v in state["dex"].values() if v.get("caught"))
@@ -672,7 +713,7 @@ def encounter_block(state) -> str:
     if state["log"]:
         lines += ["| Trainer | Bug | Result | Date |", "|:--|:--|:--|:--|"]
         for e in state["log"][:8]:
-            res = "✅ caught" if e["caught"] else "💨 broke free"
+            res = "caught" if e["caught"] else "broke free"
             lines.append(f'| [@{e["login"]}](https://github.com/{e["login"]}) | {SPECIES_BY_ID[e["bug"]][1]} | {res} | {e["date"]} |')
     else:
         lines.append('<p align="center"><sub><i>No throws yet. The bugs are getting comfortable.</i></sub></p>')
@@ -693,7 +734,7 @@ def write_readme(state, now):
     README.write_text(text, encoding="utf-8", newline="\n")
 
 
-def write_assets(state, which=("card", "party", "omnitrix", "encounter", "button")):
+def write_assets(state, which=("card", "party", "omnitrix", "activity", "encounter", "button")):
     for theme, t in THEMES.items():
         out = ASSETS / theme
         out.mkdir(parents=True, exist_ok=True)
@@ -701,6 +742,7 @@ def write_assets(state, which=("card", "party", "omnitrix", "encounter", "button
             "card": lambda: render_card(t, state["stats"], state["daily"]),
             "party": lambda: render_party(t, state["daily"]),
             "omnitrix": lambda: render_omnitrix(t),
+            "activity": lambda: render_activity(t, state["stats"]),
             "encounter": lambda: render_encounter(t, state["daily"], state),
             "button": lambda: render_button(t),
         }
@@ -716,7 +758,7 @@ def cmd_update(force: bool):
     today = now.date().isoformat()
     if force or state["daily"].get("date") != today:
         state["stats"] = fetch_stats(state.get("stats", {}))
-        if not state["stats"]:
+        if not state["stats"].get("calendar"):
             raise SystemExit("no stats available yet: run once with GH_TOKEN set")
         state["daily"] = roll_daily(today)
         state["throws"] = {today: state.get("throws", {}).get(today, [])}
@@ -758,11 +800,11 @@ def cmd_encounter():
     write_assets(state, which=("encounter",))
     write_readme(state, now)
     if caught:
-        msg = (f"### Gotcha! {name} was caught! ✅\n\n"
+        msg = (f"### Gotcha! {name} was caught!\n\n"
                f"Nice throw, @{login}. The bug has been moved to the backlog, where it will be very happy.\n\n"
                f"> **Bugdex · {name}** ({typ}): {entry}")
     else:
-        msg = (f"### Oh no! The wild {name} broke free. 💨\n\n"
+        msg = (f"### Oh no! The wild {name} broke free.\n\n"
                f"Good try, @{login}. It is in production now. Come back tomorrow for a new one.\n\n"
                f"> **Bugdex · {name}** ({typ}): {entry}")
     reply.write_text(msg + f"\n\n<sub>Catch rate {int(rate * 100)}% · your throw is logged in the "

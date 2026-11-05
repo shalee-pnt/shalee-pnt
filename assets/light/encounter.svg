@@ -7,27 +7,15 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 .b{font-weight:700}
 .mu{fill:#8a6470}
 .lb{font-size:11px;letter-spacing:2.4px;font-weight:600;fill:#8a6470}
-
 </style>
 <defs>
-<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-<stop offset="0" stop-color="#fff7f8"/><stop offset="1" stop-color="#fde6eb"/>
-</linearGradient>
-<linearGradient id="mega" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="880" y2="0" spreadMethod="repeat">
-<stop offset="0" stop-color="#ff9a3c"/><stop offset=".33" stop-color="#ff4f8b"/>
-<stop offset=".66" stop-color="#9b5cff"/><stop offset="1" stop-color="#ff9a3c"/>
-<animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="880 0" dur="9s" repeatCount="indefinite"/>
-</linearGradient>
-<linearGradient id="megaS" x1="0" y1="0" x2="1" y2="1">
-<stop offset="0" stop-color="#ff9a3c"/><stop offset=".4" stop-color="#ff4f8b"/>
-<stop offset=".75" stop-color="#9b5cff"/><stop offset="1" stop-color="#3ad1ff"/>
-</linearGradient>
-<filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+<pattern id="dots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="9" cy="9" r="1.1" fill="#f6dbe1"/></pattern>
+<filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8"/></filter>
 <clipPath id="frame"><rect x="1" y="1" width="878" height="288" rx="24"/></clipPath>
 </defs>
 <g fill="#25161c">
-<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3f5"/><stop offset="1" stop-color="#ffdbe3"/></linearGradient><radialGradient id="grass" cx=".5" cy=".4" r=".6"><stop offset="0" stop-color="#bfe3b0"/><stop offset="1" stop-color="#93cc85"/></radialGradient><clipPath id="card"><rect x="1" y="1" width="878" height="288" rx="24"/></clipPath></defs>
-<g clip-path="url(#card)"><rect width="880" height="290" fill="url(#sky)"/>
+<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3f5"/><stop offset="1" stop-color="#ffdbe3"/></linearGradient><radialGradient id="grass" cx=".5" cy=".4" r=".6"><stop offset="0" stop-color="#bfe3b0"/><stop offset="1" stop-color="#93cc85"/></radialGradient></defs>
+<g clip-path="url(#frame)"><rect width="880" height="290" fill="url(#sky)"/>
 <rect x="-200" y="26" width="120" height="2" rx="1" fill="#d7263d" opacity=".18"><animate attributeName="x" values="-200;880" dur="2.4s" begin="0.00s" repeatCount="indefinite"/></rect>
 <rect x="-200" y="52" width="133" height="2" rx="1" fill="#d7263d" opacity=".18"><animate attributeName="x" values="-200;880" dur="2.7s" begin="0.35s" repeatCount="indefinite"/></rect>
 <rect x="-200" y="78" width="146" height="2" rx="1" fill="#d7263d" opacity=".18"><animate attributeName="x" values="-200;880" dur="3.0s" begin="0.70s" repeatCount="indefinite"/></rect>
@@ -44,9 +32,9 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <text x="400" y="60" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> 59</text>
 <rect x="48.0" y="72.0" width="65.1" height="18" rx="9.0" fill="#d0402f"/><text x="80.6" y="84.4" text-anchor="middle" class="b" font-size="9.5" fill="#ffffff" letter-spacing=".6">FIGHTING</text>
 <text x="123.1" y="85" font-size="12.5" class="mu m">Bugdex #008</text>
-<text x="48" y="118" font-size="11" class="b m" fill="#c2185b">CATCH</text>
-<rect x="100" y="110" width="210" height="9" rx="4.5" fill="#f3e2e6"/>
-<rect x="100" y="110" width="105.0" height="9" rx="4.5" fill="url(#megaS)"/>
+<text x="48" y="118" font-size="11" class="b m" fill="#d7263d">CATCH</text>
+<rect x="100" y="110" width="210" height="9" rx="4.5" fill="#f5e4e8"/>
+<rect x="100" y="110" width="105.0" height="9" rx="4.5" fill="#d7263d"/>
 <text x="400" y="119" text-anchor="end" font-size="12" class="m mu">50% · 0✓ 1✗</text>
 <rect x="28" y="214" width="824" height="56" rx="14" fill="#ffffff" stroke="#d7263d" stroke-width="2.5"/>
 <text x="50" y="238" class="b" font-size="16">A wild CONFLICTWIN appeared!</text>
