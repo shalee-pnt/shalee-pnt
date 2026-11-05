@@ -40,10 +40,26 @@
     "repos": 9,
     "stars": 1
   },
-  "log": [],
-  "dex": {},
-  "throws": {
-    "2026-11-05": []
+  "log": [
+    {
+      "login": "shalee-pnt",
+      "bug": "conflictwin",
+      "caught": false,
+      "date": "2026-11-05"
+    }
+  ],
+  "dex": {
+    "conflictwin": {
+      "caught": 0,
+      "escaped": 1
+    }
   },
-  "trainers": []
+  "throws": {
+    "2026-11-05": [
+      "shalee-pnt"
+    ]
+  },
+  "trainers": [
+    "shalee-pnt"
+  ]
 }
