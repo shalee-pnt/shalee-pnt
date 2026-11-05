@@ -43,7 +43,7 @@ My specialty is the **Normal type**. Like Larry, my favourite Elite Four member,
 | | Project | What it does | Stack |
 |:-:|:--|:--|:--|
 | 01 | **Metacatalogue** 🔒 | Catalogue and audit app for a whole file server: full-text search, AD sign-in, AI summaries from a local LLM | Python · Flask · MariaDB · Whoosh · Ollama |
-| 02 | **[ViscoCrowd](https://github.com/ViscoCrowd/ViscoCrowd-simulation)** | Panic evacuation of an indoor pool as a particle simulation. I wrote the wet-tile grip model and the exit flow measurements | Python · NumPy · SciPy · Matplotlib |
+| 02 | **[ViscoCrowd](https://github.com/ViscoCrowd/ViscoCrowd-simulation)** | Panic evacuation of an indoor pool as a particle simulation. I built the wet-floor physics (grip-bounded acceleration), the exit flow measurements, the pool parameter sweeps against a dry control, and the Windows tooling | Python · NumPy · SciPy · Matplotlib · Docker |
 | 03 | **[Scubanion](https://github.com/Scubatana/scubanion)** | Connected Tamagotchi that grows when you walk. I wrote the NFC kiosk firmware and its anti-cheat | C++ · ESP32 · MQTT · Laravel · Nuxt |
 | 04 | **AllRoads** 🔒 | Urban mobility app for the Nice area. I designed tables and stored procedures, and redesigned sign-up | TypeScript · Node.js · MySQL |
 | 05 | **Langdle** 🔒 | Guess the programming language of the day | JavaScript · Node.js |

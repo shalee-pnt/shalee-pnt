@@ -97,8 +97,8 @@ PROJECTS = [
      "AI summaries from a local LLM.",
      ["Python", "Flask", "MariaDB", "Whoosh", "Ollama"]),
     ("ViscoCrowd", "school · team of 3 · public",
-     "Simulates a panicked crowd leaving an indoor pool, one particle at a time. I wrote the wet-tile "
-     "physics (no grip, no brakes) and the flow measurements at the exit.",
+     "Simulates a panicked crowd leaving an indoor pool, one particle at a time. I built the wet-floor "
+     "physics, the flow measurements, the pool experiments and the Windows tooling.",
      ["Python", "NumPy", "SciPy", "Matplotlib", "Docker"]),
     ("Scubanion", "team of 4 · public",
      "A Tamagotchi that grows when you walk outside. I wrote the NFC kiosk firmware and its anti-cheat.",
