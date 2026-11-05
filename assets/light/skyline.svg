@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" role="img" aria-labelledby="title desc">
 <title id="title">Lumiose skyline · shalee-pnt</title>
-<desc id="desc">Lumiose City skyline built from the last 53 weeks of contributions: one building per week, one lit window per contribution. The Prism Tower lights up on the best week, Nov 1 – Nov 5, with 39 contributions.</desc>
+<desc id="desc">Lumiose City skyline built from the last 53 weeks of contributions: one building per week, one lit window per contribution. The Prism Tower lights up on the best week, Nov 1 – Nov 5, with 40 contributions.</desc>
 <style>
 text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif}
 .m{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace}
@@ -211,28 +211,28 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <rect x="744.7" y="230" width="12.5" height="22" fill="#4e2e3d"/>
 <line x1="750.9" y1="230" x2="750.9" y2="222" stroke="#4e2e3d" stroke-width="1.2"/>
 <path d="M746.7 234h3v3.4h-3zM752.1 234h3v3.4h-3zM746.7 240h3v3.4h-3zM752.1 240h3v3.4h-3zM746.7 246h3v3.4h-3zM752.1 246h3v3.4h-3z" fill="#5a3747"/>
-<rect x="760.2" y="176" width="12.5" height="76" fill="#452936"/>
-<rect x="762.2" y="172" width="4" height="4" fill="#452936"/>
-<path d="M762.3 180h3v3.4h-3zM767.7 180h3v3.4h-3zM762.3 186h3v3.4h-3zM767.7 186h3v3.4h-3zM767.7 192h3v3.4h-3zM767.7 198h3v3.4h-3zM762.3 204h3v3.4h-3zM767.7 204h3v3.4h-3zM762.3 210h3v3.4h-3zM762.3 216h3v3.4h-3zM762.3 222h3v3.4h-3zM762.3 234h3v3.4h-3zM767.7 234h3v3.4h-3zM762.3 240h3v3.4h-3zM767.7 240h3v3.4h-3zM762.3 246h3v3.4h-3z" fill="#5a3747"/>
-<g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5879;0.6079;.9;.95;1" dur="14.0s" repeatCount="indefinite"/><path d="M762.3 192h3v3.4h-3zM767.7 210h3v3.4h-3zM762.3 228h3v3.4h-3zM767.7 246h3v3.4h-3z" fill="#ffcf6e"/><path d="M762.3 198h3v3.4h-3zM767.7 216h3v3.4h-3zM767.7 222h3v3.4h-3z" fill="#ff8a9a"/><path d="M767.7 228h3v3.4h-3z" fill="#ffe3a3"/></g>
+<rect x="760.2" y="182" width="12.5" height="70" fill="#452936"/>
+<rect x="762.2" y="178" width="4" height="4" fill="#452936"/>
+<path d="M762.3 186h3v3.4h-3zM762.3 192h3v3.4h-3zM767.7 192h3v3.4h-3zM767.7 198h3v3.4h-3zM767.7 204h3v3.4h-3zM762.3 210h3v3.4h-3zM767.7 210h3v3.4h-3zM762.3 216h3v3.4h-3zM762.3 222h3v3.4h-3zM762.3 228h3v3.4h-3zM762.3 240h3v3.4h-3zM767.7 240h3v3.4h-3zM762.3 246h3v3.4h-3zM767.7 246h3v3.4h-3z" fill="#5a3747"/>
+<g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5879;0.6079;.9;.95;1" dur="14.0s" repeatCount="indefinite"/><path d="M767.7 186h3v3.4h-3zM762.3 204h3v3.4h-3zM767.7 216h3v3.4h-3z" fill="#ff8a9a"/><path d="M762.3 198h3v3.4h-3zM767.7 222h3v3.4h-3zM762.3 234h3v3.4h-3zM767.7 234h3v3.4h-3z" fill="#ffcf6e"/><path d="M767.7 228h3v3.4h-3z" fill="#ffe3a3"/></g>
 <rect x="775.8" y="206" width="12.5" height="46" fill="#462a37"/>
 <line x1="782.0" y1="206" x2="782.0" y2="198" stroke="#462a37" stroke-width="1.2"/>
 <path d="M783.2 210h3v3.4h-3zM777.8 216h3v3.4h-3zM783.2 216h3v3.4h-3zM777.8 222h3v3.4h-3zM783.2 222h3v3.4h-3zM777.8 228h3v3.4h-3zM777.8 234h3v3.4h-3zM783.2 234h3v3.4h-3zM777.8 240h3v3.4h-3zM783.2 240h3v3.4h-3zM777.8 246h3v3.4h-3zM783.2 246h3v3.4h-3z" fill="#5a3747"/>
 <g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.5989;0.6189;.9;.95;1" dur="14.0s" repeatCount="indefinite"/><path d="M777.8 210h3v3.4h-3z" fill="#ff8a9a"/><path d="M783.2 228h3v3.4h-3z" fill="#ffcf6e"/></g>
-<rect x="791.3" y="176" width="12.5" height="76" fill="#523140"/>
-<path d="M798.8 180h3v3.4h-3zM798.8 186h3v3.4h-3zM793.4 192h3v3.4h-3zM798.8 192h3v3.4h-3zM793.4 198h3v3.4h-3zM798.8 198h3v3.4h-3zM798.8 204h3v3.4h-3zM793.4 210h3v3.4h-3zM798.8 216h3v3.4h-3zM793.4 222h3v3.4h-3zM798.8 222h3v3.4h-3zM798.8 228h3v3.4h-3zM793.4 234h3v3.4h-3zM793.4 240h3v3.4h-3zM793.4 246h3v3.4h-3zM798.8 246h3v3.4h-3z" fill="#5a3747"/>
-<g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6099;0.6299;.9;.95;1" dur="14.0s" repeatCount="indefinite"/><path d="M793.4 180h3v3.4h-3zM793.4 204h3v3.4h-3zM798.8 210h3v3.4h-3zM793.4 216h3v3.4h-3zM798.8 234h3v3.4h-3z" fill="#ffcf6e"/><path d="M793.4 186h3v3.4h-3zM793.4 228h3v3.4h-3z" fill="#ffe3a3"/><path d="M798.8 240h3v3.4h-3z" fill="#ff8a9a"/></g>
-<rect x="806.9" y="164" width="12.5" height="88" fill="#4c2d3c"/>
-<rect x="808.9" y="160" width="4" height="4" fill="#4c2d3c"/>
-<path d="M808.9 174h3v3.4h-3zM808.9 180h3v3.4h-3zM814.3 180h3v3.4h-3zM814.3 186h3v3.4h-3zM814.3 192h3v3.4h-3zM808.9 198h3v3.4h-3zM814.3 198h3v3.4h-3zM814.3 204h3v3.4h-3zM808.9 216h3v3.4h-3zM808.9 222h3v3.4h-3zM808.9 228h3v3.4h-3zM814.3 228h3v3.4h-3zM808.9 234h3v3.4h-3zM814.3 234h3v3.4h-3zM814.3 240h3v3.4h-3zM814.3 246h3v3.4h-3z" fill="#5a3747"/>
-<g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6209;0.6409;.9;.95;1" dur="14.0s" repeatCount="indefinite"/><path d="M808.9 168h3v3.4h-3zM808.9 186h3v3.4h-3zM814.3 216h3v3.4h-3z" fill="#ff8a9a"/><path d="M814.3 168h3v3.4h-3zM808.9 192h3v3.4h-3zM808.9 204h3v3.4h-3zM814.3 210h3v3.4h-3zM814.3 222h3v3.4h-3z" fill="#ffe3a3"/><path d="M814.3 174h3v3.4h-3zM808.9 210h3v3.4h-3zM808.9 240h3v3.4h-3zM808.9 246h3v3.4h-3z" fill="#ffcf6e"/></g>
+<rect x="791.3" y="182" width="12.5" height="70" fill="#523140"/>
+<path d="M798.8 186h3v3.4h-3zM798.8 192h3v3.4h-3zM793.4 198h3v3.4h-3zM798.8 198h3v3.4h-3zM793.4 204h3v3.4h-3zM798.8 204h3v3.4h-3zM798.8 210h3v3.4h-3zM798.8 222h3v3.4h-3zM793.4 228h3v3.4h-3zM798.8 228h3v3.4h-3zM798.8 234h3v3.4h-3zM793.4 240h3v3.4h-3zM793.4 246h3v3.4h-3zM798.8 246h3v3.4h-3z" fill="#5a3747"/>
+<g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6099;0.6299;.9;.95;1" dur="14.0s" repeatCount="indefinite"/><path d="M793.4 186h3v3.4h-3zM793.4 210h3v3.4h-3zM793.4 216h3v3.4h-3zM798.8 216h3v3.4h-3zM793.4 234h3v3.4h-3z" fill="#ffcf6e"/><path d="M793.4 192h3v3.4h-3zM793.4 222h3v3.4h-3z" fill="#ffe3a3"/><path d="M798.8 240h3v3.4h-3z" fill="#ff8a9a"/></g>
+<rect x="806.9" y="170" width="12.5" height="82" fill="#4c2d3c"/>
+<rect x="808.9" y="166" width="4" height="4" fill="#4c2d3c"/>
+<path d="M808.9 180h3v3.4h-3zM814.3 186h3v3.4h-3zM814.3 192h3v3.4h-3zM808.9 198h3v3.4h-3zM814.3 198h3v3.4h-3zM808.9 204h3v3.4h-3zM814.3 204h3v3.4h-3zM814.3 210h3v3.4h-3zM808.9 222h3v3.4h-3zM808.9 228h3v3.4h-3zM808.9 234h3v3.4h-3zM814.3 234h3v3.4h-3zM814.3 240h3v3.4h-3zM814.3 246h3v3.4h-3z" fill="#5a3747"/>
+<g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6209;0.6409;.9;.95;1" dur="14.0s" repeatCount="indefinite"/><path d="M808.9 174h3v3.4h-3zM808.9 186h3v3.4h-3zM814.3 222h3v3.4h-3z" fill="#ff8a9a"/><path d="M814.3 174h3v3.4h-3zM808.9 192h3v3.4h-3zM808.9 210h3v3.4h-3zM814.3 216h3v3.4h-3zM814.3 228h3v3.4h-3z" fill="#ffe3a3"/><path d="M814.3 180h3v3.4h-3zM808.9 216h3v3.4h-3zM808.9 240h3v3.4h-3zM808.9 246h3v3.4h-3z" fill="#ffcf6e"/></g>
 <rect x="822.4" y="170" width="12.5" height="82" fill="#4e2e3d"/>
 <path d="M829.9 174h3v3.4h-3zM829.9 180h3v3.4h-3zM824.5 186h3v3.4h-3zM829.9 186h3v3.4h-3zM824.5 192h3v3.4h-3zM824.5 198h3v3.4h-3zM829.9 198h3v3.4h-3zM824.5 204h3v3.4h-3zM829.9 204h3v3.4h-3zM829.9 210h3v3.4h-3zM824.5 222h3v3.4h-3zM824.5 228h3v3.4h-3zM829.9 228h3v3.4h-3zM829.9 234h3v3.4h-3zM824.5 240h3v3.4h-3zM824.5 246h3v3.4h-3z" fill="#5a3747"/>
 <g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6319;0.6519;.9;.95;1" dur="14.0s" repeatCount="indefinite"/><path d="M824.5 174h3v3.4h-3zM824.5 180h3v3.4h-3zM829.9 192h3v3.4h-3zM824.5 216h3v3.4h-3zM829.9 216h3v3.4h-3zM829.9 246h3v3.4h-3z" fill="#ffcf6e"/><path d="M824.5 210h3v3.4h-3zM824.5 234h3v3.4h-3z" fill="#ffe3a3"/><path d="M829.9 222h3v3.4h-3zM829.9 240h3v3.4h-3z" fill="#ff8a9a"/></g>
 <rect x="838.0" y="116" width="12.5" height="136" fill="#523140"/>
 <line x1="844.2" y1="116" x2="844.2" y2="106" stroke="#523140" stroke-width="1.4"/><circle cx="844.2" cy="105" r="2" fill="#d7263d"><animate attributeName="opacity" values="1;1;.1;.1" keyTimes="0;.5;.55;1" dur="1.6s" repeatCount="indefinite"/></circle>
-<path d="M840.0 144h3v3.4h-3zM845.4 150h3v3.4h-3zM845.4 168h3v3.4h-3zM845.4 204h3v3.4h-3zM840.0 246h3v3.4h-3z" fill="#5a3747"/>
-<g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6429;0.6629;.9;.95;1" dur="14.0s" repeatCount="indefinite"/><path d="M840.0 120h3v3.4h-3zM840.0 156h3v3.4h-3zM845.4 156h3v3.4h-3zM845.4 186h3v3.4h-3zM840.0 198h3v3.4h-3zM845.4 198h3v3.4h-3zM845.4 210h3v3.4h-3zM840.0 234h3v3.4h-3z" fill="#ff8a9a"/><path d="M845.4 120h3v3.4h-3zM845.4 126h3v3.4h-3zM840.0 150h3v3.4h-3zM840.0 162h3v3.4h-3zM840.0 168h3v3.4h-3zM840.0 174h3v3.4h-3zM840.0 186h3v3.4h-3zM845.4 192h3v3.4h-3zM840.0 204h3v3.4h-3zM840.0 216h3v3.4h-3zM845.4 228h3v3.4h-3zM840.0 240h3v3.4h-3zM845.4 240h3v3.4h-3zM845.4 246h3v3.4h-3z" fill="#ffe3a3"/><path d="M840.0 126h3v3.4h-3zM840.0 132h3v3.4h-3zM845.4 132h3v3.4h-3zM840.0 138h3v3.4h-3zM845.4 138h3v3.4h-3zM845.4 144h3v3.4h-3zM845.4 162h3v3.4h-3zM845.4 174h3v3.4h-3zM840.0 180h3v3.4h-3zM845.4 180h3v3.4h-3zM840.0 192h3v3.4h-3zM840.0 210h3v3.4h-3zM845.4 216h3v3.4h-3zM840.0 222h3v3.4h-3zM845.4 222h3v3.4h-3zM840.0 228h3v3.4h-3zM845.4 234h3v3.4h-3z" fill="#ffcf6e"/></g>
+<path d="M840.0 144h3v3.4h-3zM845.4 168h3v3.4h-3zM845.4 204h3v3.4h-3zM840.0 246h3v3.4h-3z" fill="#5a3747"/>
+<g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6429;0.6629;.9;.95;1" dur="14.0s" repeatCount="indefinite"/><path d="M840.0 120h3v3.4h-3zM840.0 126h3v3.4h-3zM845.4 144h3v3.4h-3zM840.0 156h3v3.4h-3zM840.0 162h3v3.4h-3zM845.4 162h3v3.4h-3zM840.0 180h3v3.4h-3zM845.4 186h3v3.4h-3zM840.0 198h3v3.4h-3zM840.0 210h3v3.4h-3zM845.4 222h3v3.4h-3zM840.0 234h3v3.4h-3zM845.4 234h3v3.4h-3zM840.0 240h3v3.4h-3zM845.4 240h3v3.4h-3z" fill="#ffe3a3"/><path d="M845.4 120h3v3.4h-3zM845.4 126h3v3.4h-3zM840.0 132h3v3.4h-3zM845.4 132h3v3.4h-3zM840.0 138h3v3.4h-3zM845.4 138h3v3.4h-3zM845.4 156h3v3.4h-3zM840.0 168h3v3.4h-3zM840.0 174h3v3.4h-3zM845.4 174h3v3.4h-3zM840.0 186h3v3.4h-3zM845.4 198h3v3.4h-3zM845.4 210h3v3.4h-3zM840.0 216h3v3.4h-3zM845.4 216h3v3.4h-3zM840.0 222h3v3.4h-3zM845.4 228h3v3.4h-3zM845.4 246h3v3.4h-3z" fill="#ffcf6e"/><path d="M840.0 150h3v3.4h-3zM845.4 150h3v3.4h-3zM845.4 180h3v3.4h-3zM840.0 192h3v3.4h-3zM845.4 192h3v3.4h-3zM840.0 204h3v3.4h-3zM840.0 228h3v3.4h-3z" fill="#ff8a9a"/></g>
 <rect x="0" y="252" width="880" height="48" fill="#fffafb" clip-path="url(#frame)"/>
 <rect x="24" y="252" width="832" height="2" rx="1" fill="#f0c4ce"/>
 <text x="107.2" y="274" font-size="10.5" class="mu m">Dec</text>
@@ -250,7 +250,7 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <text x="32" y="44" class="lb">LUMIOSE CITY · IN THE AFTERNOON</text>
 <text x="32" y="66" class="mu" font-size="12.5">1 building = 1 week · 1 lit window = 1 contribution</text>
 <text x="848" y="44" class="lb" text-anchor="end">PRISM TOWER · BEST WEEK</text>
-<text x="848" y="70" class="b" font-size="19" text-anchor="end">39 contributions</text>
+<text x="848" y="70" class="b" font-size="19" text-anchor="end">40 contributions</text>
 <text x="848" y="90" class="mu" font-size="12.5" text-anchor="end">Nov 1 – Nov 5</text>
 <rect x="1" y="1" width="878" height="298" rx="24" fill="none" stroke="#f0c4ce" stroke-width="1.5"/>
 </g>
