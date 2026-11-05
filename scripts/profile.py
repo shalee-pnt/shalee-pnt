@@ -373,7 +373,6 @@ def render_card(t, stats, daily, now=None) -> str:
     b.append(f'<text x="{px + 20}" y="{py + 277}" font-size="12.5" class="mu">{esc(sub)}</text>')
     b.append(f'<text x="{px + 20}" y="{py + 295}" font-size="11.5" class="m mu">today: {esc(nature[1])}  {esc(nature[2])}</text>')
     b.append(f'<line x1="{px + 20}" y1="{py + 310}" x2="{px + pw - 20}" y2="{py + 310}" stroke="{t["line"]}" stroke-dasharray="2 4"/>')
-    b.append(f'<text x="{px + 20}" y="{py + 332}" class="lb" font-size="9.5">POKÉMON-AMIE</text>')
     b.append(f'<text x="{px + pw - 20}" y="{py + 332}" font-size="11" class="mu" text-anchor="end">{esc(a["mood"])}</text>')
     for row, (label, kind, v) in enumerate((("AFFECTION", "heart", a["affection"]), ("FULLNESS", "puff", a["fullness"]),
                                             ("ENJOYMENT", "note", a["enjoyment"]))):
@@ -939,7 +938,7 @@ def render_stats(t, theme, ins, stats) -> str:
     verdict = "Getting there." if total < 415 else "Outclassed."
     b.append(f'<line x1="{x0}" y1="{H - 62}" x2="{W - 40}" y2="{H - 62}" stroke="{t["line"]}" stroke-dasharray="2 4"/>')
     b.append(f'<text x="{x0}" y="{H - 40}" class="b" font-size="14">Total {total}'
-             f'<tspan class="mu" font-weight="400" font-size="12.5">   ·   Dunsparce: 415. {verdict}</tspan></text>')
+             f'<tspan class="mu" font-weight="400" font-size="12.5">   ·   Dunsparce’s base stat total: 415. {verdict}</tspan></text>')
     b.append(f'<text x="{x0}" y="{H - 20}" font-size="12.5" class="mu">Specialty: {st[best][0]} ({SPECIALTY[best]}). '
              f'Very Normal-type.</text>')
     desc = "Base stats from real data: " + ", ".join(f"{n} {v} ({c})" for n, v, c in st.values()) + f". Total {total}."
@@ -985,7 +984,7 @@ def render_battle(t, theme, ins) -> str:
                     f'<rect x="-40" y="-24" width="80" height="48" rx="6" fill="{t["panel"]}" stroke="{t["line"]}" stroke-width="1.5"/>'
                     f'<rect x="-30" y="-12" width="{30 + k * 6}" height="4" rx="2" fill="{t["line"]}"/>'
                     f'<rect x="-30" y="-2" width="{44 - k * 5}" height="4" rx="2" fill="{t["line"]}"/>'
-                    + (f'<text x="12" y="16" class="b m" font-size="10" fill="{t["primary"]}">TODO</text>' if k == 3 else "")
+                    + (f'<text x="2" y="16" class="b m" font-size="10" fill="{t["primary"]}">TODO</text>' if k == 3 else "")
                     + '</g>')
     b.append(f'<g>{"".join(pile)}{bob(3, 2.8)}</g>')
     b.append(f'<rect x="40" y="34" width="300" height="62" rx="12" fill="{t["panel"]}" stroke="{t["line"]}"/>'
@@ -994,8 +993,9 @@ def render_battle(t, theme, ins) -> str:
     b.append(hp_bar(58, 72, 240, max(8, 100 - rate)))
     # player: Dunsparce, facing the backlog
     b.append(f'<ellipse cx="214" cy="222" rx="120" ry="20" fill="{t["panel2"]}" stroke="{t["line"]}"/>')
-    b.append(f'<g><g transform="translate(286 70) scale(-1 1)"><image href="{data_uri("dunsparce_small.png")}" '
-             f'x="0" y="0" width="140" height="160"/></g>{bob(3, 3.2)}</g>')
+    # the 3D model (Pokémon HOME render), turned to face the backlog
+    b.append(f'<g><g transform="translate(273 96) scale(-1 1)"><image href="{data_uri("dunsparce_3d.png")}" '
+             f'x="0" y="0" width="118" height="134"/></g>{bob(3, 3.2)}</g>')
     b.append(f'<rect x="510" y="176" width="330" height="62" rx="12" fill="{t["panel"]}" stroke="{t["line"]}"/>'
              f'<text x="528" y="202" class="b" font-size="15">shalee-pnt</text>'
              f'<text x="822" y="202" text-anchor="end" class="b m" font-size="13"><tspan class="mu" font-size="10">Lv.</tspan> 3</text>')

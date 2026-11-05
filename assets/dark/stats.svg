@@ -40,7 +40,7 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <text x="430" y="224" class="b" font-size="13.5">Sp. Def</text><text x="430" y="238" font-size="10.5" class="mu">docs + test commits</text><text x="612" y="225" text-anchor="end" class="b m" font-size="15">28</text><rect x="626" y="215" width="214" height="9" rx="4.5" fill="#1b2750"/><rect x="626" y="215" width="80.4" height="9" rx="4.5" fill="#a7db8d"><animate attributeName="width" from="0" to="80.4" dur="1.2s" fill="freeze" calcMode="spline" keySplines=".2 .8 .2 1" keyTimes="0;1"/></rect>
 <text x="430" y="258" class="b" font-size="13.5">Speed</text><text x="430" y="272" font-size="10.5" class="mu">PR merge speed · median 11 h</text><text x="612" y="259" text-anchor="end" class="b m" font-size="15">69</text><rect x="626" y="249" width="214" height="9" rx="4.5" fill="#1b2750"/><rect x="626" y="249" width="198.1" height="9" rx="4.5" fill="#fa92b2"><animate attributeName="width" from="0" to="198.1" dur="1.2s" fill="freeze" calcMode="spline" keySplines=".2 .8 .2 1" keyTimes="0;1"/></rect>
 <line x1="430" y1="282" x2="840" y2="282" stroke="#25375f" stroke-dasharray="2 4"/>
-<text x="430" y="304" class="b" font-size="14">Total 280<tspan class="mu" font-weight="400" font-size="12.5">   ·   Dunsparce: 415. Getting there.</tspan></text>
+<text x="430" y="304" class="b" font-size="14">Total 280<tspan class="mu" font-weight="400" font-size="12.5">   ·   Dunsparce’s base stat total: 415. Getting there.</tspan></text>
 <text x="430" y="324" font-size="12.5" class="mu">Specialty: Defense (fixing things). Very Normal-type.</text>
 </g>
 </svg>
