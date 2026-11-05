@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Generates the shalee-pnt GitHub profile.
 
-Trainer card, party, code DNA, projects dial, Lumiose skyline, commit clock, wild-bug encounter
-and status line, with the standard library only.
+Trainer card with Pokémon-Amie, party, code DNA, base stats, battle log, projects dial,
+Lumiose skyline, commit clock, wild-bug encounter and status line, with the standard library only.
 
     python scripts/profile.py update            hourly: status line, full refresh once per day
     python scripts/profile.py update --force    full refresh now
@@ -255,9 +255,64 @@ def bob(dy=4, dur=3.2, begin=0.0) -> str:
 
 # --------------------------------------------------------------------------- trainer card
 
-def render_card(t, stats, daily) -> str:
-    W, H = 880, 420
+def amie(stats, now) -> dict:
+    """Pokémon-Amie meters fed by real activity: affection = active days over the last 30,
+    fullness = today's contributions, enjoyment = current streak. Dates are Paris dates."""
+    days = [d for wk in stats.get("calendar", []) for d in wk]
+    today = now.date().isoformat()
+    counts = {d[0]: d[1] for d in days}
+    fed = counts.get(today, 0)
+    past = [d for d in days if d[0] < today]
+    streak = 0
+    for d in reversed(past):
+        if not d[1]:
+            break
+        streak += 1
+    streak += 1 if fed else 0
+    active30 = sum(1 for d in past[-29:] if d[1]) + (1 if fed else 0)
+    last = next((d[0] for d in reversed(past) if d[1]), None)
+    idle = (now.date() - dt.date.fromisoformat(last)).days if last and not fed else 0
+    pips = lambda v, steps: sum(1 for s in steps if v >= s)
+    h, weekend = now.hour, now.weekday() >= 5
+    if 23 <= h or h < 7:
+        mood, fx = "asleep", "z"
+    elif fed:
+        mood, fx = f"well fed · {fed} today", "heart"
+    elif idle >= 3:
+        mood, fx = f"hungry · {idle} days", None
+    elif weekend:
+        mood, fx = "napping (weekend)", "z"
+    elif h < 12:
+        mood, fx = "waiting for breakfast", None
+    else:
+        mood, fx = "peckish", None
+    return {
+        "affection": pips(active30, (1, 4, 8, 12, 16)),
+        "fullness": pips(fed, (1, 3, 6, 10, 15)),
+        "enjoyment": pips(streak, (1, 2, 3, 5, 7)),
+        "streak": streak, "fed": fed, "mood": mood, "fx": fx, "evolved": streak >= 7,
+    }
+
+
+def pip(kind, x, y, on, t) -> str:
+    """Small Pokémon-Amie icons: heart (affection), Poké Puff (fullness), note (enjoyment)."""
+    col = {"heart": "#f05a8c", "puff": "#e8a33d", "note": t["primary"]}[kind] if on else t["locked"]
+    st = "" if on else f' stroke="{t["line"]}" stroke-width="1"'
+    if kind == "heart":
+        return (f'<path d="M{x} {y + 5} C{x - 8} {y - 1} {x - 4} {y - 7} {x} {y - 3} '
+                f'C{x + 4} {y - 7} {x + 8} {y - 1} {x} {y + 5}Z" fill="{col}"{st}/>')
+    if kind == "puff":
+        return (f'<circle cx="{x}" cy="{y + 1}" r="5" fill="{col}"{st}/>'
+                f'<circle cx="{x}" cy="{y - 3.5}" r="2.2" fill="{"#ffffff" if on else t["locked"]}"{st}/>')
+    return (f'<ellipse cx="{x - 1.8}" cy="{y + 3}" rx="3.2" ry="2.4" fill="{col}"{st} transform="rotate(-20 {x - 1.8} {y + 3})"/>'
+            f'<path d="M{x + 1.2} {y + 3} V{y - 6} Q{x + 5} {y - 4} {x + 5.5} {y - 1}" fill="none" stroke="{col}" stroke-width="1.6"/>')
+
+
+def render_card(t, stats, daily, now=None) -> str:
+    W, H = 880, 500
+    now = now or now_paris()
     nature = NATURES[daily["nature"]]
+    a = amie(stats, now)
     b = [frame(W, H, t)]
     b.append(f'<text x="40" y="48" class="lb">TRAINER CARD</text>')
     b.append(f'<text x="{W - 40}" y="48" class="lb m" text-anchor="end">ID No. {stats["trainer_id"]}</text>')
@@ -271,14 +326,14 @@ def render_card(t, stats, daily) -> str:
     ]
     for i, (label, value) in enumerate(cells):
         cx = 40 + (i % 2) * 250
-        cy = 186 + (i // 2) * 50
+        cy = 192 + (i // 2) * 58
         b.append(f'<text x="{cx}" y="{cy}" class="lb">{esc(label)}</text>')
         b.append(f'<text x="{cx}" y="{cy + 23}" class="b" font-size="19">{esc(value)}</text>')
         b.append(f'<line x1="{cx}" y1="{cy + 33}" x2="{cx + 220}" y2="{cy + 33}" stroke="{t["line"]}" stroke-dasharray="2 4"/>')
     earned = [cond(stats) for _, _, cond in BADGES]
-    b.append(f'<text x="40" y="344" class="lb">BADGES  {sum(earned)}/{len(BADGES)}</text>')
+    b.append(f'<text x="40" y="388" class="lb">BADGES  {sum(earned)}/{len(BADGES)}</text>')
     for i, ((label, glyph, _), ok) in enumerate(zip(BADGES, earned)):
-        cx, cy, r = 61 + i * 58, 376, 19
+        cx, cy, r = 61 + i * 58, 422, 19
         fs = 12 if len(glyph) < 3 else 10
         if ok:
             b.append(f'<polygon points="{hexagon(cx, cy, r)}" fill="{t["primary"]}"/>')
@@ -290,23 +345,46 @@ def render_card(t, stats, daily) -> str:
         b.append(f'<text x="{cx}" y="{cy + r + 15}" text-anchor="middle" font-size="8.5" letter-spacing="1" '
                  f'class="b" fill="{t["muted"] if ok else t["lockedtxt"]}">{esc(label)}</text>')
     # partner panel
-    px, py, pw, ph = 572, 72, 276, 322
+    px, py, pw, ph = 572, 72, 276, 404
+    mid = px + pw / 2
     b.append(f'<rect x="{px}" y="{py}" width="{pw}" height="{ph}" rx="18" fill="{t["panel"]}" stroke="{t["line"]}"/>')
-    b.append(f'<ellipse cx="{px + pw / 2}" cy="{py + 238}" rx="92" ry="12" fill="{t["primary"]}" opacity=".16" filter="url(#soft)"/>')
+    b.append(f'<ellipse cx="{mid}" cy="{py + 226}" rx="92" ry="12" fill="{t["primary"]}" opacity=".16" filter="url(#soft)"/>')
     b.append(f'<text x="{px + 20}" y="{py + 30}" class="lb">PARTNER</text>')
     ps, pwid = pill(0, 0, f"{nature[0].upper()} NATURE", t["primary"], size=9.5, h=18)
     b.append(f'<g transform="translate({px + pw - 20 - pwid:.1f} {py + 16})">{ps}</g>')
-    iw, ih = 176, 200
-    b.append(f'<g><image href="{data_uri("dunsparce.png")}" x="{px + (pw - iw) / 2:.1f}" y="{py + 42}" width="{iw}" height="{ih}"/>{bob(4, 3.6)}</g>')
-    for k, (zx, zy, fs) in enumerate([(px + 44, py + 196, 12), (px + 34, py + 178, 15), (px + 26, py + 156, 18)]):
-        b.append(f'<text x="{zx}" y="{zy}" class="b" font-size="{fs}" fill="{t["secondary"]}" opacity="0">z'
-                 f'<animate attributeName="opacity" values="0;1;0" dur="3.6s" begin="{k * .6}s" repeatCount="indefinite"/></text>')
-    b.append(f'<text x="{px + 20}" y="{py + 268}" class="b" font-size="20">Dunsparce</text>')
-    b.append(f'<text x="{px + 20}" y="{py + 288}" font-size="12.5" class="mu">Insolourdo in French · Normal type</text>')
-    b.append(f'<text x="{px + 20}" y="{py + 308}" font-size="11.5" class="m mu">today: {esc(nature[1])}  {esc(nature[2])}</text>')
+    if a["evolved"]:  # a 7-day streak: Dunsparce evolves, for the day
+        art, iw, ih, iy = "dudunsparce.png", 220, 166, py + 58
+        name, sub = "Dudunsparce", f"evolved for the day · {a['streak']}-day streak"
+    else:
+        art, iw, ih, iy = "dunsparce.png", 168, 191, py + 40
+        name, sub = "Dunsparce", "Insolourdo in French · Normal type"
+    b.append(f'<g><image href="{data_uri(art)}" x="{mid - iw / 2:.1f}" y="{iy}" width="{iw}" height="{ih}"/>{bob(4, 3.6)}</g>')
+    if a["fx"] == "z":
+        for k, (zx, zy, fs) in enumerate([(px + 44, py + 190, 12), (px + 34, py + 172, 15), (px + 26, py + 150, 18)]):
+            b.append(f'<text x="{zx}" y="{zy}" class="b" font-size="{fs}" fill="{t["secondary"]}" opacity="0">z'
+                     f'<animate attributeName="opacity" values="0;1;0" dur="3.6s" begin="{k * .6}s" repeatCount="indefinite"/></text>')
+    elif a["fx"] == "heart":
+        for k, (hx, hy) in enumerate([(px + 40, py + 170), (px + 236, py + 120), (px + 50, py + 112)]):
+            b.append(f'<g opacity="0">{pip("heart", hx, hy, True, t)}'
+                     f'<animate attributeName="opacity" values="0;1;0" dur="3.6s" begin="{k * 1.2}s" repeatCount="indefinite"/>'
+                     f'<animateTransform attributeName="transform" type="translate" values="0 6;0 -10" dur="3.6s" '
+                     f'begin="{k * 1.2}s" repeatCount="indefinite"/></g>')
+    b.append(f'<text x="{px + 20}" y="{py + 258}" class="b" font-size="20">{name}</text>')
+    b.append(f'<text x="{px + 20}" y="{py + 277}" font-size="12.5" class="mu">{esc(sub)}</text>')
+    b.append(f'<text x="{px + 20}" y="{py + 295}" font-size="11.5" class="m mu">today: {esc(nature[1])}  {esc(nature[2])}</text>')
+    b.append(f'<line x1="{px + 20}" y1="{py + 310}" x2="{px + pw - 20}" y2="{py + 310}" stroke="{t["line"]}" stroke-dasharray="2 4"/>')
+    b.append(f'<text x="{px + 20}" y="{py + 332}" class="lb" font-size="9.5">POKÉMON-AMIE</text>')
+    b.append(f'<text x="{px + pw - 20}" y="{py + 332}" font-size="11" class="mu" text-anchor="end">{esc(a["mood"])}</text>')
+    for row, (label, kind, v) in enumerate((("AFFECTION", "heart", a["affection"]), ("FULLNESS", "puff", a["fullness"]),
+                                            ("ENJOYMENT", "note", a["enjoyment"]))):
+        y = py + 354 + row * 18
+        b.append(f'<text x="{px + 20}" y="{y + 3.5}" font-size="9.5" letter-spacing="1.2" class="b mu">{label}</text>')
+        for k in range(5):
+            b.append(pip(kind, px + pw - 108 + k * 20, y, k < v, t))
     desc = (f"Trainer card for shalee-pnt: Normal-type developer, work-study at a city hall. "
             f"{stats['contributions']} contributions this year, {stats['merged_prs']} merged pull requests, "
-            f"{sum(earned)} of {len(BADGES)} badges. Partner: Dunsparce.")
+            f"{sum(earned)} of {len(BADGES)} badges. Partner: {name}, {a['mood']}, "
+            f"affection {a['affection']}/5, fullness {a['fullness']}/5, enjoyment {a['enjoyment']}/5.")
     return svg_doc(W, H, "Trainer card · shalee-pnt", desc, "\n".join(b), t)
 
 
@@ -781,6 +859,171 @@ def render_dna(t, theme, ins) -> str:
     return svg_doc(W, H, "Code DNA · shalee-pnt", desc, "\n".join(b), t)
 
 
+# --------------------------------------------------------------------------- base stats
+
+STAT_COLORS = {"hp": "#ff5959", "atk": "#f5ac78", "def": "#fae078", "spa": "#9db7f5", "spd": "#a7db8d", "spe": "#fa92b2"}
+SPECIALTY = {"atk": "building things", "def": "fixing things", "spa": "polishing things", "spd": "explaining things"}
+
+
+def fmt_hours(h) -> str:
+    if h is None:
+        return "n/a"
+    if h < 1:
+        return "under an hour"
+    return f"{round(h)} h" if h < 48 else f"{round(h / 24)} days"
+
+
+def base_stats(ins, stats) -> dict:
+    """Real numbers, Pokémon names. HP = active days, Attack = feat, Defense = fix,
+    Sp. Atk = refactor + perf, Sp. Def = docs + test, Speed = how fast my PRs get merged."""
+    k = ins.get("kinds") or {}
+    med = (ins.get("prs") or {}).get("median_hours")
+    return {
+        "hp": ("HP", sum(1 for wk in stats.get("calendar", []) for d in wk if d[1]), "active days"),
+        "atk": ("Attack", k.get("atk", 0), "feat commits"),
+        "def": ("Defense", k.get("def", 0), "fix commits"),
+        "spa": ("Sp. Atk", k.get("spa", 0), "refactor + perf commits"),
+        "spd": ("Sp. Def", k.get("spd", 0), "docs + test commits"),
+        "spe": ("Speed", round(100 * 24 / (24 + med)) if med is not None else 0,
+                f"PR merge speed · median {fmt_hours(med)}"),
+    }
+
+
+def render_stats(t, theme, ins, stats) -> str:
+    W, H = 880, 344
+    st = base_stats(ins, stats)
+    scale = max(max(v for _, v, _ in st.values()), 1) * 1.08
+    cx, cy, R = 205, 174, 104
+    order = ("hp", "atk", "def", "spe", "spd", "spa")  # clockwise from the top, as on the summary screen
+    b = [frame(W, H, t)]
+    for f in (1 / 3, 2 / 3, 1):
+        pts = " ".join(f"{x:.1f},{y:.1f}" for x, y in (polar(cx, cy, R * f, k * 60) for k in range(6)))
+        b.append(f'<polygon points="{pts}" fill="{t["panel2"] if f == 1 else "none"}" stroke="{t["line"]}" stroke-width="1"/>')
+    for k in range(6):
+        x, y = polar(cx, cy, R, k * 60)
+        b.append(f'<line x1="{cx}" y1="{cy}" x2="{x:.1f}" y2="{y:.1f}" stroke="{t["line"]}" stroke-width="1"/>')
+    rel = [polar(0, 0, R * st[key][1] / scale, k * 60) for k, key in enumerate(order)]
+    pts = " ".join(f"{x:.1f},{y:.1f}" for x, y in rel)
+    dots = "".join(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3.5" fill="{STAT_COLORS[key]}" stroke="{t["bg"]}" stroke-width="1.5"/>'
+                   for (x, y), key in zip(rel, order))
+    b.append(f'<g transform="translate({cx} {cy})"><g>'
+             f'<animateTransform attributeName="transform" type="scale" values="0;1" dur="1.2s" fill="freeze" '
+             f'calcMode="spline" keySplines=".2 .8 .2 1" keyTimes="0;1"/>'
+             f'<polygon points="{pts}" fill="{t["primary"]}" fill-opacity=".3" stroke="{t["primary"]}" stroke-width="2" '
+             f'stroke-linejoin="round"/>{dots}</g></g>')
+    for k, key in enumerate(order):
+        name, v, _ = st[key]
+        x, y = polar(cx, cy, R + 22, k * 60)
+        anchor = "middle" if k in (0, 3) else "start" if k in (1, 2) else "end"
+        dy = -6 if k == 0 else 12 if k == 3 else 0
+        b.append(f'<text x="{x:.1f}" y="{y + dy:.1f}" text-anchor="{anchor}" class="b" font-size="11.5">{name}'
+                 f'<tspan class="mu m" font-weight="400"> {v}</tspan></text>')
+    # stat list
+    x0 = 430
+    b.append(f'<text x="{x0}" y="50" class="lb">BASE STATS · LAST 12 MONTHS</text>')
+    b.append(f'<text x="{W - 32}" y="50" class="lb" text-anchor="end">REAL DATA</text>')
+    bx, bw = x0 + 196, W - 40 - (x0 + 196)
+    for row, key in enumerate(("hp", "atk", "def", "spa", "spd", "spe")):
+        name, v, caption = st[key]
+        y = 88 + row * 34
+        w = bw * v / scale
+        b.append(f'<text x="{x0}" y="{y}" class="b" font-size="13.5">{name}</text>'
+                 f'<text x="{x0}" y="{y + 14}" font-size="10.5" class="mu">{esc(caption)}</text>'
+                 f'<text x="{x0 + 182}" y="{y + 1}" text-anchor="end" class="b m" font-size="15">{v}</text>'
+                 f'<rect x="{bx}" y="{y - 9}" width="{bw}" height="9" rx="4.5" fill="{t["locked"]}"/>'
+                 f'<rect x="{bx}" y="{y - 9}" width="{w:.1f}" height="9" rx="4.5" fill="{STAT_COLORS[key]}">'
+                 f'<animate attributeName="width" from="0" to="{w:.1f}" dur="1.2s" fill="freeze" '
+                 f'calcMode="spline" keySplines=".2 .8 .2 1" keyTimes="0;1"/></rect>')
+    total = sum(v for _, v, _ in st.values())
+    best = max(SPECIALTY, key=lambda key: st[key][1])
+    verdict = "Getting there." if total < 415 else "Outclassed."
+    b.append(f'<line x1="{x0}" y1="{H - 62}" x2="{W - 40}" y2="{H - 62}" stroke="{t["line"]}" stroke-dasharray="2 4"/>')
+    b.append(f'<text x="{x0}" y="{H - 40}" class="b" font-size="14">Total {total}'
+             f'<tspan class="mu" font-weight="400" font-size="12.5">   ·   Dunsparce: 415. {verdict}</tspan></text>')
+    b.append(f'<text x="{x0}" y="{H - 20}" font-size="12.5" class="mu">Specialty: {st[best][0]} ({SPECIALTY[best]}). '
+             f'Very Normal-type.</text>')
+    desc = "Base stats from real data: " + ", ".join(f"{n} {v} ({c})" for n, v, c in st.values()) + f". Total {total}."
+    return svg_doc(W, H, "Base stats · shalee-pnt", desc, "\n".join(b), t)
+
+
+# --------------------------------------------------------------------------- battle log
+
+def render_battle(t, theme, ins) -> str:
+    """Pull request stats told by the battle dialogue box, one line every 4.5 s, typed out."""
+    W, H = 880, 340
+    pr = ins.get("prs") or {}
+    opened, merged, reviews = pr.get("opened", 0), pr.get("merged", 0), pr.get("reviews", 0)
+    med = pr.get("median_hours")
+    rate = round(100 * merged / opened) if opened else 0
+    pace = "" if med is None else "Reviewers were quick." if med < 6 else "Reasonable." if med < 48 else "Reviewers were busy."
+    lines = [
+        f"shalee-pnt used Pull Request! ({opened} this year)",
+        f"It's super effective! {merged} of {opened} were merged.",
+        f"Median time to merge: {fmt_hours(med)}. {pace}".strip(),
+        (f"shalee-pnt used Code Review on teammates! ×{reviews}" if reviews
+         else "shalee-pnt is saving Code Review for later."),
+        f"It dealt {pr.get('additions', 0):,} lines of damage. Recoil: {pr.get('deletions', 0):,} lines.",
+        "The Backlog is still standing. It always is.",
+    ]
+    n, step, typing = len(lines), 4.5, 1.6
+    D = n * step
+    b = [frame(W, H, t)]
+
+    def hp_bar(x, y, w, pct):
+        col = "#4ade80" if pct > 50 else "#facc15" if pct > 20 else "#f87171"
+        return (f'<text x="{x}" y="{y + 8}" class="b m" font-size="10" fill="{t["primary"]}">HP</text>'
+                f'<rect x="{x + 24}" y="{y}" width="{w}" height="9" rx="4.5" fill="{t["locked"]}"/>'
+                f'<rect x="{x + 24}" y="{y}" width="{w * pct / 100:.1f}" height="9" rx="4.5" fill="{col}">'
+                f'<animate attributeName="width" from="{w:.1f}" to="{w * pct / 100:.1f}" dur="1.6s" begin=".6s" fill="freeze" '
+                f'calcMode="spline" keySplines=".2 .8 .2 1" keyTimes="0;1"/></rect>')
+
+    # opponent: the backlog, a pile of tickets
+    b.append(f'<ellipse cx="660" cy="152" rx="118" ry="20" fill="{t["panel2"]}" stroke="{t["line"]}"/>')
+    pile = []
+    for k, (dx, dy, rot) in enumerate(((-6, 14, -9), (8, 6, 6), (-3, -2, -4), (4, -10, 5))):
+        pile.append(f'<g transform="translate({660 + dx} {118 + dy}) rotate({rot})">'
+                    f'<rect x="-40" y="-24" width="80" height="48" rx="6" fill="{t["panel"]}" stroke="{t["line"]}" stroke-width="1.5"/>'
+                    f'<rect x="-30" y="-12" width="{30 + k * 6}" height="4" rx="2" fill="{t["line"]}"/>'
+                    f'<rect x="-30" y="-2" width="{44 - k * 5}" height="4" rx="2" fill="{t["line"]}"/>'
+                    + (f'<text x="12" y="16" class="b m" font-size="10" fill="{t["primary"]}">TODO</text>' if k == 3 else "")
+                    + '</g>')
+    b.append(f'<g>{"".join(pile)}{bob(3, 2.8)}</g>')
+    b.append(f'<rect x="40" y="34" width="300" height="62" rx="12" fill="{t["panel"]}" stroke="{t["line"]}"/>'
+             f'<text x="58" y="60" class="b" font-size="15">THE BACKLOG</text>'
+             f'<text x="322" y="60" text-anchor="end" class="b m" font-size="13"><tspan class="mu" font-size="10">Lv.</tspan> ∞</text>')
+    b.append(hp_bar(58, 72, 240, max(8, 100 - rate)))
+    # player: Dunsparce, facing the backlog
+    b.append(f'<ellipse cx="214" cy="222" rx="120" ry="20" fill="{t["panel2"]}" stroke="{t["line"]}"/>')
+    b.append(f'<g><g transform="translate(286 70) scale(-1 1)"><image href="{data_uri("dunsparce_small.png")}" '
+             f'x="0" y="0" width="140" height="160"/></g>{bob(3, 3.2)}</g>')
+    b.append(f'<rect x="510" y="176" width="330" height="62" rx="12" fill="{t["panel"]}" stroke="{t["line"]}"/>'
+             f'<text x="528" y="202" class="b" font-size="15">shalee-pnt</text>'
+             f'<text x="822" y="202" text-anchor="end" class="b m" font-size="13"><tspan class="mu" font-size="10">Lv.</tspan> 3</text>')
+    b.append(hp_bar(528, 214, 270, 100))
+    # dialogue box
+    b.append(f'<rect x="24" y="252" width="{W - 48}" height="70" rx="14" fill="{t["panel"]}" stroke="{t["primary"]}" stroke-width="2"/>'
+             f'<rect x="30" y="258" width="{W - 60}" height="58" rx="10" fill="none" stroke="{t["line"]}"/>')
+    for i, text in enumerate(lines):
+        a, z = i / n, (i + 1) / n
+        e = .004
+        if i == 0:
+            vis = ("1;1;0;0", f"0;{z - e:.4f};{z:.4f};1")
+            typ = ("0;860;860", f"0;{typing / D:.4f};1")
+        else:
+            vis = ("0;0;1;1;0", f"0;{a - e:.4f};{a:.4f};{z:.4f};1") if i == n - 1 else \
+                  ("0;0;1;1;0;0", f"0;{a - e:.4f};{a:.4f};{z - e:.4f};{z:.4f};1")
+            typ = ("0;0;860;860", f"0;{a:.4f};{a + typing / D:.4f};1")
+        b.append(f'<clipPath id="tw{i}"><rect x="40" y="266" width="0" height="44">'
+                 f'<animate attributeName="width" values="{typ[0]}" keyTimes="{typ[1]}" dur="{D}s" repeatCount="indefinite"/></rect></clipPath>')
+        b.append(f'<g opacity="{1 if i == 0 else 0}"><animate attributeName="opacity" values="{vis[0]}" keyTimes="{vis[1]}" '
+                 f'dur="{D}s" repeatCount="indefinite"/>'
+                 f'<text x="52" y="294" font-size="17" clip-path="url(#tw{i})">{esc(text)}</text></g>')
+    b.append(f'<polygon points="836,300 846,300 841,307" fill="{t["primary"]}">'
+             f'<animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/></polygon>')
+    desc = "Pull request battle log: " + " ".join(lines)
+    return svg_doc(W, H, "Battle log · shalee-pnt", desc, "\n".join(b), t)
+
+
 # --------------------------------------------------------------------------- wild bugs
 
 def sprite(sid, t) -> str:
@@ -1084,6 +1327,37 @@ def repo_commits(full: str, uid: str, since: str) -> tuple[dict, set]:
     return langs, seen
 
 
+PR_QUERY = """query($login:String!){ user(login:$login){
+  contributionsCollection{ totalPullRequestReviewContributions }
+  pullRequests(first:100, orderBy:{field:CREATED_AT,direction:DESC}){
+    nodes{ id createdAt mergedAt additions deletions } } } }"""
+
+# conventional-commit prefix -> base stat
+COMMIT_STATS = {"feat": "atk", "fix": "def", "refactor": "spa", "refac": "spa", "perf": "spa",
+                "docs": "spd", "test": "spd", "tests": "spd"}
+
+
+def fetch_prs(since: str) -> dict:
+    """My pull requests over the last 12 months, as seen by every available token (union)."""
+    prs, reviews = {}, 0
+    for env in token_envs():
+        try:
+            u = gql(PR_QUERY, envs=(env,), login=LOGIN)["user"]
+        except Exception:
+            continue
+        reviews = max(reviews, u["contributionsCollection"]["totalPullRequestReviewContributions"])
+        for pr in (u["pullRequests"]["nodes"] or []):
+            if pr and pr["createdAt"] >= since:
+                prs[pr["id"]] = pr
+    merged = [pr for pr in prs.values() if pr["mergedAt"]]
+    waits = sorted((dt.datetime.fromisoformat(pr["mergedAt"].replace("Z", "+00:00"))
+                    - dt.datetime.fromisoformat(pr["createdAt"].replace("Z", "+00:00"))).total_seconds() / 3600
+                   for pr in merged)
+    median = waits[len(waits) // 2] if len(waits) % 2 else (sum(waits[len(waits) // 2 - 1:len(waits) // 2 + 1]) / 2 if waits else None)
+    return {"opened": len(prs), "merged": len(merged), "median_hours": median, "reviews": reviews,
+            "additions": sum(pr["additions"] for pr in merged), "deletions": sum(pr["deletions"] for pr in merged)}
+
+
 def fetch_insights(cached: dict) -> dict:
     """Commit clock and language DNA for the last 12 months. Only a token that belongs to the
     account sees private repos: a less privileged token never replaces private data."""
@@ -1110,6 +1384,7 @@ def fetch_insights(cached: dict) -> dict:
             raise RuntimeError("could not list repositories")
         repos = sorted(repos - {REPO})
         hours, weekdays = [0] * 24, [0] * 7
+        kinds = {"atk": 0, "def": 0, "spa": 0, "spd": 0}
         office = after = weekend = total = 0
         weights, colors, active = {}, {}, 0
         skipped = 0
@@ -1123,7 +1398,10 @@ def fetch_insights(cached: dict) -> dict:
             if not commits:
                 continue
             active += 1
-            for date, _ in commits:
+            for date, head in commits:
+                m = re.match(r"\s*([a-zA-Z]+)(?:\([^)]*\))?!?:", head or "")
+                if m and m.group(1).lower() in COMMIT_STATS:
+                    kinds[COMMIT_STATS[m.group(1).lower()]] += 1
                 when = dt.datetime.fromisoformat(date.replace("Z", "+00:00")).astimezone(TZ)
                 h, wd = when.hour, when.weekday()
                 hours[h] += 1
@@ -1152,6 +1430,7 @@ def fetch_insights(cached: dict) -> dict:
         "date": now.date().isoformat(), "private": private, "commits": total, "repos": active,
         "hours": hours, "weekdays": weekdays,
         "office": office, "after": after, "weekend": weekend, "languages": languages,
+        "kinds": kinds, "prs": fetch_prs(since),
     }
 
 
@@ -1226,7 +1505,7 @@ def write_readme(state, now):
     README.write_text(text, encoding="utf-8", newline="\n")
 
 
-ALL_ASSETS = ("card", "party", "dna", "projects", "skyline", "clock", "encounter", "button")
+ALL_ASSETS = ("card", "party", "dna", "stats", "battle", "projects", "skyline", "clock", "encounter", "button")
 
 
 def write_assets(state, which=ALL_ASSETS, now=None):
@@ -1234,12 +1513,14 @@ def write_assets(state, which=ALL_ASSETS, now=None):
         out = ASSETS / theme
         out.mkdir(parents=True, exist_ok=True)
         renders = {
-            "card": lambda: render_card(t, state["stats"], state["daily"]),
+            "card": lambda: render_card(t, state["stats"], state["daily"], now),
             "party": lambda: render_party(t, state["daily"]),
             "projects": lambda: render_projects(t),
             "skyline": lambda: render_skyline(t, state["stats"], theme, now),
             "clock": lambda: render_clock(t, theme, state.get("insights", {})),
             "dna": lambda: render_dna(t, theme, state.get("insights", {})),
+            "stats": lambda: render_stats(t, theme, state.get("insights", {}), state["stats"]),
+            "battle": lambda: render_battle(t, theme, state.get("insights", {})),
             "encounter": lambda: render_encounter(t, state["daily"], state),
             "button": lambda: render_button(t),
         }
@@ -1262,8 +1543,10 @@ def cmd_update(force: bool):
         state["throws"] = {today: state.get("throws", {}).get(today, [])}
         write_assets(state, now=now)
         save_state(state)
-    else:  # hourly: the sky over Lumiose moves
-        write_assets(state, ("skyline",), now=now)
+    else:  # hourly: today's commits feed Dunsparce, the sky over Lumiose moves
+        state["stats"] = fetch_stats(state["stats"])
+        write_assets(state, ("card", "skyline"), now=now)
+        save_state(state)
     write_readme(state, now)
 
 

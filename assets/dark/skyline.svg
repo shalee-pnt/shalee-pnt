@@ -16,7 +16,7 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <g fill="#e8eefb">
 <rect x="1" y="1" width="878" height="298" rx="24" fill="#1d3b78"/>
 <clipPath id="above"><rect x="0" y="0" width="880" height="252"/></clipPath>
-<g clip-path="url(#above)"><circle cx="563.6" cy="203.1" r="32.4" fill="#ffe39a" opacity=".35" filter="url(#soft)"/><circle cx="563.6" cy="203.1" r="18.0" fill="#fff2c2"/><circle cx="563.6" cy="203.1" r="13.0" fill="#ffe39a"/><g opacity=".55"><circle cx="731.8" cy="232.7" r="13" fill="#202c58"/><path d="M731.8 219.7 A13 13 0 0 0 731.8 245.7 A7.86 13 0 0 1 731.8 219.7Z" fill="#e8eefb"/></g></g>
+<g clip-path="url(#above)"><circle cx="614.5" cy="219.6" r="32.4" fill="#ffe39a" opacity=".35" filter="url(#soft)"/><circle cx="614.5" cy="219.6" r="18.0" fill="#fff2c2"/><circle cx="614.5" cy="219.6" r="13.0" fill="#ffe39a"/></g>
 <rect x="28.0" y="226.7" width="18.1" height="25.3" fill="#1d3466"/>
 <rect x="42.5" y="227.7" width="22.0" height="24.3" fill="#1d3466"/>
 <rect x="63.0" y="209.7" width="30.3" height="42.3" fill="#1d3466"/>
