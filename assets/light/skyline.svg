@@ -14,46 +14,45 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <clipPath id="frame"><rect x="1" y="1" width="878" height="298" rx="24"/></clipPath>
 </defs>
 <g fill="#25161c">
-<rect x="1" y="1" width="878" height="298" rx="24" fill="#ffeee9"/>
+<rect x="1" y="1" width="878" height="298" rx="24" fill="#fffafb"/>
 <clipPath id="above"><rect x="0" y="0" width="880" height="252"/></clipPath>
-<rect x="1" y="188" width="878" height="64" fill="#ffc9cf" opacity="0.22"/><rect x="1" y="224" width="878" height="28" fill="#ffc9cf" opacity="0.22"/>
-<g clip-path="url(#above)"><circle cx="207.5" cy="242.7" r="42.7" fill="#ffc9cf"/><circle cx="207.5" cy="242.7" r="30.7" fill="#ffa9b6"/><g><circle cx="348.9" cy="158.8" r="13" fill="#e4d2e2"/><path d="M348.9 145.8 A13 13 0 0 0 348.9 171.8 A9.32 13 0 0 1 348.9 145.8Z" fill="#ffffff"/></g></g>
-<rect x="28.0" y="226.7" width="18.1" height="25.3" fill="#f9dbe0"/>
-<rect x="42.5" y="227.7" width="22.0" height="24.3" fill="#f9dbe0"/>
-<rect x="63.0" y="209.7" width="30.3" height="42.3" fill="#f9dbe0"/>
-<rect x="87.9" y="230.3" width="18.4" height="21.7" fill="#f9dbe0"/>
-<rect x="104.9" y="199.3" width="29.0" height="52.7" fill="#f9dbe0"/>
-<rect x="128.5" y="196.2" width="20.5" height="55.8" fill="#f9dbe0"/>
-<rect x="143.8" y="200.7" width="16.7" height="51.3" fill="#f9dbe0"/>
-<rect x="159.9" y="205.4" width="34.8" height="46.6" fill="#f9dbe0"/>
-<rect x="192.1" y="195.4" width="32.2" height="56.6" fill="#f9dbe0"/>
-<rect x="222.8" y="202.6" width="34.6" height="49.4" fill="#f9dbe0"/>
-<rect x="256.7" y="217.5" width="19.0" height="34.5" fill="#f9dbe0"/>
-<rect x="272.8" y="198.9" width="21.7" height="53.1" fill="#f9dbe0"/>
-<rect x="291.6" y="214.7" width="34.6" height="37.3" fill="#f9dbe0"/>
-<rect x="327.2" y="225.0" width="26.1" height="27.0" fill="#f9dbe0"/>
-<rect x="351.9" y="226.6" width="34.0" height="25.4" fill="#f9dbe0"/>
-<rect x="382.5" y="224.3" width="20.0" height="27.7" fill="#f9dbe0"/>
-<rect x="402.0" y="229.8" width="21.9" height="22.2" fill="#f9dbe0"/>
-<rect x="423.1" y="200.5" width="25.1" height="51.5" fill="#f9dbe0"/>
-<rect x="443.2" y="228.8" width="22.4" height="23.2" fill="#f9dbe0"/>
-<rect x="463.7" y="223.7" width="20.3" height="28.3" fill="#f9dbe0"/>
-<rect x="478.7" y="200.0" width="32.4" height="52.0" fill="#f9dbe0"/>
-<rect x="510.7" y="210.4" width="23.4" height="41.6" fill="#f9dbe0"/>
-<rect x="534.3" y="195.8" width="21.7" height="56.2" fill="#f9dbe0"/>
-<rect x="550.8" y="211.0" width="21.0" height="41.0" fill="#f9dbe0"/>
-<rect x="571.1" y="215.7" width="18.7" height="36.3" fill="#f9dbe0"/>
-<rect x="586.4" y="203.6" width="30.0" height="48.4" fill="#f9dbe0"/>
-<rect x="613.3" y="199.9" width="19.3" height="52.1" fill="#f9dbe0"/>
-<rect x="631.7" y="208.1" width="35.6" height="43.9" fill="#f9dbe0"/>
-<rect x="667.8" y="221.1" width="37.3" height="30.9" fill="#f9dbe0"/>
-<rect x="703.2" y="222.9" width="29.1" height="29.1" fill="#f9dbe0"/>
-<rect x="727.4" y="215.5" width="20.8" height="36.5" fill="#f9dbe0"/>
-<rect x="745.6" y="220.4" width="23.6" height="31.6" fill="#f9dbe0"/>
-<rect x="767.1" y="201.1" width="34.9" height="50.9" fill="#f9dbe0"/>
-<rect x="802.3" y="196.8" width="25.9" height="55.2" fill="#f9dbe0"/>
-<rect x="826.8" y="210.2" width="16.8" height="41.8" fill="#f9dbe0"/>
-<rect x="840.4" y="200.5" width="11.6" height="51.5" fill="#f9dbe0"/>
+<g clip-path="url(#above)"><circle cx="614.5" cy="220.2" r="32.4" fill="#ffc6d0" opacity=".35" filter="url(#soft)"/><circle cx="614.5" cy="220.2" r="18.0" fill="#ffdde3"/><circle cx="614.5" cy="220.2" r="13.0" fill="#ffc6d0"/><g opacity=".55"><circle cx="743.3" cy="248.1" r="13" fill="#e4d2e2"/><path d="M743.3 235.1 A13 13 0 0 0 743.3 261.1 A9.94 13 0 0 1 743.3 235.1Z" fill="#ffffff"/></g></g>
+<rect x="28.0" y="226.7" width="18.1" height="25.3" fill="#f8e6ea"/>
+<rect x="42.5" y="227.7" width="22.0" height="24.3" fill="#f8e6ea"/>
+<rect x="63.0" y="209.7" width="30.3" height="42.3" fill="#f8e6ea"/>
+<rect x="87.9" y="230.3" width="18.4" height="21.7" fill="#f8e6ea"/>
+<rect x="104.9" y="199.3" width="29.0" height="52.7" fill="#f8e6ea"/>
+<rect x="128.5" y="196.2" width="20.5" height="55.8" fill="#f8e6ea"/>
+<rect x="143.8" y="200.7" width="16.7" height="51.3" fill="#f8e6ea"/>
+<rect x="159.9" y="205.4" width="34.8" height="46.6" fill="#f8e6ea"/>
+<rect x="192.1" y="195.4" width="32.2" height="56.6" fill="#f8e6ea"/>
+<rect x="222.8" y="202.6" width="34.6" height="49.4" fill="#f8e6ea"/>
+<rect x="256.7" y="217.5" width="19.0" height="34.5" fill="#f8e6ea"/>
+<rect x="272.8" y="198.9" width="21.7" height="53.1" fill="#f8e6ea"/>
+<rect x="291.6" y="214.7" width="34.6" height="37.3" fill="#f8e6ea"/>
+<rect x="327.2" y="225.0" width="26.1" height="27.0" fill="#f8e6ea"/>
+<rect x="351.9" y="226.6" width="34.0" height="25.4" fill="#f8e6ea"/>
+<rect x="382.5" y="224.3" width="20.0" height="27.7" fill="#f8e6ea"/>
+<rect x="402.0" y="229.8" width="21.9" height="22.2" fill="#f8e6ea"/>
+<rect x="423.1" y="200.5" width="25.1" height="51.5" fill="#f8e6ea"/>
+<rect x="443.2" y="228.8" width="22.4" height="23.2" fill="#f8e6ea"/>
+<rect x="463.7" y="223.7" width="20.3" height="28.3" fill="#f8e6ea"/>
+<rect x="478.7" y="200.0" width="32.4" height="52.0" fill="#f8e6ea"/>
+<rect x="510.7" y="210.4" width="23.4" height="41.6" fill="#f8e6ea"/>
+<rect x="534.3" y="195.8" width="21.7" height="56.2" fill="#f8e6ea"/>
+<rect x="550.8" y="211.0" width="21.0" height="41.0" fill="#f8e6ea"/>
+<rect x="571.1" y="215.7" width="18.7" height="36.3" fill="#f8e6ea"/>
+<rect x="586.4" y="203.6" width="30.0" height="48.4" fill="#f8e6ea"/>
+<rect x="613.3" y="199.9" width="19.3" height="52.1" fill="#f8e6ea"/>
+<rect x="631.7" y="208.1" width="35.6" height="43.9" fill="#f8e6ea"/>
+<rect x="667.8" y="221.1" width="37.3" height="30.9" fill="#f8e6ea"/>
+<rect x="703.2" y="222.9" width="29.1" height="29.1" fill="#f8e6ea"/>
+<rect x="727.4" y="215.5" width="20.8" height="36.5" fill="#f8e6ea"/>
+<rect x="745.6" y="220.4" width="23.6" height="31.6" fill="#f8e6ea"/>
+<rect x="767.1" y="201.1" width="34.9" height="50.9" fill="#f8e6ea"/>
+<rect x="802.3" y="196.8" width="25.9" height="55.2" fill="#f8e6ea"/>
+<rect x="826.8" y="210.2" width="16.8" height="41.8" fill="#f8e6ea"/>
+<rect x="840.4" y="200.5" width="11.6" height="51.5" fill="#f8e6ea"/>
 <path d="M 394 252 L 425 176 L 455 176 L 486 252 L 468 252 Q 440 194 412 252 Z" fill="#3a2230"/>
 <rect x="419" y="171" width="42" height="5" fill="#3a2230"/>
 <polygon points="427,171 434,108 446,108 453,171" fill="#3a2230"/>
@@ -249,7 +248,7 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <text x="713.6" y="274" font-size="10.5" class="mu m">Sep</text>
 <text x="775.8" y="274" font-size="10.5" class="mu m">Oct</text>
 <text x="838.0" y="274" font-size="10.5" class="mu m">Nov</text>
-<text x="32" y="44" class="lb">LUMIOSE CITY · AT DAWN</text>
+<text x="32" y="44" class="lb">LUMIOSE CITY · IN THE AFTERNOON</text>
 <text x="32" y="66" class="mu" font-size="12.5">1 building = 1 week · 1 lit window = 1 contribution</text>
 <text x="848" y="44" class="lb" text-anchor="end">PRISM TOWER · BEST WEEK</text>
 <text x="848" y="70" class="b" font-size="19" text-anchor="end">76 contributions</text>
