@@ -3,7 +3,7 @@
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/card.svg"><img alt="Trainer card of shalee-pnt: Normal-type developer, work-study at a city hall, partner Dunsparce" src="assets/light/card.svg" width="100%"></picture>
 
 <!-- status:start -->
-<p align="center"><sub><b>Clocked out.</b> Side projects, or doing nothing. Probably nothing. · <i>live status, Paris time</i></sub></p>
+<p align="center"><sub><b>Asleep.</b> Even Dunsparce needs eight hours. · <i>live status, Paris time</i></sub></p>
 <!-- status:end -->
 
 <img alt="Discord: shalee_" src="https://img.shields.io/badge/Discord-shalee__-5865F2?style=for-the-badge&logo=discord&logoColor=white">
@@ -74,10 +74,11 @@ My specialty is the **Normal type**. Like Larry, my favourite Elite Four member,
 <!-- encounter:start -->
 <p align="center"><a href="https://github.com/shalee-pnt/shalee-pnt/issues/new?title=catch%3A%20throw%20a%20Pok%C3%A9%20Ball&body=Just%20press%20%2A%2ACreate%2A%2A%20%28or%20%2A%2ASubmit%20new%20issue%2A%2A%29.%0A%0AA%20GitHub%20Action%20throws%20the%20ball%20at%20today%27s%20wild%20bug%20and%20replies%20here%20within%20a%20minute%20or%20two.%20One%20throw%20per%20trainer%20per%20day."><picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/button.svg"><img alt="Throw a Poké Ball" src="assets/light/button.svg" width="300"></picture></a></p>
 
-<p align="center"><sub><b>Bugdex</b> 0/8 species caught by visitors · 1 throws · 1 trainers · a new bug appears every day at midnight (Paris)</sub></p>
+<p align="center"><sub><b>Bugdex</b> 0/8 species caught by visitors · 2 throws · 1 trainers · a new bug appears every day at midnight (Paris)</sub></p>
 
 | Trainer | Bug | Result | Date |
 |:--|:--|:--|:--|
+| [@shalee-pnt](https://github.com/shalee-pnt) | Off-by-Onyx | broke free | 2026-11-07 |
 | [@shalee-pnt](https://github.com/shalee-pnt) | Conflictwin | broke free | 2026-11-05 |
 <!-- encounter:end -->
 
