@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 290" width="880" height="290" role="img" aria-labelledby="title desc">
-<title id="title">Wild encounter · Conflictwin</title>
-<desc id="desc">A wild Conflictwin (Fighting type, level 59) appeared. Bugdex entry: Two heads, both convinced they are right. Only a human can settle it.</desc>
+<title id="title">Wild encounter · Memleech</title>
+<desc id="desc">A wild Memleech (Poison type, level 17) appeared. Bugdex entry: Gets a little bigger every hour and never lets go. Restarting only makes it hungrier.</desc>
 <style>
 text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif}
 .m{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace}
@@ -25,20 +25,20 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <rect x="-200" y="182" width="128" height="2" rx="1" fill="#3fa9f5" opacity=".18"><animate attributeName="x" values="-200;880" dur="4.2s" begin="2.10s" repeatCount="indefinite"/></rect>
 <ellipse cx="660" cy="190" rx="176" ry="30" fill="url(#grass)"/>
 <ellipse cx="660" cy="186" rx="150" ry="20" fill="#1d5a52" opacity=".6"/>
-<g transform="translate(660 124)"><g><animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;0 -4;0 0" dur="2.4s" begin="0.0s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><rect x="-46" y="-6" width="92" height="56" rx="24" fill="#d6c3a5" stroke="#0a0f1f" stroke-width="2.5"/><text x="0" y="28" text-anchor="middle" class="b m" font-size="13" fill="#0a0f1f">=======</text><circle cx="-28" cy="-24" r="22" fill="#f87171" stroke="#0a0f1f" stroke-width="2.5"/><circle cx="28" cy="-24" r="22" fill="#4ade80" stroke="#0a0f1f" stroke-width="2.5"/><ellipse cx="-32" cy="-28" rx="5" ry="6.25" fill="#ffffff" stroke="#0a0f1f" stroke-width="2"/><circle cx="-30.5" cy="-27" r="2.5" fill="#141414"/><ellipse cx="24" cy="-28" rx="5" ry="6.25" fill="#ffffff" stroke="#0a0f1f" stroke-width="2"/><circle cx="25.5" cy="-27" r="2.5" fill="#141414"/><path d="M -40 -40 L -24 -34 M 40 -40 L 24 -34" stroke="#0a0f1f" stroke-width="3" stroke-linecap="round"/><text x="-28" y="-54" text-anchor="middle" class="b m" font-size="12" fill="#f87171">&lt;&lt;&lt;</text><text x="28" y="-54" text-anchor="middle" class="b m" font-size="12" fill="#4ade80">&gt;&gt;&gt;</text><rect x="-36" y="46" width="16" height="12" rx="5" fill="#d6c3a5" stroke="#0a0f1f" stroke-width="2.5"/><rect x="20" y="46" width="16" height="12" rx="5" fill="#d6c3a5" stroke="#0a0f1f" stroke-width="2.5"/></g></g></g>
+<g transform="translate(660 124)"><g><animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;0 -2;0 0" dur="4s" begin="0.0s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><g><animateTransform attributeName="transform" type="scale" values="1;1.12;1" dur="6s" repeatCount="indefinite"/><path d="M -70 30 C -70 -10 -30 -30 10 -24 C 50 -18 70 0 66 22 C 62 44 -70 52 -70 30 Z" fill="#a855f7" stroke="#0a0f1f" stroke-width="2.5"/><path d="M -50 12 Q -40 4 -30 12 M -18 4 Q -8 -4 2 4 M 14 2 Q 24 -6 34 2" fill="none" stroke="#7e22ce" stroke-width="3" stroke-linecap="round"/><circle cx="62" cy="18" r="11" fill="#7e22ce" stroke="#0a0f1f" stroke-width="2.5"/><circle cx="62" cy="18" r="5" fill="#2e1065"/><ellipse cx="40" cy="-8" rx="5" ry="6.25" fill="#ffffff" stroke="#0a0f1f" stroke-width="2"/><circle cx="41.5" cy="-7" r="2.5" fill="#141414"/><ellipse cx="52" cy="-6" rx="4" ry="5.0" fill="#ffffff" stroke="#0a0f1f" stroke-width="2"/><circle cx="53.5" cy="-5" r="2.0" fill="#141414"/></g><text x="20" y="-34" class="b m" font-size="12" fill="#a855f7">+1 MB<animate attributeName="y" values="-30;-60" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0" dur="2s" repeatCount="indefinite"/></text></g></g></g>
 <rect x="1" y="1" width="878" height="288" rx="24" fill="none" stroke="#25375f" stroke-width="1.5"/>
 <rect x="28" y="26" width="392" height="110" rx="16" fill="#111c3d" stroke="#25375f"/>
-<text x="48" y="60" class="b" font-size="21">CONFLICTWIN</text>
-<text x="400" y="60" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> 59</text>
-<rect x="48.0" y="72.0" width="65.1" height="18" rx="9.0" fill="#d0402f"/><text x="80.6" y="84.4" text-anchor="middle" class="b" font-size="9.5" fill="#ffffff" letter-spacing=".6">FIGHTING</text>
-<text x="123.1" y="85" font-size="12.5" class="mu m">Bugdex #008</text>
+<text x="48" y="60" class="b" font-size="21">MEMLEECH</text>
+<text x="400" y="60" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> 17</text>
+<rect x="48.0" y="72.0" width="53.3" height="18" rx="9.0" fill="#a24bb5"/><text x="74.7" y="84.4" text-anchor="middle" class="b" font-size="9.5" fill="#ffffff" letter-spacing=".6">POISON</text>
+<text x="111.3" y="85" font-size="12.5" class="mu m">Bugdex #006</text>
 <text x="48" y="118" font-size="11" class="b m" fill="#3fa9f5">CATCH</text>
 <rect x="100" y="110" width="210" height="9" rx="4.5" fill="#1b2750"/>
-<rect x="100" y="110" width="105.0" height="9" rx="4.5" fill="#3fa9f5"/>
-<text x="400" y="119" text-anchor="end" font-size="12" class="m mu">50% · 0✓ 1✗</text>
+<rect x="100" y="110" width="84.0" height="9" rx="4.5" fill="#3fa9f5"/>
+<text x="400" y="119" text-anchor="end" font-size="12" class="m mu">40% · 0✓ 0✗</text>
 <rect x="28" y="214" width="824" height="56" rx="14" fill="#111c3d" stroke="#3fa9f5" stroke-width="2.5"/>
-<text x="50" y="238" class="b" font-size="16">A wild CONFLICTWIN appeared!</text>
-<text x="50" y="259" font-size="13" class="mu">Two heads, both convinced they are right. Only a human can settle it.</text>
+<text x="50" y="238" class="b" font-size="16">A wild MEMLEECH appeared!</text>
+<text x="50" y="259" font-size="13" class="mu">Gets a little bigger every hour and never lets go. Restarting only makes it hungrier.</text>
 <path d="M 824 252 l 8 0 l -4 6 z" fill="#3fa9f5"><animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/></path>
 </g>
 </svg>

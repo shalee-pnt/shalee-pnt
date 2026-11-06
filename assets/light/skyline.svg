@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" role="img" aria-labelledby="title desc">
 <title id="title">Lumiose skyline · shalee-pnt</title>
-<desc id="desc">Lumiose City skyline built from the last 53 weeks of contributions: one building per week, one lit window per contribution. The Prism Tower lights up on the best week, Nov 1 – Nov 5, with 76 contributions.</desc>
+<desc id="desc">Lumiose City skyline built from the last 53 weeks of contributions: one building per week, one lit window per contribution. The Prism Tower lights up on the best week, Nov 1 – Nov 6, with 76 contributions.</desc>
 <style>
 text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif}
 .m{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace}
@@ -311,7 +311,7 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <text x="32" y="66" class="mu" font-size="12.5">1 building = 1 week · 1 lit window = 1 contribution</text>
 <text x="848" y="44" class="lb" text-anchor="end">PRISM TOWER · BEST WEEK</text>
 <text x="848" y="70" class="b" font-size="19" text-anchor="end">76 contributions</text>
-<text x="848" y="90" class="mu" font-size="12.5" text-anchor="end">Nov 1 – Nov 5</text>
+<text x="848" y="90" class="mu" font-size="12.5" text-anchor="end">Nov 1 – Nov 6</text>
 <rect x="1" y="1" width="878" height="298" rx="24" fill="none" stroke="#f0c4ce" stroke-width="1.5"/>
 </g>
 </svg>
