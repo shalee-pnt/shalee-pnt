@@ -16,7 +16,7 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <g fill="#25161c">
 <rect x="1" y="1" width="878" height="298" rx="24" fill="#fffafb"/>
 <clipPath id="above"><rect x="0" y="0" width="880" height="252"/></clipPath>
-<g clip-path="url(#above)"><circle cx="258.4" cy="223.2" r="32.4" fill="#ffc6d0" opacity=".35" filter="url(#soft)"/><circle cx="258.4" cy="223.2" r="18.0" fill="#ffdde3"/><circle cx="258.4" cy="223.2" r="13.0" fill="#ffc6d0"/><g opacity=".55"><circle cx="360.4" cy="168.4" r="13" fill="#e4d2e2"/><path d="M360.4 155.4 A13 13 0 0 0 360.4 181.4 A11.09 13 0 0 1 360.4 155.4Z" fill="#ffffff"/></g></g>
+<g clip-path="url(#above)"><circle cx="614.4" cy="220.8" r="32.4" fill="#ffc6d0" opacity=".35" filter="url(#soft)"/><circle cx="614.4" cy="220.8" r="18.0" fill="#ffdde3"/><circle cx="614.4" cy="220.8" r="13.0" fill="#ffc6d0"/><g opacity=".55"><circle cx="705.3" cy="239.9" r="13" fill="#e4d2e2"/><path d="M705.3 226.9 A13 13 0 0 0 705.3 252.9 A11.49 13 0 0 1 705.3 226.9Z" fill="#ffffff"/></g></g>
 <rect x="28.0" y="226.7" width="18.1" height="25.3" fill="#f8e6ea"/>
 <rect x="42.5" y="227.7" width="22.0" height="24.3" fill="#f8e6ea"/>
 <rect x="63.0" y="209.7" width="30.3" height="42.3" fill="#f8e6ea"/>
@@ -248,7 +248,7 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <text x="713.6" y="274" font-size="10.5" class="mu m">Sep</text>
 <text x="775.8" y="274" font-size="10.5" class="mu m">Oct</text>
 <text x="838.0" y="274" font-size="10.5" class="mu m">Nov</text>
-<text x="32" y="44" class="lb">LUMIOSE CITY · IN THE MORNING</text>
+<text x="32" y="44" class="lb">LUMIOSE CITY · IN THE AFTERNOON</text>
 <text x="32" y="66" class="mu" font-size="12.5">1 building = 1 week · 1 lit window = 1 contribution</text>
 <text x="848" y="44" class="lb" text-anchor="end">PRISM TOWER · BEST WEEK</text>
 <text x="848" y="70" class="b" font-size="19" text-anchor="end">96 contributions</text>
