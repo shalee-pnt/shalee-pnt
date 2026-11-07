@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" role="img" aria-labelledby="title desc">
 <title id="title">Trainer card · shalee-pnt</title>
-<desc id="desc">Trainer card for shalee-pnt: Normal-type developer, work-study at a city hall. 290 contributions this year, 18 merged pull requests, 6 of 8 badges. Partner: Dunsparce, asleep, affection 5/5, fullness 0/5, enjoyment 4/5.</desc>
+<desc id="desc">Trainer card for shalee-pnt: Normal-type developer, work-study at a city hall. 293 contributions this year, 20 merged pull requests, 6 of 8 badges. Partner: Dunsparce, asleep, affection 5/5, fullness 2/5, enjoyment 4/5.</desc>
 <style>
 text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif}
 .m{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace}
@@ -30,10 +30,10 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <text x="40" y="273" class="b" font-size="19">381 days</text>
 <line x1="40" y1="283" x2="260" y2="283" stroke="#f0c4ce" stroke-dasharray="2 4"/>
 <text x="290" y="250" class="lb">CONTRIBUTIONS</text>
-<text x="290" y="273" class="b" font-size="19">290 / year</text>
+<text x="290" y="273" class="b" font-size="19">293 / year</text>
 <line x1="290" y1="283" x2="510" y2="283" stroke="#f0c4ce" stroke-dasharray="2 4"/>
 <text x="40" y="308" class="lb">MERGED PRs</text>
-<text x="40" y="331" class="b" font-size="19">18</text>
+<text x="40" y="331" class="b" font-size="19">20</text>
 <line x1="40" y1="341" x2="260" y2="341" stroke="#f0c4ce" stroke-dasharray="2 4"/>
 <text x="290" y="308" class="lb">TEAMS</text>
 <text x="290" y="331" class="b" font-size="19">2 orgs · 10 repos</text>
@@ -89,8 +89,8 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <path d="M800 431 C792 425 796 419 800 423 C804 419 808 425 800 431Z" fill="#f05a8c"/>
 <path d="M820 431 C812 425 816 419 820 423 C824 419 828 425 820 431Z" fill="#f05a8c"/>
 <text x="592" y="447.5" font-size="9.5" letter-spacing="1.2" class="b mu">FULLNESS</text>
-<circle cx="740" cy="445" r="5" fill="#f5e4e8" stroke="#f0c4ce" stroke-width="1"/><circle cx="740" cy="440.5" r="2.2" fill="#f5e4e8" stroke="#f0c4ce" stroke-width="1"/>
-<circle cx="760" cy="445" r="5" fill="#f5e4e8" stroke="#f0c4ce" stroke-width="1"/><circle cx="760" cy="440.5" r="2.2" fill="#f5e4e8" stroke="#f0c4ce" stroke-width="1"/>
+<circle cx="740" cy="445" r="5" fill="#e8a33d"/><circle cx="740" cy="440.5" r="2.2" fill="#ffffff"/>
+<circle cx="760" cy="445" r="5" fill="#e8a33d"/><circle cx="760" cy="440.5" r="2.2" fill="#ffffff"/>
 <circle cx="780" cy="445" r="5" fill="#f5e4e8" stroke="#f0c4ce" stroke-width="1"/><circle cx="780" cy="440.5" r="2.2" fill="#f5e4e8" stroke="#f0c4ce" stroke-width="1"/>
 <circle cx="800" cy="445" r="5" fill="#f5e4e8" stroke="#f0c4ce" stroke-width="1"/><circle cx="800" cy="440.5" r="2.2" fill="#f5e4e8" stroke="#f0c4ce" stroke-width="1"/>
 <circle cx="820" cy="445" r="5" fill="#f5e4e8" stroke="#f0c4ce" stroke-width="1"/><circle cx="820" cy="440.5" r="2.2" fill="#f5e4e8" stroke="#f0c4ce" stroke-width="1"/>
