@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" role="img" aria-labelledby="title desc">
 <title id="title">Trainer card · shalee-pnt</title>
-<desc id="desc">Trainer card for shalee-pnt: Normal-type developer, work-study at a city hall. 295 contributions this year, 20 merged pull requests, 6 of 8 badges. Partner: Dunsparce, asleep, affection 5/5, fullness 0/5, enjoyment 4/5.</desc>
+<desc id="desc">Trainer card for shalee-pnt: Normal-type developer, work-study at a city hall. 295 contributions this year, 20 merged pull requests, 6 of 8 badges. Partner: Dunsparce, napping (weekend), affection 5/5, fullness 0/5, enjoyment 4/5.</desc>
 <style>
 text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif}
 .m{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace}
@@ -81,7 +81,7 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <text x="592" y="349" font-size="12.5" class="mu">Insolourdo in French · Normal type</text>
 <text x="592" y="367" font-size="11.5" class="m mu">today: +Coffee breaks  -Sprints</text>
 <line x1="592" y1="382" x2="828" y2="382" stroke="#f0c4ce" stroke-dasharray="2 4"/>
-<text x="828" y="404" font-size="11" class="mu" text-anchor="end">asleep</text>
+<text x="828" y="404" font-size="11" class="mu" text-anchor="end">napping (weekend)</text>
 <text x="592" y="429.5" font-size="9.5" letter-spacing="1.2" class="b mu">AFFECTION</text>
 <path d="M740 431 C732 425 736 419 740 423 C744 419 748 425 740 431Z" fill="#f05a8c"/>
 <path d="M760 431 C752 425 756 419 760 423 C764 419 768 425 760 431Z" fill="#f05a8c"/>
