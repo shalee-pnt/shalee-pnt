@@ -1977,6 +1977,12 @@
   {
    "login": "shalee-pnt",
    "bug": "off-by-onyx",
+   "caught": true,
+   "date": "2026-11-08"
+  },
+  {
+   "login": "shalee-pnt",
+   "bug": "off-by-onyx",
    "caught": false,
    "date": "2026-11-07"
   },
@@ -1993,12 +1999,14 @@
    "escaped": 1
   },
   "off-by-onyx": {
-   "caught": 0,
+   "caught": 1,
    "escaped": 1
   }
  },
  "throws": {
-  "2026-11-08": []
+  "2026-11-08": [
+   "shalee-pnt"
+  ]
  },
  "trainers": [
   "shalee-pnt"
