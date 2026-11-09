@@ -76,6 +76,7 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <circle cx="555.9" cy="87.0" r="1.25" fill="#b9a0bb" opacity="0.9"><animate attributeName="opacity" values="0.9;0.18;0.9" dur="2.78s" begin="4.09s" repeatCount="indefinite"/></circle>
 <circle cx="770.6" cy="113.9" r="0.83" fill="#b9a0bb" opacity="0.9"><animate attributeName="opacity" values="0.9;0.18;0.9" dur="4.29s" begin="0.21s" repeatCount="indefinite"/></circle>
 <circle cx="46.4" cy="137.4" r="0.85" fill="#b9a0bb" opacity="0.9"><animate attributeName="opacity" values="0.9;0.18;0.9" dur="4.97s" begin="3.60s" repeatCount="indefinite"/></circle>
+<g clip-path="url(#above)"><g><circle cx="183.7" cy="250.0" r="13" fill="#e4d2e2"/><path d="M183.7 237.0 A13 13 0 0 0 183.7 263.0 A12.87 13 0 0 1 183.7 237.0Z" fill="#ffffff"/></g></g>
 <rect x="28.0" y="226.7" width="18.1" height="25.3" fill="#e6d3e2"/>
 <rect x="42.5" y="227.7" width="22.0" height="24.3" fill="#e6d3e2"/>
 <rect x="63.0" y="209.7" width="30.3" height="42.3" fill="#e6d3e2"/>
