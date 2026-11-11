@@ -1,40 +1,40 @@
 {
  "daily": {
-  "date": "2026-11-10",
+  "date": "2026-11-11",
   "party": [
    [
-    79,
-    90
+    75,
+    63
    ],
    [
-    58,
-    28
-   ],
-   [
-    17,
-    20
-   ],
-   [
-    68,
-    98
-   ],
-   [
-    87,
-    14
-   ],
-   [
-    31,
+    75,
     94
+   ],
+   [
+    88,
+    82
+   ],
+   [
+    84,
+    84
+   ],
+   [
+    61,
+    78
+   ],
+   [
+    70,
+    51
    ]
   ],
-  "nature": 12,
-  "bug": "off-by-onyx",
-  "bug_level": 36
+  "nature": 13,
+  "bug": "conflictwin",
+  "bug_level": 29
  },
  "stats": {
   "trainer_id": "35309",
-  "days": 384,
-  "contributions": 340,
+  "days": 385,
+  "contributions": 348,
   "merged_prs": 24,
   "orgs": 2,
   "repos": 10,
@@ -1979,6 +1979,11 @@
      "2026-11-10",
      5,
      2
+    ],
+    [
+     "2026-11-11",
+     8,
+     3
     ]
    ]
   ]
@@ -2036,18 +2041,16 @@
   }
  },
  "throws": {
-  "2026-11-10": [
-   "shalee-pnt"
-  ]
+  "2026-11-11": []
  },
  "trainers": [
   "shalee-pnt",
   "codebyhaamza"
  ],
  "insights": {
-  "date": "2026-11-10",
+  "date": "2026-11-11",
   "private": true,
-  "commits": 227,
+  "commits": 228,
   "repos": 11,
   "hours": [
    7,
@@ -2061,7 +2064,7 @@
    14,
    30,
    23,
-   44,
+   45,
    17,
    3,
    8,
@@ -2077,26 +2080,26 @@
   ],
   "weekdays": [
    38,
-   44,
+   45,
    31,
    53,
    46,
    6,
    9
   ],
-  "office": 164,
+  "office": 165,
   "after": 36,
   "weekend": 15,
   "languages": [
    [
     "Python",
     "#3572A5",
-    59.4
+    59.5
    ],
    [
     "HTML",
     "#e34c26",
-    18.8
+    18.7
    ],
    [
     "JavaScript",
@@ -2128,15 +2131,15 @@
    "atk": 39,
    "def": 69,
    "spa": 19,
-   "spd": 34
+   "spd": 35
   },
   "prs": {
-   "opened": 24,
-   "merged": 23,
-   "median_hours": 5.878055555555555,
-   "reviews": 34,
-   "additions": 38442,
-   "deletions": 468
+   "opened": 25,
+   "merged": 24,
+   "median_hours": 5.935555555555555,
+   "reviews": 36,
+   "additions": 38821,
+   "deletions": 480
   }
  }
 }

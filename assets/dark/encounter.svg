@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 290" width="880" height="290" role="img" aria-labelledby="title desc">
-<title id="title">Wild encounter · Off-by-Onyx</title>
-<desc id="desc">A wild Off-by-Onyx (Rock type, level 36) appeared. Bugdex entry: Always has one segment too many. Or one too few. Nobody has ever counted it right.</desc>
+<title id="title">Wild encounter · Conflictwin</title>
+<desc id="desc">A wild Conflictwin (Fighting type, level 29) appeared. Bugdex entry: Two heads, both convinced they are right. Only a human can settle it.</desc>
 <style>
 text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif}
 .m{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace}
@@ -25,20 +25,20 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <rect x="-200" y="182" width="128" height="2" rx="1" fill="#3fa9f5" opacity=".18"><animate attributeName="x" values="-200;880" dur="4.2s" begin="2.10s" repeatCount="indefinite"/></rect>
 <ellipse cx="660" cy="190" rx="176" ry="30" fill="url(#grass)"/>
 <ellipse cx="660" cy="186" rx="150" ry="20" fill="#1d5a52" opacity=".6"/>
-<g transform="translate(660 124)"><g><animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;0 -3;0 0" dur="2.6s" begin="0.0s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><circle cx="-58" cy="40" r="13" fill="#a59d8c" stroke="#0a0f1f" stroke-width="2.5"/><path d="M -63.2 36.1 l 3.9 3.25 l 2.6 -3.9" fill="none" stroke="#7d7566" stroke-width="2"/><circle cx="-36" cy="28" r="16" fill="#a59d8c" stroke="#0a0f1f" stroke-width="2.5"/><path d="M -42.4 23.2 l 4.8 4.0 l 3.2 -4.8" fill="none" stroke="#7d7566" stroke-width="2"/><circle cx="-10" cy="14" r="19" fill="#a59d8c" stroke="#0a0f1f" stroke-width="2.5"/><path d="M -17.6 8.3 l 5.7 4.75 l 3.8000000000000003 -5.7" fill="none" stroke="#7d7566" stroke-width="2"/><circle cx="16" cy="-2" r="22" fill="#a59d8c" stroke="#0a0f1f" stroke-width="2.5"/><path d="M 7.199999999999999 -8.6 l 6.6 5.5 l 4.4 -6.6" fill="none" stroke="#7d7566" stroke-width="2"/><circle cx="42" cy="-22" r="27" fill="#a59d8c" stroke="#0a0f1f" stroke-width="2.5"/><path d="M 31.2 -30.1 l 8.1 6.75 l 5.4 -8.1" fill="none" stroke="#7d7566" stroke-width="2"/><ellipse cx="36" cy="-28" rx="6" ry="7.5" fill="#ffffff" stroke="#0a0f1f" stroke-width="2"/><circle cx="37.5" cy="-27" r="3.0" fill="#141414"/><ellipse cx="54" cy="-26" rx="5" ry="6.25" fill="#ffffff" stroke="#0a0f1f" stroke-width="2"/><circle cx="55.5" cy="-25" r="2.5" fill="#141414"/><path d="M 34 -8 Q 44 -2 54 -8" fill="none" stroke="#0a0f1f" stroke-width="2.5" stroke-linecap="round"/><g><circle cx="-84" cy="50" r="10" fill="none" stroke="#a59d8c" stroke-width="2.5" stroke-dasharray="4 3"/><text x="-84" y="30" text-anchor="middle" class="b m" font-size="13" fill="#a59d8c">+1</text><animate attributeName="opacity" values="1;.2;1" dur="2s" repeatCount="indefinite"/></g></g></g></g>
+<g transform="translate(660 124)"><g><animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;0 -4;0 0" dur="2.4s" begin="0.0s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><rect x="-46" y="-6" width="92" height="56" rx="24" fill="#d6c3a5" stroke="#0a0f1f" stroke-width="2.5"/><text x="0" y="28" text-anchor="middle" class="b m" font-size="13" fill="#0a0f1f">=======</text><circle cx="-28" cy="-24" r="22" fill="#f87171" stroke="#0a0f1f" stroke-width="2.5"/><circle cx="28" cy="-24" r="22" fill="#4ade80" stroke="#0a0f1f" stroke-width="2.5"/><ellipse cx="-32" cy="-28" rx="5" ry="6.25" fill="#ffffff" stroke="#0a0f1f" stroke-width="2"/><circle cx="-30.5" cy="-27" r="2.5" fill="#141414"/><ellipse cx="24" cy="-28" rx="5" ry="6.25" fill="#ffffff" stroke="#0a0f1f" stroke-width="2"/><circle cx="25.5" cy="-27" r="2.5" fill="#141414"/><path d="M -40 -40 L -24 -34 M 40 -40 L 24 -34" stroke="#0a0f1f" stroke-width="3" stroke-linecap="round"/><text x="-28" y="-54" text-anchor="middle" class="b m" font-size="12" fill="#f87171">&lt;&lt;&lt;</text><text x="28" y="-54" text-anchor="middle" class="b m" font-size="12" fill="#4ade80">&gt;&gt;&gt;</text><rect x="-36" y="46" width="16" height="12" rx="5" fill="#d6c3a5" stroke="#0a0f1f" stroke-width="2.5"/><rect x="20" y="46" width="16" height="12" rx="5" fill="#d6c3a5" stroke="#0a0f1f" stroke-width="2.5"/></g></g></g>
 <rect x="1" y="1" width="878" height="288" rx="24" fill="none" stroke="#25375f" stroke-width="1.5"/>
 <rect x="28" y="26" width="392" height="110" rx="16" fill="#111c3d" stroke="#25375f"/>
-<text x="48" y="60" class="b" font-size="21">OFF-BY-ONYX</text>
-<text x="400" y="60" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> 36</text>
-<rect x="48.0" y="72.0" width="41.6" height="18" rx="9.0" fill="#b8a038"/><text x="68.8" y="84.4" text-anchor="middle" class="b" font-size="9.5" fill="#ffffff" letter-spacing=".6">ROCK</text>
-<text x="99.6" y="85" font-size="12.5" class="mu m">Bugdex #002</text>
+<text x="48" y="60" class="b" font-size="21">CONFLICTWIN</text>
+<text x="400" y="60" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> 29</text>
+<rect x="48.0" y="72.0" width="65.1" height="18" rx="9.0" fill="#d0402f"/><text x="80.6" y="84.4" text-anchor="middle" class="b" font-size="9.5" fill="#ffffff" letter-spacing=".6">FIGHTING</text>
+<text x="123.1" y="85" font-size="12.5" class="mu m">Bugdex #008</text>
 <text x="48" y="118" font-size="11" class="b m" fill="#3fa9f5">CATCH</text>
 <rect x="100" y="110" width="210" height="9" rx="4.5" fill="#1b2750"/>
-<rect x="100" y="110" width="115.5" height="9" rx="4.5" fill="#3fa9f5"/>
-<text x="400" y="119" text-anchor="end" font-size="12" class="m mu">55% · 2✓ 1✗</text>
+<rect x="100" y="110" width="105.0" height="9" rx="4.5" fill="#3fa9f5"/>
+<text x="400" y="119" text-anchor="end" font-size="12" class="m mu">50% · 0✓ 1✗</text>
 <rect x="28" y="214" width="824" height="56" rx="14" fill="#111c3d" stroke="#3fa9f5" stroke-width="2.5"/>
-<text x="50" y="238" class="b" font-size="16">A wild OFF-BY-ONYX appeared!</text>
-<text x="50" y="259" font-size="13" class="mu">Always has one segment too many. Or one too few. Nobody has ever counted it right.</text>
+<text x="50" y="238" class="b" font-size="16">A wild CONFLICTWIN appeared!</text>
+<text x="50" y="259" font-size="13" class="mu">Two heads, both convinced they are right. Only a human can settle it.</text>
 <path d="M 824 252 l 8 0 l -4 6 z" fill="#3fa9f5"><animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/></path>
 </g>
 </svg>
