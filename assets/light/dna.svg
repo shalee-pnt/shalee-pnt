@@ -83,6 +83,6 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <circle cx="513.7" cy="204" r="5.5" fill="#4F5D95"/><text x="524.7" y="208.5" font-size="13">PHP <tspan class="b">2.1%</tspan></text>
 <circle cx="612.2" cy="204" r="5.5" fill="#3178c6"/><text x="623.2" y="208.5" font-size="13">TypeScript <tspan class="b">1.6%</tspan></text>
 <circle cx="759.0" cy="204" r="5.5" fill="#8b949e"/><text x="770.0" y="208.5" font-size="13">Other <tspan class="b">2.8%</tspan></text>
-<text x="440.0" y="244" text-anchor="middle" font-size="11.5" class="mu">Languages of each repo, weighted by how many of my commits it holds · public + private · updated 2026-11-11</text>
+<text x="440.0" y="244" text-anchor="middle" font-size="11.5" class="mu">Languages of each repo, weighted by how many of my commits it holds · public + private · updated 2026-11-12</text>
 </g>
 </svg>
