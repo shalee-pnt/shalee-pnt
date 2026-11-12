@@ -1996,6 +1996,12 @@
  "log": [
   {
    "login": "shalee-pnt",
+   "bug": "heisenbuzz",
+   "caught": false,
+   "date": "2026-11-12"
+  },
+  {
+   "login": "shalee-pnt",
    "bug": "off-by-onyx",
    "caught": true,
    "date": "2026-11-10"
@@ -2042,11 +2048,13 @@
   },
   "heisenbuzz": {
    "caught": 1,
-   "escaped": 1
+   "escaped": 2
   }
  },
  "throws": {
-  "2026-11-12": []
+  "2026-11-12": [
+   "shalee-pnt"
+  ]
  },
  "trainers": [
   "shalee-pnt",
