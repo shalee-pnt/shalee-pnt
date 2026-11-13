@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 290" width="880" height="290" role="img" aria-labelledby="title desc">
-<title id="title">Wild encounter · Heisenbuzz</title>
-<desc id="desc">A wild Heisenbuzz (Psychic type, level 12) appeared. Bugdex entry: Vanishes the moment you open the debugger. Reappears in production.</desc>
+<title id="title">Wild encounter · Racecondor</title>
+<desc id="desc">A wild Racecondor (Flying type, level 49) appeared. Bugdex entry: Two of them hatched at the same time. Which one came first depends on the weather.</desc>
 <style>
 text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif}
 .m{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace}
@@ -25,20 +25,20 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <rect x="-200" y="182" width="128" height="2" rx="1" fill="#3fa9f5" opacity=".18"><animate attributeName="x" values="-200;880" dur="4.2s" begin="2.10s" repeatCount="indefinite"/></rect>
 <ellipse cx="660" cy="190" rx="176" ry="30" fill="url(#grass)"/>
 <ellipse cx="660" cy="186" rx="150" ry="20" fill="#1d5a52" opacity=".6"/>
-<g transform="translate(660 124)"><g><animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;0 -10;0 0" dur="1.8s" begin="0.0s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><g><animate attributeName="opacity" values="1;1;.12;1" keyTimes="0;.6;.75;1" dur="2.8s" repeatCount="indefinite"/><ellipse cx="-14" cy="-30" rx="26" ry="16" fill="#ffd6ec" fill-opacity=".7" stroke="#0a0f1f" stroke-width="2" transform="rotate(-25 -14 -30)"/><ellipse cx="18" cy="-32" rx="26" ry="16" fill="#ffd6ec" fill-opacity=".7" stroke="#0a0f1f" stroke-width="2" transform="rotate(25 18 -32)"/><ellipse cx="-30" cy="8" rx="26" ry="18" fill="#f472b6" stroke="#0a0f1f" stroke-width="2.5"/><path d="M -44 -6 L -44 22 M -30 -10 L -30 26" stroke="#9d174d" stroke-width="4"/><circle cx="4" cy="2" r="16" fill="#f472b6" stroke="#0a0f1f" stroke-width="2.5"/><circle cx="30" cy="-4" r="15" fill="#f9a8d4" stroke="#0a0f1f" stroke-width="2.5"/><ellipse cx="34" cy="-7" rx="5" ry="6.25" fill="#ffffff" stroke="#0a0f1f" stroke-width="2"/><circle cx="35.5" cy="-6" r="2.5" fill="#141414"/><path d="M 30 -18 Q 30 -40 44 -46 M 38 -16 Q 46 -34 60 -36" fill="none" stroke="#0a0f1f" stroke-width="2.5" stroke-linecap="round"/></g><text x="-60" y="52" class="b m" font-size="11" fill="#f472b6" opacity=".85">observed? no.</text></g></g></g>
+<g transform="translate(660 124)"><g><animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;0 -8;0 0" dur="2.2s" begin="0.0s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><g transform="translate(-16 -8)"><g opacity="0.35"><path d="M -10 0 C -40 -40 -80 -30 -96 -6 C -70 -10 -50 0 -28 10 Z" fill="#3b3b46" stroke="#0a0f1f" stroke-width="2.5"/><path d="M 10 0 C 40 -40 80 -30 96 -6 C 70 -10 50 0 28 10 Z" fill="#3b3b46" stroke="#0a0f1f" stroke-width="2.5"/><ellipse cx="0" cy="14" rx="30" ry="24" fill="#3b3b46" stroke="#0a0f1f" stroke-width="2.5"/><ellipse cx="0" cy="-6" rx="20" ry="8" fill="#f2f2f2" stroke="#0a0f1f" stroke-width="2"/><circle cx="0" cy="-22" r="13" fill="#f0a39f" stroke="#0a0f1f" stroke-width="2.5"/><path d="M 8 -24 Q 22 -22 16 -10 L 10 -16 Z" fill="#e9c46a" stroke="#0a0f1f" stroke-width="2"/><ellipse cx="-3" cy="-25" rx="4" ry="5.0" fill="#ffffff" stroke="#0a0f1f" stroke-width="2"/><circle cx="-1.5" cy="-24" r="2.0" fill="#141414"/></g><animateTransform attributeName="transform" type="translate" values="-16 -8;14 -4;-16 -8" dur="1.3s" repeatCount="indefinite"/></g><g opacity="1"><path d="M -10 0 C -40 -40 -80 -30 -96 -6 C -70 -10 -50 0 -28 10 Z" fill="#3b3b46" stroke="#0a0f1f" stroke-width="2.5"/><path d="M 10 0 C 40 -40 80 -30 96 -6 C 70 -10 50 0 28 10 Z" fill="#3b3b46" stroke="#0a0f1f" stroke-width="2.5"/><ellipse cx="0" cy="14" rx="30" ry="24" fill="#3b3b46" stroke="#0a0f1f" stroke-width="2.5"/><ellipse cx="0" cy="-6" rx="20" ry="8" fill="#f2f2f2" stroke="#0a0f1f" stroke-width="2"/><circle cx="0" cy="-22" r="13" fill="#f0a39f" stroke="#0a0f1f" stroke-width="2.5"/><path d="M 8 -24 Q 22 -22 16 -10 L 10 -16 Z" fill="#e9c46a" stroke="#0a0f1f" stroke-width="2"/><ellipse cx="-3" cy="-25" rx="4" ry="5.0" fill="#ffffff" stroke="#0a0f1f" stroke-width="2"/><circle cx="-1.5" cy="-24" r="2.0" fill="#141414"/></g></g></g></g>
 <rect x="1" y="1" width="878" height="288" rx="24" fill="none" stroke="#25375f" stroke-width="1.5"/>
 <rect x="28" y="26" width="392" height="110" rx="16" fill="#111c3d" stroke="#25375f"/>
-<text x="48" y="60" class="b" font-size="21">HEISENBUZZ</text>
-<text x="400" y="60" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> 12</text>
-<rect x="48.0" y="72.0" width="59.2" height="18" rx="9.0" fill="#f05a8c"/><text x="77.6" y="84.4" text-anchor="middle" class="b" font-size="9.5" fill="#ffffff" letter-spacing=".6">PSYCHIC</text>
-<text x="117.2" y="85" font-size="12.5" class="mu m">Bugdex #005</text>
+<text x="48" y="60" class="b" font-size="21">RACECONDOR</text>
+<text x="400" y="60" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> 49</text>
+<rect x="48.0" y="72.0" width="53.3" height="18" rx="9.0" fill="#8f7ae8"/><text x="74.7" y="84.4" text-anchor="middle" class="b" font-size="9.5" fill="#ffffff" letter-spacing=".6">FLYING</text>
+<text x="111.3" y="85" font-size="12.5" class="mu m">Bugdex #004</text>
 <text x="48" y="118" font-size="11" class="b m" fill="#3fa9f5">CATCH</text>
 <rect x="100" y="110" width="210" height="9" rx="4.5" fill="#1b2750"/>
-<rect x="100" y="110" width="42.0" height="9" rx="4.5" fill="#3fa9f5"/>
-<text x="400" y="119" text-anchor="end" font-size="12" class="m mu">20% · 1✓ 2✗</text>
+<rect x="100" y="110" width="63.0" height="9" rx="4.5" fill="#3fa9f5"/>
+<text x="400" y="119" text-anchor="end" font-size="12" class="m mu">30% · 0✓ 0✗</text>
 <rect x="28" y="214" width="824" height="56" rx="14" fill="#111c3d" stroke="#3fa9f5" stroke-width="2.5"/>
-<text x="50" y="238" class="b" font-size="16">A wild HEISENBUZZ appeared!</text>
-<text x="50" y="259" font-size="13" class="mu">Vanishes the moment you open the debugger. Reappears in production.</text>
+<text x="50" y="238" class="b" font-size="16">A wild RACECONDOR appeared!</text>
+<text x="50" y="259" font-size="13" class="mu">Two of them hatched at the same time. Which one came first depends on the weather.</text>
 <path d="M 824 252 l 8 0 l -4 6 z" fill="#3fa9f5"><animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/></path>
 </g>
 </svg>
