@@ -17,7 +17,7 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <rect x="1" y="1" width="878" height="298" rx="24" fill="#ffeee9"/>
 <clipPath id="above"><rect x="0" y="0" width="880" height="252"/></clipPath>
 <rect x="1" y="188" width="878" height="64" fill="#ffc9cf" opacity="0.22"/><rect x="1" y="224" width="878" height="28" fill="#ffc9cf" opacity="0.22"/>
-<g clip-path="url(#above)"><circle cx="207.0" cy="246.7" r="48.8" fill="#ffc9cf"/><circle cx="207.0" cy="246.7" r="35.2" fill="#ffa9b6"/></g>
+<g clip-path="url(#above)"><circle cx="664.8" cy="243.5" r="43.9" fill="#ffc9cf"/><circle cx="664.8" cy="243.5" r="31.6" fill="#ffa9b6"/><g><circle cx="499.3" cy="206.8" r="13" fill="#e4d2e2"/><path d="M499.3 193.8 A13 13 0 0 1 499.3 219.8 A9.07 13 0 0 0 499.3 193.8Z" fill="#ffffff"/></g></g>
 <rect x="28.0" y="226.7" width="18.1" height="25.3" fill="#f9dbe0"/>
 <rect x="42.5" y="227.7" width="22.0" height="24.3" fill="#f9dbe0"/>
 <rect x="63.0" y="209.7" width="30.3" height="42.3" fill="#f9dbe0"/>
@@ -232,10 +232,10 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <rect x="824.4" y="112" width="4" height="4" fill="#523140"/>
 <path d="" fill="#5a3747"/>
 <g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6319;0.6519;.9;.95;1" dur="14.0s" repeatCount="indefinite"/><path d="M824.5 120h3v3.4h-3zM829.9 120h3v3.4h-3zM824.5 126h3v3.4h-3zM829.9 126h3v3.4h-3zM824.5 132h3v3.4h-3zM829.9 144h3v3.4h-3zM824.5 156h3v3.4h-3zM829.9 156h3v3.4h-3zM824.5 162h3v3.4h-3zM829.9 168h3v3.4h-3zM824.5 186h3v3.4h-3zM829.9 192h3v3.4h-3zM824.5 198h3v3.4h-3zM829.9 198h3v3.4h-3zM824.5 204h3v3.4h-3zM829.9 210h3v3.4h-3zM824.5 228h3v3.4h-3zM829.9 228h3v3.4h-3zM824.5 234h3v3.4h-3zM824.5 240h3v3.4h-3zM829.9 246h3v3.4h-3z" fill="#ffcf6e"/><path d="M829.9 132h3v3.4h-3zM824.5 144h3v3.4h-3zM824.5 150h3v3.4h-3zM829.9 150h3v3.4h-3zM829.9 162h3v3.4h-3zM824.5 174h3v3.4h-3zM829.9 180h3v3.4h-3zM824.5 192h3v3.4h-3zM829.9 204h3v3.4h-3zM824.5 216h3v3.4h-3zM829.9 216h3v3.4h-3zM824.5 222h3v3.4h-3zM829.9 222h3v3.4h-3zM829.9 234h3v3.4h-3zM824.5 246h3v3.4h-3z" fill="#ffe3a3"/><path d="M824.5 138h3v3.4h-3zM829.9 138h3v3.4h-3zM824.5 168h3v3.4h-3zM829.9 174h3v3.4h-3zM824.5 180h3v3.4h-3zM829.9 186h3v3.4h-3zM824.5 210h3v3.4h-3zM829.9 240h3v3.4h-3z" fill="#ff8a9a"/></g>
-<rect x="838.0" y="170" width="12.5" height="82" fill="#50303f"/>
-<line x1="844.2" y1="170" x2="844.2" y2="160" stroke="#50303f" stroke-width="1.4"/><circle cx="844.2" cy="159" r="2" fill="#d7263d"><animate attributeName="opacity" values="1;1;.1;.1" keyTimes="0;.5;.55;1" dur="1.6s" repeatCount="indefinite"/></circle>
+<rect x="838.0" y="116" width="12.5" height="136" fill="#50303f"/>
+<line x1="844.2" y1="116" x2="844.2" y2="106" stroke="#50303f" stroke-width="1.4"/><circle cx="844.2" cy="105" r="2" fill="#d7263d"><animate attributeName="opacity" values="1;1;.1;.1" keyTimes="0;.5;.55;1" dur="1.6s" repeatCount="indefinite"/></circle>
 <path d="" fill="#5a3747"/>
-<g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6429;0.6629;.9;.95;1" dur="14.0s" repeatCount="indefinite"/><path d="M840.0 174h3v3.4h-3zM840.0 180h3v3.4h-3zM845.4 180h3v3.4h-3zM840.0 186h3v3.4h-3zM845.4 186h3v3.4h-3zM840.0 198h3v3.4h-3zM840.0 204h3v3.4h-3zM845.4 204h3v3.4h-3zM845.4 210h3v3.4h-3zM840.0 216h3v3.4h-3zM840.0 222h3v3.4h-3zM840.0 228h3v3.4h-3zM845.4 228h3v3.4h-3zM840.0 246h3v3.4h-3zM845.4 246h3v3.4h-3z" fill="#ffcf6e"/><path d="M845.4 174h3v3.4h-3zM845.4 198h3v3.4h-3zM840.0 234h3v3.4h-3z" fill="#ff8a9a"/><path d="M840.0 192h3v3.4h-3zM845.4 192h3v3.4h-3zM840.0 210h3v3.4h-3zM845.4 216h3v3.4h-3zM845.4 222h3v3.4h-3zM845.4 234h3v3.4h-3zM840.0 240h3v3.4h-3zM845.4 240h3v3.4h-3z" fill="#ffe3a3"/></g>
+<g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6429;0.6629;.9;.95;1" dur="14.0s" repeatCount="indefinite"/><path d="M840.0 120h3v3.4h-3zM845.4 120h3v3.4h-3zM845.4 126h3v3.4h-3zM845.4 132h3v3.4h-3zM840.0 138h3v3.4h-3zM845.4 150h3v3.4h-3zM840.0 156h3v3.4h-3zM840.0 162h3v3.4h-3zM845.4 162h3v3.4h-3zM840.0 168h3v3.4h-3zM845.4 174h3v3.4h-3zM845.4 192h3v3.4h-3zM840.0 198h3v3.4h-3zM845.4 198h3v3.4h-3zM845.4 204h3v3.4h-3zM845.4 210h3v3.4h-3zM840.0 216h3v3.4h-3zM840.0 222h3v3.4h-3zM840.0 228h3v3.4h-3zM845.4 228h3v3.4h-3zM845.4 240h3v3.4h-3z" fill="#ffcf6e"/><path d="M840.0 126h3v3.4h-3zM840.0 132h3v3.4h-3zM840.0 144h3v3.4h-3zM845.4 144h3v3.4h-3zM840.0 150h3v3.4h-3zM840.0 174h3v3.4h-3zM840.0 186h3v3.4h-3zM840.0 192h3v3.4h-3zM840.0 204h3v3.4h-3zM845.4 216h3v3.4h-3zM845.4 222h3v3.4h-3zM840.0 234h3v3.4h-3zM840.0 240h3v3.4h-3zM840.0 246h3v3.4h-3z" fill="#ffe3a3"/><path d="M845.4 138h3v3.4h-3zM845.4 156h3v3.4h-3zM845.4 168h3v3.4h-3zM840.0 180h3v3.4h-3zM845.4 180h3v3.4h-3zM845.4 186h3v3.4h-3zM840.0 210h3v3.4h-3zM845.4 234h3v3.4h-3zM845.4 246h3v3.4h-3z" fill="#ff8a9a"/></g>
 <rect x="0" y="252" width="880" height="48" fill="#fffafb" clip-path="url(#frame)"/>
 <rect x="24" y="252" width="832" height="2" rx="1" fill="#f0c4ce"/>
 <text x="91.7" y="274" font-size="10.5" class="mu m">Dec</text>
@@ -250,7 +250,7 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <text x="698.0" y="274" font-size="10.5" class="mu m">Sep</text>
 <text x="760.2" y="274" font-size="10.5" class="mu m">Oct</text>
 <text x="822.4" y="274" font-size="10.5" class="mu m">Nov</text>
-<text x="32" y="44" class="lb">LUMIOSE CITY · AT DAWN</text>
+<text x="32" y="44" class="lb">LUMIOSE CITY · AT DUSK</text>
 <text x="32" y="66" class="mu" font-size="12.5">1 building = 1 week · 1 lit window = 1 contribution</text>
 <text x="848" y="44" class="lb" text-anchor="end">PRISM TOWER · BEST WEEK</text>
 <text x="848" y="70" class="b" font-size="19" text-anchor="end">109 contributions</text>

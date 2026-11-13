@@ -3,7 +3,7 @@
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/dark/card.svg"><img alt="Trainer card of shalee-pnt: Normal-type developer, work-study at a city hall, partner Dunsparce" src="assets/light/card.svg" width="100%"></picture>
 
 <!-- status:start -->
-<p align="center"><sub><b>Booting up.</b> Coffee first. Code later. Maybe. · <i>live status, Paris time</i></sub></p>
+<p align="center"><sub><b>Clocked out.</b> Side projects, or doing nothing. Probably nothing. · <i>live status, Paris time</i></sub></p>
 <!-- status:end -->
 
 <img alt="Discord: shalee_" src="https://img.shields.io/badge/Discord-shalee__-5865F2?style=for-the-badge&logo=discord&logoColor=white">
