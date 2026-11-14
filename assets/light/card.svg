@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500" role="img" aria-labelledby="title desc">
 <title id="title">Trainer card · shalee-pnt</title>
-<desc id="desc">Trainer card for shalee-pnt: Normal-type developer, work-study at a city hall. 418 contributions this year, 28 merged pull requests, 6 of 8 badges. Partner: Dudunsparce, well fed · 6 today, affection 5/5, fullness 3/5, enjoyment 5/5.</desc>
+<desc id="desc">Trainer card for shalee-pnt: Normal-type developer, work-study at a city hall. 441 contributions this year, 28 merged pull requests, 6 of 8 badges. Partner: Dudunsparce, well fed · 28 today, affection 5/5, fullness 5/5, enjoyment 5/5.</desc>
 <style>
 text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif}
 .m{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace}
@@ -30,7 +30,7 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <text x="40" y="273" class="b" font-size="19">388 days</text>
 <line x1="40" y1="283" x2="260" y2="283" stroke="#f0c4ce" stroke-dasharray="2 4"/>
 <text x="290" y="250" class="lb">CONTRIBUTIONS</text>
-<text x="290" y="273" class="b" font-size="19">418 / year</text>
+<text x="290" y="273" class="b" font-size="19">441 / year</text>
 <line x1="290" y1="283" x2="510" y2="283" stroke="#f0c4ce" stroke-dasharray="2 4"/>
 <text x="40" y="308" class="lb">MERGED PRs</text>
 <text x="40" y="331" class="b" font-size="19">28</text>
@@ -81,7 +81,7 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <text x="592" y="349" font-size="12.5" class="mu">evolved for the day · 13-day streak</text>
 <text x="592" y="367" font-size="11.5" class="m mu">today: +Read-only mode  -Force push</text>
 <line x1="592" y1="382" x2="828" y2="382" stroke="#f0c4ce" stroke-dasharray="2 4"/>
-<text x="828" y="404" font-size="11" class="mu" text-anchor="end">well fed · 6 today</text>
+<text x="828" y="404" font-size="11" class="mu" text-anchor="end">well fed · 28 today</text>
 <text x="592" y="429.5" font-size="9.5" letter-spacing="1.2" class="b mu">AFFECTION</text>
 <path d="M740 431 C732 425 736 419 740 423 C744 419 748 425 740 431Z" fill="#f05a8c"/>
 <path d="M760 431 C752 425 756 419 760 423 C764 419 768 425 760 431Z" fill="#f05a8c"/>
@@ -92,8 +92,8 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <circle cx="740" cy="445" r="5" fill="#e8a33d"/><circle cx="740" cy="440.5" r="2.2" fill="#ffffff"/>
 <circle cx="760" cy="445" r="5" fill="#e8a33d"/><circle cx="760" cy="440.5" r="2.2" fill="#ffffff"/>
 <circle cx="780" cy="445" r="5" fill="#e8a33d"/><circle cx="780" cy="440.5" r="2.2" fill="#ffffff"/>
-<circle cx="800" cy="445" r="5" fill="#f5e4e8" stroke="#f0c4ce" stroke-width="1"/><circle cx="800" cy="440.5" r="2.2" fill="#f5e4e8" stroke="#f0c4ce" stroke-width="1"/>
-<circle cx="820" cy="445" r="5" fill="#f5e4e8" stroke="#f0c4ce" stroke-width="1"/><circle cx="820" cy="440.5" r="2.2" fill="#f5e4e8" stroke="#f0c4ce" stroke-width="1"/>
+<circle cx="800" cy="445" r="5" fill="#e8a33d"/><circle cx="800" cy="440.5" r="2.2" fill="#ffffff"/>
+<circle cx="820" cy="445" r="5" fill="#e8a33d"/><circle cx="820" cy="440.5" r="2.2" fill="#ffffff"/>
 <text x="592" y="465.5" font-size="9.5" letter-spacing="1.2" class="b mu">ENJOYMENT</text>
 <ellipse cx="738.2" cy="465" rx="3.2" ry="2.4" fill="#d7263d" transform="rotate(-20 738.2 465)"/><path d="M741.2 465 V456 Q745 458 745.5 461" fill="none" stroke="#d7263d" stroke-width="1.6"/>
 <ellipse cx="758.2" cy="465" rx="3.2" ry="2.4" fill="#d7263d" transform="rotate(-20 758.2 465)"/><path d="M761.2 465 V456 Q765 458 765.5 461" fill="none" stroke="#d7263d" stroke-width="1.6"/>
