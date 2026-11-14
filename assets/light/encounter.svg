@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 290" width="880" height="290" role="img" aria-labelledby="title desc">
-<title id="title">Wild encounter · Racecondor</title>
-<desc id="desc">A wild Racecondor (Flying type, level 49) appeared. Bugdex entry: Two of them hatched at the same time. Which one came first depends on the weather.</desc>
+<title id="title">Wild encounter · Segfaultoise</title>
+<desc id="desc">A wild Segfaultoise (Steel type, level 50) appeared. Bugdex entry: Touches memory it doesn't own, then retreats into its shell and takes the whole process with it.</desc>
 <style>
 text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif}
 .m{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace}
@@ -25,20 +25,20 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <rect x="-200" y="182" width="128" height="2" rx="1" fill="#d7263d" opacity=".18"><animate attributeName="x" values="-200;880" dur="4.2s" begin="2.10s" repeatCount="indefinite"/></rect>
 <ellipse cx="660" cy="190" rx="176" ry="30" fill="url(#grass)"/>
 <ellipse cx="660" cy="186" rx="150" ry="20" fill="#bfe3b0" opacity=".6"/>
-<g transform="translate(660 124)"><g><animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;0 -8;0 0" dur="2.2s" begin="0.0s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><g transform="translate(-16 -8)"><g opacity="0.35"><path d="M -10 0 C -40 -40 -80 -30 -96 -6 C -70 -10 -50 0 -28 10 Z" fill="#3b3b46" stroke="#3a2a1a" stroke-width="2.5"/><path d="M 10 0 C 40 -40 80 -30 96 -6 C 70 -10 50 0 28 10 Z" fill="#3b3b46" stroke="#3a2a1a" stroke-width="2.5"/><ellipse cx="0" cy="14" rx="30" ry="24" fill="#3b3b46" stroke="#3a2a1a" stroke-width="2.5"/><ellipse cx="0" cy="-6" rx="20" ry="8" fill="#f2f2f2" stroke="#3a2a1a" stroke-width="2"/><circle cx="0" cy="-22" r="13" fill="#f0a39f" stroke="#3a2a1a" stroke-width="2.5"/><path d="M 8 -24 Q 22 -22 16 -10 L 10 -16 Z" fill="#e9c46a" stroke="#3a2a1a" stroke-width="2"/><ellipse cx="-3" cy="-25" rx="4" ry="5.0" fill="#ffffff" stroke="#3a2a1a" stroke-width="2"/><circle cx="-1.5" cy="-24" r="2.0" fill="#141414"/></g><animateTransform attributeName="transform" type="translate" values="-16 -8;14 -4;-16 -8" dur="1.3s" repeatCount="indefinite"/></g><g opacity="1"><path d="M -10 0 C -40 -40 -80 -30 -96 -6 C -70 -10 -50 0 -28 10 Z" fill="#3b3b46" stroke="#3a2a1a" stroke-width="2.5"/><path d="M 10 0 C 40 -40 80 -30 96 -6 C 70 -10 50 0 28 10 Z" fill="#3b3b46" stroke="#3a2a1a" stroke-width="2.5"/><ellipse cx="0" cy="14" rx="30" ry="24" fill="#3b3b46" stroke="#3a2a1a" stroke-width="2.5"/><ellipse cx="0" cy="-6" rx="20" ry="8" fill="#f2f2f2" stroke="#3a2a1a" stroke-width="2"/><circle cx="0" cy="-22" r="13" fill="#f0a39f" stroke="#3a2a1a" stroke-width="2.5"/><path d="M 8 -24 Q 22 -22 16 -10 L 10 -16 Z" fill="#e9c46a" stroke="#3a2a1a" stroke-width="2"/><ellipse cx="-3" cy="-25" rx="4" ry="5.0" fill="#ffffff" stroke="#3a2a1a" stroke-width="2"/><circle cx="-1.5" cy="-24" r="2.0" fill="#141414"/></g></g></g></g>
+<g transform="translate(660 124)"><g><animateTransform attributeName="transform" type="translate" additive="sum" values="0 0;0 -2;0 0" dur="3.6s" begin="0.0s" repeatCount="indefinite" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1"/><rect x="-44" y="24" width="18" height="22" rx="7" fill="#9ccbd6" stroke="#3a2a1a" stroke-width="2.5"/><rect x="22" y="24" width="18" height="22" rx="7" fill="#9ccbd6" stroke="#3a2a1a" stroke-width="2.5"/><circle cx="70" cy="2" r="20" fill="#9ccbd6" stroke="#3a2a1a" stroke-width="2.5"/><ellipse cx="74" cy="-2" rx="6" ry="7.5" fill="#ffffff" stroke="#3a2a1a" stroke-width="2"/><circle cx="75.5" cy="-1" r="3.0" fill="#141414"/><path d="M 64 -14 L 82 -8" stroke="#3a2a1a" stroke-width="3" stroke-linecap="round"/><path d="M 66 12 Q 74 8 82 12" fill="none" stroke="#3a2a1a" stroke-width="2.5" stroke-linecap="round"/><path d="M -58 26 Q -58 -50 0 -50 Q 58 -50 58 26 Z" fill="#6f8fa6" stroke="#3a2a1a" stroke-width="2.5"/><path d="M -30 -38 Q 0 -20 30 -38 M -52 0 Q 0 16 52 0" fill="none" stroke="#56778f" stroke-width="3"/><path d="M 2 -50 L -8 -30 L 8 -18 L -6 -2 L 6 12 L -2 26" fill="none" stroke="#ffd166" stroke-width="3.5" stroke-linejoin="round"><animate attributeName="stroke-opacity" values="1;.3;1" dur="1.2s" repeatCount="indefinite"/></path><rect x="-62" y="22" width="124" height="12" rx="6" fill="#56778f" stroke="#3a2a1a" stroke-width="2.5"/></g></g></g>
 <rect x="1" y="1" width="878" height="288" rx="24" fill="none" stroke="#f0c4ce" stroke-width="1.5"/>
 <rect x="28" y="26" width="392" height="110" rx="16" fill="#ffffff" stroke="#f0c4ce"/>
-<text x="48" y="60" class="b" font-size="21">RACECONDOR</text>
-<text x="400" y="60" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> 49</text>
-<rect x="48.0" y="72.0" width="53.3" height="18" rx="9.0" fill="#8f7ae8"/><text x="74.7" y="84.4" text-anchor="middle" class="b" font-size="9.5" fill="#ffffff" letter-spacing=".6">FLYING</text>
-<text x="111.3" y="85" font-size="12.5" class="mu m">Bugdex #004</text>
+<text x="48" y="60" class="b" font-size="21">SEGFAULTOISE</text>
+<text x="400" y="60" text-anchor="end" class="b m" font-size="15"><tspan class="mu" font-size="11">Lv.</tspan> 50</text>
+<rect x="48.0" y="72.0" width="47.5" height="18" rx="9.0" fill="#8aa5b8"/><text x="71.7" y="84.4" text-anchor="middle" class="b" font-size="9.5" fill="#ffffff" letter-spacing=".6">STEEL</text>
+<text x="105.5" y="85" font-size="12.5" class="mu m">Bugdex #003</text>
 <text x="48" y="118" font-size="11" class="b m" fill="#d7263d">CATCH</text>
 <rect x="100" y="110" width="210" height="9" rx="4.5" fill="#f5e4e8"/>
-<rect x="100" y="110" width="63.0" height="9" rx="4.5" fill="#d7263d"/>
-<text x="400" y="119" text-anchor="end" font-size="12" class="m mu">30% · 0✓ 0✗</text>
+<rect x="100" y="110" width="73.5" height="9" rx="4.5" fill="#d7263d"/>
+<text x="400" y="119" text-anchor="end" font-size="12" class="m mu">35% · 0✓ 0✗</text>
 <rect x="28" y="214" width="824" height="56" rx="14" fill="#ffffff" stroke="#d7263d" stroke-width="2.5"/>
-<text x="50" y="238" class="b" font-size="16">A wild RACECONDOR appeared!</text>
-<text x="50" y="259" font-size="13" class="mu">Two of them hatched at the same time. Which one came first depends on the weather.</text>
+<text x="50" y="238" class="b" font-size="16">A wild SEGFAULTOISE appeared!</text>
+<text x="50" y="259" font-size="13" class="mu">Touches memory it doesn't own, then retreats into its shell and takes the whole process with it.</text>
 <path d="M 824 252 l 8 0 l -4 6 z" fill="#d7263d"><animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/></path>
 </g>
 </svg>
