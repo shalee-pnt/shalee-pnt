@@ -2006,6 +2006,12 @@
  "log": [
   {
    "login": "shalee-pnt",
+   "bug": "segfaultoise",
+   "caught": false,
+   "date": "2026-11-14"
+  },
+  {
+   "login": "shalee-pnt",
    "bug": "heisenbuzz",
    "caught": false,
    "date": "2026-11-12"
@@ -2059,10 +2065,16 @@
   "heisenbuzz": {
    "caught": 1,
    "escaped": 2
+  },
+  "segfaultoise": {
+   "caught": 0,
+   "escaped": 1
   }
  },
  "throws": {
-  "2026-11-14": []
+  "2026-11-14": [
+   "shalee-pnt"
+  ]
  },
  "trainers": [
   "shalee-pnt",
