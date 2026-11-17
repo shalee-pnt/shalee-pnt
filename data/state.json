@@ -1986,6 +1986,12 @@
  "log": [
   {
    "login": "shalee-pnt",
+   "bug": "undefinedeon",
+   "caught": false,
+   "date": "2026-11-17"
+  },
+  {
+   "login": "shalee-pnt",
    "bug": "segfaultoise",
    "caught": false,
    "date": "2026-11-14"
@@ -2049,10 +2055,16 @@
   "segfaultoise": {
    "caught": 0,
    "escaped": 1
+  },
+  "undefinedeon": {
+   "caught": 0,
+   "escaped": 1
   }
  },
  "throws": {
-  "2026-11-17": []
+  "2026-11-17": [
+   "shalee-pnt"
+  ]
  },
  "trainers": [
   "shalee-pnt",
