@@ -1,39 +1,39 @@
 {
  "daily": {
-  "date": "2026-11-19",
+  "date": "2026-11-20",
   "party": [
    [
-    95,
-    35
+    32,
+    83
    ],
    [
-    12,
-    76
+    41,
+    31
    ],
    [
-    15,
-    50
+    76,
+    78
    ],
    [
-    50,
-    8
+    72,
+    21
    ],
    [
-    78,
-    69
+    21,
+    97
    ],
    [
-    37,
-    45
+    79,
+    16
    ]
   ],
-  "nature": 13,
-  "bug": "infiniloop",
-  "bug_level": 37
+  "nature": 3,
+  "bug": "off-by-onyx",
+  "bug_level": 64
  },
  "stats": {
   "trainer_id": "35309",
-  "days": 393,
+  "days": 394,
   "contributions": 501,
   "merged_prs": 32,
   "orgs": 2,
@@ -1989,6 +1989,11 @@
      "2026-11-19",
      28,
      4
+    ],
+    [
+     "2026-11-20",
+     0,
+     5
     ]
    ]
   ]
@@ -2078,16 +2083,16 @@
   }
  },
  "throws": {
-  "2026-11-19": []
+  "2026-11-20": []
  },
  "trainers": [
   "shalee-pnt",
   "codebyhaamza"
  ],
  "insights": {
-  "date": "2026-11-19",
+  "date": "2026-11-20",
   "private": true,
-  "commits": 246,
+  "commits": 250,
   "repos": 12,
   "hours": [
    4,
@@ -2104,49 +2109,49 @@
    47,
    21,
    4,
-   13,
-   21,
-   30,
+   14,
+   22,
+   31,
    7,
    6,
    4,
    6,
    4,
-   5,
+   6,
    1
   ],
   "weekdays": [
    38,
    49,
    36,
-   57,
+   61,
    46,
    17,
    3
   ],
-  "office": 179,
-  "after": 31,
+  "office": 182,
+  "after": 32,
   "weekend": 20,
   "languages": [
    [
     "Python",
     "#3572A5",
-    56.9
+    57.5
    ],
    [
     "HTML",
     "#e34c26",
-    18.4
+    18.1
    ],
    [
     "JavaScript",
     "#f1e05a",
-    10.2
+    10.0
    ],
    [
     "CSS",
     "#663399",
-    4.4
+    4.3
    ],
    [
     "PHP",
@@ -2161,22 +2166,22 @@
    [
     "Other",
     "#8b949e",
-    4.1
+    4.2
    ]
   ],
   "kinds": {
-   "atk": 49,
+   "atk": 50,
    "def": 64,
    "spa": 19,
    "spd": 37
   },
   "prs": {
    "opened": 34,
-   "merged": 31,
-   "median_hours": 5.782222222222222,
-   "reviews": 76,
-   "additions": 45462,
-   "deletions": 644
+   "merged": 32,
+   "median_hours": 5.8301388888888885,
+   "reviews": 101,
+   "additions": 59528,
+   "deletions": 655
   }
  }
 }
