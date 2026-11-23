@@ -1981,6 +1981,12 @@
  "log": [
   {
    "login": "CodeByHaamza",
+   "bug": "heisenbuzz",
+   "caught": true,
+   "date": "2026-11-23"
+  },
+  {
+   "login": "CodeByHaamza",
    "bug": "undefinedeon",
    "caught": false,
    "date": "2026-11-17"
@@ -2050,7 +2056,7 @@
    "escaped": 1
   },
   "heisenbuzz": {
-   "caught": 1,
+   "caught": 2,
    "escaped": 2
   },
   "segfaultoise": {
@@ -2063,7 +2069,9 @@
   }
  },
  "throws": {
-  "2026-11-23": []
+  "2026-11-23": [
+   "codebyhaamza"
+  ]
  },
  "trainers": [
   "shalee-pnt",
