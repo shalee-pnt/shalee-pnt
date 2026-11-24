@@ -1,39 +1,39 @@
 {
  "daily": {
-  "date": "2026-11-23",
+  "date": "2026-11-24",
   "party": [
    [
-    47,
-    74
-   ],
-   [
-    43,
-    82
-   ],
-   [
-    36,
-    39
-   ],
-   [
-    48,
-    15
-   ],
-   [
-    23,
+    45,
     38
    ],
    [
-    56,
-    74
+    59,
+    75
+   ],
+   [
+    36,
+    64
+   ],
+   [
+    49,
+    47
+   ],
+   [
+    27,
+    56
+   ],
+   [
+    24,
+    51
    ]
   ],
-  "nature": 12,
-  "bug": "heisenbuzz",
-  "bug_level": 31
+  "nature": 13,
+  "bug": "segfaultoise",
+  "bug_level": 58
  },
  "stats": {
   "trainer_id": "35309",
-  "days": 397,
+  "days": 398,
   "contributions": 505,
   "merged_prs": 33,
   "orgs": 2,
@@ -1974,6 +1974,11 @@
      "2026-11-23",
      1,
      1
+    ],
+    [
+     "2026-11-24",
+     0,
+     2
     ]
    ]
   ]
@@ -2069,16 +2074,14 @@
   }
  },
  "throws": {
-  "2026-11-23": [
-   "codebyhaamza"
-  ]
+  "2026-11-24": []
  },
  "trainers": [
   "shalee-pnt",
   "codebyhaamza"
  ],
  "insights": {
-  "date": "2026-11-23",
+  "date": "2026-11-24",
   "private": true,
   "commits": 249,
   "repos": 12,
@@ -2144,7 +2147,7 @@
    [
     "PHP",
     "#4F5D95",
-    3.4
+    3.5
    ],
    [
     "TypeScript",
@@ -2154,7 +2157,7 @@
    [
     "Other",
     "#8b949e",
-    4.2
+    4.1
    ]
   ],
   "kinds": {
@@ -2165,11 +2168,11 @@
   },
   "prs": {
    "opened": 34,
-   "merged": 32,
-   "median_hours": 5.8301388888888885,
+   "merged": 33,
+   "median_hours": 5.878055555555555,
    "reviews": 101,
-   "additions": 59528,
-   "deletions": 655
+   "additions": 59606,
+   "deletions": 662
   }
  }
 }
