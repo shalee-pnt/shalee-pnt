@@ -76,7 +76,7 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <circle cx="555.9" cy="87.0" r="1.25" fill="#c9d6f2" opacity="1.0"><animate attributeName="opacity" values="1.0;0.20;1.0" dur="2.78s" begin="4.09s" repeatCount="indefinite"/></circle>
 <circle cx="770.6" cy="113.9" r="0.83" fill="#c9d6f2" opacity="1.0"><animate attributeName="opacity" values="1.0;0.20;1.0" dur="4.29s" begin="0.21s" repeatCount="indefinite"/></circle>
 <circle cx="46.4" cy="137.4" r="0.85" fill="#c9d6f2" opacity="1.0"><animate attributeName="opacity" values="1.0;0.20;1.0" dur="4.97s" begin="3.60s" repeatCount="indefinite"/></circle>
-<g clip-path="url(#above)"><g><circle cx="734.0" cy="206.0" r="13" fill="#202c58"/><path d="M734.0 193.0 A13 13 0 0 1 734.0 219.0 A12.93 13 0 0 1 734.0 193.0Z" fill="#e8eefb"/></g></g>
+<g clip-path="url(#above)"><g><circle cx="101.9" cy="223.3" r="13" fill="#202c58"/><path d="M101.9 210.3 A13 13 0 0 0 101.9 236.3 A13.00 13 0 0 0 101.9 210.3Z" fill="#e8eefb"/></g></g>
 <rect x="28.0" y="226.7" width="18.1" height="25.3" fill="#111c40"/>
 <rect x="42.5" y="227.7" width="22.0" height="24.3" fill="#111c40"/>
 <rect x="63.0" y="209.7" width="30.3" height="42.3" fill="#111c40"/>
@@ -295,10 +295,10 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <rect x="825.4" y="111" width="6.5" height="5" fill="#1f3161"/>
 <path d="" fill="#25386a"/>
 <g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6319;0.6519;.9;.95;1" dur="14.0s" repeatCount="indefinite"/><path d="M824.5 120h3v3.4h-3zM829.9 126h3v3.4h-3zM829.9 132h3v3.4h-3zM829.9 144h3v3.4h-3zM829.9 150h3v3.4h-3zM829.9 156h3v3.4h-3zM824.5 162h3v3.4h-3zM829.9 162h3v3.4h-3zM829.9 168h3v3.4h-3zM829.9 180h3v3.4h-3zM824.5 198h3v3.4h-3zM829.9 198h3v3.4h-3zM824.5 204h3v3.4h-3zM824.5 222h3v3.4h-3zM829.9 222h3v3.4h-3zM829.9 234h3v3.4h-3zM824.5 240h3v3.4h-3z" fill="#3fa9f5"/><path d="M829.9 120h3v3.4h-3zM824.5 126h3v3.4h-3zM824.5 144h3v3.4h-3zM824.5 150h3v3.4h-3zM824.5 168h3v3.4h-3zM824.5 174h3v3.4h-3zM824.5 180h3v3.4h-3zM829.9 186h3v3.4h-3zM824.5 192h3v3.4h-3zM829.9 192h3v3.4h-3zM829.9 204h3v3.4h-3zM824.5 210h3v3.4h-3zM829.9 210h3v3.4h-3zM824.5 216h3v3.4h-3zM824.5 228h3v3.4h-3zM829.9 228h3v3.4h-3zM829.9 246h3v3.4h-3z" fill="#5fd4f5"/><path d="M824.5 132h3v3.4h-3zM824.5 138h3v3.4h-3zM829.9 138h3v3.4h-3zM824.5 156h3v3.4h-3zM829.9 174h3v3.4h-3zM824.5 186h3v3.4h-3zM829.9 216h3v3.4h-3zM824.5 234h3v3.4h-3zM829.9 240h3v3.4h-3zM824.5 246h3v3.4h-3z" fill="#9be7ff"/></g>
-<rect x="838.0" y="218" width="12.5" height="34" fill="#1e2e5d"/>
-<line x1="844.2" y1="218" x2="844.2" y2="208" stroke="#1e2e5d" stroke-width="1.4"/><circle cx="844.2" cy="207" r="2" fill="#ff4d5e"><animate attributeName="opacity" values="1;1;.1;.1" keyTimes="0;.5;.55;1" dur="1.6s" repeatCount="indefinite"/></circle>
-<path d="M840.0 222h3v3.4h-3zM845.4 222h3v3.4h-3zM840.0 228h3v3.4h-3zM845.4 228h3v3.4h-3zM840.0 234h3v3.4h-3zM840.0 240h3v3.4h-3zM845.4 240h3v3.4h-3zM840.0 246h3v3.4h-3zM845.4 246h3v3.4h-3z" fill="#25386a"/>
-<g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6429;0.6629;.9;.95;1" dur="14.0s" repeatCount="indefinite"/><path d="M845.4 234h3v3.4h-3z" fill="#3fa9f5"/></g>
+<rect x="838.0" y="200" width="12.5" height="52" fill="#1e2e5d"/>
+<line x1="844.2" y1="200" x2="844.2" y2="190" stroke="#1e2e5d" stroke-width="1.4"/><circle cx="844.2" cy="189" r="2" fill="#ff4d5e"><animate attributeName="opacity" values="1;1;.1;.1" keyTimes="0;.5;.55;1" dur="1.6s" repeatCount="indefinite"/></circle>
+<path d="M840.0 210h3v3.4h-3zM845.4 210h3v3.4h-3zM840.0 216h3v3.4h-3zM845.4 216h3v3.4h-3zM845.4 228h3v3.4h-3zM840.0 234h3v3.4h-3zM840.0 246h3v3.4h-3zM845.4 246h3v3.4h-3z" fill="#25386a"/>
+<g><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.6429;0.6629;.9;.95;1" dur="14.0s" repeatCount="indefinite"/><path d="M840.0 204h3v3.4h-3zM845.4 222h3v3.4h-3z" fill="#5fd4f5"/><path d="M845.4 204h3v3.4h-3z" fill="#9be7ff"/><path d="M840.0 222h3v3.4h-3zM840.0 228h3v3.4h-3zM845.4 234h3v3.4h-3zM840.0 240h3v3.4h-3zM845.4 240h3v3.4h-3z" fill="#3fa9f5"/></g>
 <rect x="0" y="252" width="880" height="48" fill="#0c1431" clip-path="url(#frame)"/>
 <rect x="24" y="252" width="832" height="2" rx="1" fill="#25375f"/>
 <text x="60.6" y="274" font-size="10.5" class="mu m">Dec</text>
