@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 330" width="880" height="330" role="img" aria-labelledby="title desc">
 <title id="title">Commit clock · shalee-pnt</title>
-<desc id="desc">Commit clock for the last 12 months: 252 commits, peak hour 11:00, 73% during office hours, 13% between 6 pm and 6 am, 8% on weekends.</desc>
+<desc id="desc">Commit clock for the last 12 months: 266 commits, peak hour 11:00, 74% during office hours, 12% between 6 pm and 6 am, 8% on weekends.</desc>
 <style>
 text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif}
 .m{font-family:ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace}
@@ -48,13 +48,13 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <path d="M184.7 219.9 A54.9 54.9 0 0 1 173.1 218.3 L178.9 194.2 A30 30 0 0 0 185.3 195.0Z" fill="#1b4a86" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="0.3s" repeatCount="indefinite"/></path>
 <path d="M162.8 202.9 A44.4 44.4 0 0 1 155.4 197.2 L165.3 186.7 A30 30 0 0 0 170.4 190.6Z" fill="#1b4a86" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="2.3s" repeatCount="indefinite"/></path>
 <path d="M139.2 151.2 A48.8 48.8 0 0 1 143.2 141.7 L159.7 150.6 A30 30 0 0 0 157.2 156.5Z" fill="#1b4a86" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="7.3s" repeatCount="indefinite"/></path>
-<path d="M123.7 126.9 A73.0 73.0 0 0 1 133.1 114.6 L164.3 144.3 A30 30 0 0 0 160.4 149.4Z" fill="#2672c4" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="8.3s" repeatCount="indefinite"/></path>
-<path d="M123.1 99.0 A91.2 91.2 0 0 1 138.5 87.2 L170.4 139.4 A30 30 0 0 0 165.3 143.3Z" fill="#3fa9f5" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="9.3s" repeatCount="indefinite"/></path>
-<path d="M143.3 86.7 A89.2 89.2 0 0 1 160.8 79.4 L177.5 136.2 A30 30 0 0 0 171.6 138.7Z" fill="#3fa9f5" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="10.3s" repeatCount="indefinite"/></path>
+<path d="M121.4 125.5 A75.7 75.7 0 0 1 131.2 112.8 L164.3 144.3 A30 30 0 0 0 160.4 149.4Z" fill="#2672c4" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="8.3s" repeatCount="indefinite"/></path>
+<path d="M121.8 97.6 A93.0 93.0 0 0 1 137.5 85.6 L170.4 139.4 A30 30 0 0 0 165.3 143.3Z" fill="#3fa9f5" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="9.3s" repeatCount="indefinite"/></path>
+<path d="M142.8 85.8 A90.2 90.2 0 0 1 160.5 78.5 L177.5 136.2 A30 30 0 0 0 171.6 138.7Z" fill="#3fa9f5" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="10.3s" repeatCount="indefinite"/></path>
 <path d="M161.5 63.9 A104.0 104.0 0 0 1 183.5 61.0 L185.3 135.0 A30 30 0 0 0 178.9 135.8Z" fill="#9be7ff" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="11.3s" repeatCount="indefinite"/></path>
 <path d="M188.0 82.1 A82.9 82.9 0 0 1 205.5 84.4 L193.1 135.8 A30 30 0 0 0 186.7 135.0Z" fill="#2672c4" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="12.3s" repeatCount="indefinite"/></path>
-<path d="M202.2 110.0 A57.3 57.3 0 0 1 213.4 114.7 L200.4 138.7 A30 30 0 0 0 194.5 136.2Z" fill="#1b4a86" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="13.3s" repeatCount="indefinite"/></path>
-<path d="M224.1 102.7 A73.0 73.0 0 0 1 236.4 112.1 L206.7 143.3 A30 30 0 0 0 201.6 139.4Z" fill="#2672c4" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="14.3s" repeatCount="indefinite"/></path>
+<path d="M203.4 105.9 A61.6 61.6 0 0 1 215.5 110.9 L200.4 138.7 A30 30 0 0 0 194.5 136.2Z" fill="#1b4a86" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="13.3s" repeatCount="indefinite"/></path>
+<path d="M228.6 95.2 A81.8 81.8 0 0 1 242.4 105.7 L206.7 143.3 A30 30 0 0 0 201.6 139.4Z" fill="#2672c4" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="14.3s" repeatCount="indefinite"/></path>
 <path d="M246.1 107.8 A82.9 82.9 0 0 1 256.8 121.8 L211.6 149.4 A30 30 0 0 0 207.7 144.3Z" fill="#2672c4" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="15.3s" repeatCount="indefinite"/></path>
 <path d="M266.9 120.9 A92.1 92.1 0 0 1 274.4 139.0 L214.8 156.5 A30 30 0 0 0 212.3 150.6Z" fill="#3fa9f5" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="16.3s" repeatCount="indefinite"/></path>
 <path d="M245.9 150.5 A61.6 61.6 0 0 1 247.6 163.5 L216.0 164.3 A30 30 0 0 0 215.2 157.9Z" fill="#1b4a86" opacity=".8"><animate attributeName="opacity" values=".8;1;.8;.8" keyTimes="0;.02;.1;1" dur="24s" begin="17.3s" repeatCount="indefinite"/></path>
@@ -70,10 +70,10 @@ text{font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue'
 <text x="384" y="50" class="lb">WHEN I COMMIT · LAST 12 MONTHS</text>
 <text x="848" y="50" class="lb" text-anchor="end">PARIS TIME</text>
 <text x="384" y="96" class="lb" font-size="10">PEAK HOUR</text><text x="384" y="128" class="b" font-size="27">11:00 – 12:00</text><text x="384" y="150" font-size="12.5" class="mu">favourite day: Thursday</text>
-<text x="622" y="96" class="lb" font-size="10">OFFICE HOURS</text><text x="622" y="128" class="b" font-size="27">73%</text><text x="622" y="150" font-size="12.5" class="mu">of commits, Mon–Fri 9–17</text>
-<text x="384" y="192" class="lb" font-size="10">6 PM TO 6 AM</text><text x="384" y="224" class="b" font-size="27">13%</text><text x="384" y="246" font-size="12.5" class="mu">Larry is mildly concerned.</text>
+<text x="622" y="96" class="lb" font-size="10">OFFICE HOURS</text><text x="622" y="128" class="b" font-size="27">74%</text><text x="622" y="150" font-size="12.5" class="mu">of commits, Mon–Fri 9–17</text>
+<text x="384" y="192" class="lb" font-size="10">6 PM TO 6 AM</text><text x="384" y="224" class="b" font-size="27">12%</text><text x="384" y="246" font-size="12.5" class="mu">Larry is mildly concerned.</text>
 <text x="622" y="192" class="lb" font-size="10">WEEKENDS</text><text x="622" y="224" class="b" font-size="27">8%</text><text x="622" y="246" font-size="12.5" class="mu">Weekends are for napping.</text>
 <rect x="384" y="293" width="16" height="4" rx="2" fill="#3fa9f5"/><text x="406" y="299" font-size="11.5" class="mu">office hours</text>
-<text x="848" y="299" font-size="11.5" class="mu" text-anchor="end">252 commits · 12 repos · public + private · updated 2026-11-25</text>
+<text x="848" y="299" font-size="11.5" class="mu" text-anchor="end">266 commits · 12 repos · public + private · updated 2026-11-26</text>
 </g>
 </svg>
